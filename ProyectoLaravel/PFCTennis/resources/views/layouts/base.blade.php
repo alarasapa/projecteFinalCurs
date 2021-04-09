@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
-    <link rel="stylesheet" href="{{ url('css/base.css') }}">
-    
+    <title>@yield('titol')</title> 
+
+    <!--En el stack se añadirá de forma dinámica el archivo CSS de la página correspondiente-->
+    @stack('css')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
@@ -45,9 +48,6 @@
 
     <footer class="page footer font-small">
 
-        <div id="socialTitol">
-            Xarxes Socials
-        </div>
         <div class="col item social">
             <a href="#"><i class="fa fa-facebook"></i></a>
             <a href="#"><i class="fa fa-twitter"></i></a>
@@ -59,5 +59,7 @@
         </div>
 
     </footer>
+
+    @stack('scripts')
 </body>
 </html>

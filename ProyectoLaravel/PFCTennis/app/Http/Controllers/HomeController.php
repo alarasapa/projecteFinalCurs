@@ -29,26 +29,26 @@ class HomeController extends Controller
     
     public function soci()
     {
-        return view('soci');
+        return view('ClientVista.soci');
     }
 
     public function reservar()
     {
-        return view('reservar');
+        return view('ClientVista.reservar');
     }
 
     public function escola()
     {
-        return view('escola');
+        return view('ClientVista.escola');
     }
 
     public function casal()
     {
-        return view('casal');
+        return view('ClientVista.casal');
     }
 
     public function contacte()
     {
-        return view('contacte');
+        return view('ClientVista.contacte');
     }
 }

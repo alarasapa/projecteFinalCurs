@@ -1,6 +1,14 @@
+<!-- Llamamos al layout base -->
 @extends('layouts.base')
 
+<!-- Introducimos el contenido y le pasamos el tiutlo de la página como parámetro -->
 @section('content')
+@section('titol', 'Index')
+
+<!-- Introducimos los CSS deseados -->
+@push('css')
+    <link rel="stylesheet" href="{{ url('css/ClientEstils/base.css') }}" >
+@endpush
 
 <div id="slider" class="container">
     <div id="carouselIndicador" class="carousel slide" data-ride="carousel">
