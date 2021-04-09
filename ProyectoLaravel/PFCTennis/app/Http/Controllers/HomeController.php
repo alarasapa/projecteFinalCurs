@@ -13,16 +13,42 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
-     * Show the application dashboard.
+     * Redirigen a la vista especificada
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    
     public function index()
     {
-        return view('home');
+        return view('index');
+    }
+    
+    public function soci()
+    {
+        return view('soci');
+    }
+
+    public function reservar()
+    {
+        return view('reservar');
+    }
+
+    public function escola()
+    {
+        return view('escola');
+    }
+
+    public function casal()
+    {
+        return view('casal');
+    }
+
+    public function contacte()
+    {
+        return view('contacte');
     }
 }
