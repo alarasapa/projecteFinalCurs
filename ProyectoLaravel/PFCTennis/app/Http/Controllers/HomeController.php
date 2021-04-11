@@ -51,4 +51,12 @@ class HomeController extends Controller
     {
         return view('ClientVista.contacte');
     }
+
+    public function login(){
+        return view('auth.login');
+    }
+    
+    public function registrarse(){
+        return view('auth.register');
+    }
 }

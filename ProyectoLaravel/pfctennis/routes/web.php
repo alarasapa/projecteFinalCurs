@@ -25,6 +25,9 @@ Route::get('/escola', [HomeController::class, 'escola'])->name('escola');
 Route::get('/casal', [HomeController::class, 'casal'])->name('casal');
 Route::get('/contacte', [HomeController::class, 'contacte'])->name('contacte');
 
+Route::get('/login', [HomeController::class, 'login'])->name('login');
+Route::get('/registrarse', [HomeController::class, 'registrarse'])->name('registrarse');
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
