@@ -1,0 +1,21 @@
+.principalTitol {
+    box-shadow: 10pc;
+    color: white;
+    text-align: center;
+    text-decoration: underline;
+    font-weight: 800;
+    margin-top: 20px;
+    margin-bottom: 1em;
+}
+
+.formCentrat {
+    position: relative;
+    margin-left: 25%;
+    margin-top: 4pc;
+    padding: 2pc;
+    width: 80%;
+    background-color: rgb(148, 40, 40);
+    border-radius: 20px;
+    padding-top: 2pc;
+    margin: 0 auto;
+}

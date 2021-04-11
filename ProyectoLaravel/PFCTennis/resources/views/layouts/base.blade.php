@@ -40,6 +40,23 @@
                 <li class="nav-item">
                     <a href="/contacte" class="nav-link">Contacte</a>
                 </li>
+                <li class="nav-item">
+                    @if (Route::has('login'))
+                        <div>
+                        @auth
+                            <a href="{{ url('/home') }}" class="nav-link">Home</a>
+                </li>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-link">Iniciar sessió</a>
+                </li>
+                            @if (Route::has('register'))
+                <li class="nav-item">
+                    <a href="{{ route('register') }}" class="nav-link">Registrar-se</a>
+                </li>
+                            @endif
+                        @endauth
+                        </div>
+                    @endif
             </ul>
         </div>
     </nav>
