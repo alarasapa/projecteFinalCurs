@@ -3,10 +3,10 @@
 <head>
     <title>Registrar-se</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src=""></script>
+    <script src="js/ClientJS/registrarse.js"></script>
 </head>
 
-<body>
+<body onload="init()">
     <div class="container">
         <div class="row">
             <a class="navbar-brand" href="{{ url('/') }}">Tornar</a>
@@ -17,8 +17,11 @@
                     <div class="card-header">{{ __('Registrar-se al Club de Tennis') }}</div>
 
                     <div class="card-body">
+
                         <form method="POST" action="{{ url('/registrarse') }}">
                             @csrf
+
+                            <input id="rol" name="rol" type="hidden" value="U">
 
                             <div class="form-group row">
                                 <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
@@ -33,7 +36,6 @@
                                     @enderror
                                 </div>
                             </div>
-
                             
                             <div class="form-group row">
                                 <label for="cognoms" class="col-md-4 col-form-label text-md-right">{{ __('Cognoms') }}</label>

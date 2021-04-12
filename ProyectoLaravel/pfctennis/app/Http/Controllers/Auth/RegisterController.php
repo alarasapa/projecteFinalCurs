@@ -52,35 +52,45 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nom'         => ['required', 'string', 'max:45'],
-            'cognoms'     => ['required', 'string', 'max:70'],
-            'contrasenya' => ['required', 'string', 'min:8', 'confirmed'],
-            'nickname'    => ['required', 'string', 'max:45', 'unique:usuari'],
-            'email'       => ['required', 'string', 'email', 'max:45', 'unique:usuari'],
-            'telefon'     => ['required', 'string', 'max:12']
-        ]);
+            'nom'           => ['required', 'string', 'max:45'],
+            'cognoms'       => ['required', 'string', 'max:70'],
+            'contrasenya'   => ['required', 'string', 'min:8', 'confirmed'],
+            'nickname'      => ['required', 'string', 'max:45', 'unique:usuari'],
+            'email'         => ['required', 'string', 'email', 'max:45', 'unique:usuari'],
+            'telefon'       => ['required', 'string', 'max:12'],
+            'dataNaixement' => ['required', 'date']
+        ]->validate());
     }
 
     /**
      * Crear un usuari
      *
-     * @param  array  $data
+     * @param  Illuminate\Http\Request $request Dades del formulari;
      * @return \App\Models\Usuari
      */
     protected function create(Request $request)
-    {
-        $nom           = $request->nom;
-        $cognoms       = $request->cognoms;
-        $nickname      = $request->nickname;
-        $email         = $request->email;
-        $contrasenya   = Hash::make($request->contrasenya);
-        $telefon       = $request->telefon;
-        $dataNaixement = $request->dataNaixement;
-        $dataCreacio   = date('Y-m-d H:i:s');
-
+    {  
+        $data = [];
+        
+        $data['nom']           = $request->nom;
+        $data['cognoms']       = $request->cognoms;
+        $data['nickname']      = $request->nickname;
+        $data['email']         = $request->email;
+        $data['contrasenya']   = Hash::make($request->contrasenya);
+        $data['telefon']       = $request->telefon;
+        $data['dataNaixement'] = $request->dataNaixement;
+       
+        // $validator = validator($data);
+        $data['dataCreacio']   = date('Y-m-d H:i:s');
+        
         DB::insert('INSERT INTO usuari (nom, cognoms, nickname, email, contrasenya, telefon, dataNaixement, dataCreacio) 
         VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $nickname, $email, $contrasenya, $telefon, $dataNaixement, $dataCreacio]);
         
         return view("index");        
+    }
+
+    protected function comprovar(Request $request){
+        echo "lmcsoacmas " . $request;
+        //DB::select()
     }
 }

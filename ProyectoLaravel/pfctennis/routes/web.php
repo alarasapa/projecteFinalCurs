@@ -31,6 +31,7 @@ Route::get('/registrarse', [HomeController::class, 'registrarse'])->name('regist
 Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
 
 Route::post('/registrarse', [RegisterController::class, 'create'])->name('create');
+Route::post('/registrarse/comprovar', [RegisterController::class], 'comprovar')->name('comprovar');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
