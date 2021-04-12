@@ -52,11 +52,16 @@ class HomeController extends Controller
         return view('ClientVista.contacte');
     }
 
+    /***
+     * FUNCIONES DE AUTENTIFICACIÓN
+     */
     public function login(){
         return view('auth.login');
     }
-    
     public function registrarse(){
         return view('auth.register');
+    }
+    public function resetear(){
+        return view('auth.passwords.reset');
     }
 }

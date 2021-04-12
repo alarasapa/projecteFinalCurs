@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\Models\Usuari;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -38,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        //$this->middleware('guest');
     }
 
     /**
@@ -50,24 +52,35 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nom'         => ['required', 'string', 'max:45'],
+            'cognoms'     => ['required', 'string', 'max:70'],
+            'contrasenya' => ['required', 'string', 'min:8', 'confirmed'],
+            'nickname'    => ['required', 'string', 'max:45', 'unique:usuari'],
+            'email'       => ['required', 'string', 'email', 'max:45', 'unique:usuari'],
+            'telefon'     => ['required', 'string', 'max:12']
         ]);
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Crear un usuari
      *
      * @param  array  $data
-     * @return \App\Models\User
+     * @return \App\Models\Usuari
      */
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $nom           = $request->nom;
+        $cognoms       = $request->cognoms;
+        $nickname      = $request->nickname;
+        $email         = $request->email;
+        $contrasenya   = Hash::make($request->contrasenya);
+        $telefon       = $request->telefon;
+        $dataNaixement = $request->dataNaixement;
+        $dataCreacio   = date('Y-m-d H:i:s');
+
+        DB::insert('INSERT INTO usuari (nom, cognoms, nickname, email, contrasenya, telefon, dataNaixement, dataCreacio) 
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $nickname, $email, $contrasenya, $telefon, $dataNaixement, $dataCreacio]);
+        
+        return view("index");        
     }
 }

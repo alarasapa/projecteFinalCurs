@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,9 @@ Route::get('/contacte', [HomeController::class, 'contacte'])->name('contacte');
 
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::get('/registrarse', [HomeController::class, 'registrarse'])->name('registrarse');
+Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
+
+Route::post('/registrarse', [RegisterController::class, 'create'])->name('create');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

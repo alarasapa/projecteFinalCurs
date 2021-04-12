@@ -7,6 +7,23 @@
     use Illuminate\Notifications\Notifiable;
 
     class Usuari {
+
+        protected $fillable = [
+            'nom',
+            'cognoms',
+            'nickname',
+            'rol',
+            'telefon',
+            'dataNaixement',
+            'dataCreacio',
+            'email',
+            'contrasenya',
+        ];
+
+        protected $hidden = [
+            'contrasenya',
+        ];
+
         /**
          * @var String
          */
