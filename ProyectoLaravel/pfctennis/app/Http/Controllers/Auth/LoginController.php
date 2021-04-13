@@ -40,9 +40,9 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware(['auth');
         $this->middleware('guest')->except('logout');
-        $this->user =  Auth::user();
+        // $this->user =  Auth::user();
     }
 
     public function login(Request $request){
@@ -56,8 +56,8 @@ class LoginController extends Controller
         if (!empty($res)){
             $usuari = new Usuari($res);
             Auth::login($usuari);
-
-            return view("/index");            
+            
+            return redirect("/index");            
         } 
         else return view("auth.login");
     }

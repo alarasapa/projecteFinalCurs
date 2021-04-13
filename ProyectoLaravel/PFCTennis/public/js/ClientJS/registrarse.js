@@ -1,4 +1,6 @@
 function init() {
+    let submitBtn = $("#submit");
+
     $("#telefon").change(function() {
         let telefon = $("#telefon").val();
         if (isNaN(telefon)) {
@@ -16,6 +18,32 @@ function init() {
         comprovar('email')
     });
 
+    $("#password").change(function() {
+        let password = $("#password").val();
+
+        if (password.length < 8) {
+            alert("La contrasenya ha de tenir 8 caracters com a mínim");
+            submitBtn.attr("disabled", true);
+
+        } else if (!isNaN(password) || /^[a-zA-Z]+$/.test(password)) {
+            alert("La contrasenya ha de contenir lletres, numeros i a poder ser caracters especials")
+            submitBtn.attr("disabled", true);
+        } else {
+            submitBtn.attr("disabled", false);
+        }
+    });
+
+    $("#password-confirm").change(function() {
+        let password = $("#password").val();
+        let passwordConf = $("#password-confirm").val();
+
+        if (password != passwordConf) {
+            alert("La contrasenya de confirmació no és la mateixa a la introduïda");
+            submitBtn.attr("disabled", true);
+        } else {
+            submitBtn.attr("disabled", false);
+        }
+    });
 }
 
 function comprovar(tipus) {

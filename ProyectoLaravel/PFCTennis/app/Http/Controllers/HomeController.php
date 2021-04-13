@@ -52,6 +52,10 @@ class HomeController extends Controller
         return view('ClientVista.contacte');
     }
 
+    public function home(){
+        return view('AdminVista.dashboard');
+    }
+
     /***
      * FUNCIONES DE AUTENTIFICACIÓN
      */

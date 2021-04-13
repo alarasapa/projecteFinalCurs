@@ -41,6 +41,6 @@ Route::post('/registrarse/comprovar', [RegisterController::class], 'comprovar')-
 //RUTAS PARA LOGIN
 Route::post('/login', [LoginController::class], 'login')->name('login');
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 Auth::routes();

@@ -76,7 +76,8 @@ class RegisterController extends Controller
         $cognoms       = $request->cognoms;
         $nickname      = $request->nickname;
         $email         = $request->email;
-        $contrasenya   = hash('md5', $request->contrasenya);
+        $contrasenya   = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
+        $contrasenya   = hash('md5', $contrasenya);
         $telefon       = $request->telefon;
         $dataNaixement = $request->dataNaixement;
         $dataCreacio   = date('Y-m-d H:i:s');
