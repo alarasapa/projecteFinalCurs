@@ -70,6 +70,36 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {  
+        // $data = [];
+        
+        $nom           = $request->nom;
+        $cognoms       = $request->cognoms;
+        $nickname      = $request->nickname;
+        $email         = $request->email;
+        $contrasenya   = hash('md5', $request->contrasenya);
+        $telefon       = $request->telefon;
+        $dataNaixement = $request->dataNaixement;
+        $dataCreacio   = date('Y-m-d H:i:s');
+       
+        // $validator = validator($data);
+        
+        DB::insert('INSERT INTO usuari (nom, cognoms, nickname, email, contrasenya, telefon, dataNaixement, dataCreacio) 
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $nickname, $email, $contrasenya, $telefon, $dataNaixement, $dataCreacio]);
+        
+        return view("index");        
+    }
+
+    protected function comprovar($tipus, $tipusDada){
+        $response = array('res' => 'HOLA');
+
+        return \Response::json($response);
+        //DB::select()
+    }
+}
+
+/*
+protected function create(Request $request)
+    {  
         $data = [];
         
         $data['nom']           = $request->nom;
@@ -90,7 +120,9 @@ class RegisterController extends Controller
     }
 
     protected function comprovar(Request $request){
-        echo "lmcsoacmas " . $request;
+        $response = array('res' => 'HOLA');
+
+        return \Response::json($response);
         //DB::select()
     }
-}
+*/

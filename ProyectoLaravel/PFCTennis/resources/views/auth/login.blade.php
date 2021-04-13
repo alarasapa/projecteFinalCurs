@@ -16,7 +16,7 @@
                     <div class="card-header">{{ __('Iniciar Sessió al club') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ url('/login') }}">
                             @csrf
 
                             <div class="form-group row">
@@ -25,11 +25,11 @@
                                 <div class="col-md-6">
                                     <input id="usuariEmail" type="text" name="usuariEmail" value="{{ old('usuariEmail') }}" required autofocus>
                                     <!-- class="form-control @error('email') is-invalid @enderror" -->
-                                    @error('email')
+                                    <!-- @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ __('Aquest usuari o email no és correcte o no existeix') }}</strong>
                                         </span>
-                                    @enderror
+                                    @enderror -->
                                 </div>
                             </div>
 

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,12 +27,17 @@ Route::get('/escola', [HomeController::class, 'escola'])->name('escola');
 Route::get('/casal', [HomeController::class, 'casal'])->name('casal');
 Route::get('/contacte', [HomeController::class, 'contacte'])->name('contacte');
 
+//RUTAS AUTH REDIRECCIONAMIENTO
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::get('/registrarse', [HomeController::class, 'registrarse'])->name('registrarse');
 Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
 
+//RUTAS PARA EL REGISTRO USUARIO
 Route::post('/registrarse', [RegisterController::class, 'create'])->name('create');
 Route::post('/registrarse/comprovar', [RegisterController::class], 'comprovar')->name('comprovar');
+
+//RUTAS PARA LOGIN
+Route::post('/login', [LoginController::class], 'login')->name('login');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 

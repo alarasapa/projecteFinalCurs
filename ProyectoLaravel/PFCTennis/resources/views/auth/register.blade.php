@@ -2,6 +2,9 @@
 <html>
 <head>
     <title>Registrar-se</title>
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/ClientJS/registrarse.js"></script>
 </head>
@@ -18,7 +21,7 @@
 
                     <div class="card-body">
 
-                        <form method="POST" action="{{ url('/registrarse') }}">
+                        <form id="form" method="POST" action="{{ url('/registrarse') }}">
                             @csrf
 
                             <input id="rol" name="rol" type="hidden" value="U">
