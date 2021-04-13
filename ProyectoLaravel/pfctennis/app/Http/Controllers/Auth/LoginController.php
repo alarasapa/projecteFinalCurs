@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\Usuari;
 
 class LoginController extends Controller
 {
@@ -38,18 +40,25 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth');
         $this->middleware('guest')->except('logout');
+        $this->user =  Auth::user();
     }
 
     public function login(Request $request){
         $usuari      = $request->usuariEmail;
         $contrasenya = hash('md5', $request->password);
 
-        $res = DB::select('SELECT COUNT(*) AS res FROM usuari 
+        $res = DB::select('SELECT * FROM usuari  
                     WHERE contrasenya = ? AND (nickname = ? OR email = ?)',
                     [$contrasenya, $usuari, $usuari]);
+        
+        if (!empty($res)){
+            $usuari = new Usuari($res);
+            Auth::login($usuari);
 
-        if ($res[0]->res) return view("index");
+            return view("/index");            
+        } 
         else return view("auth.login");
     }
 }

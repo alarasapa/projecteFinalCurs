@@ -41,21 +41,17 @@
                     <a href="/contacte" class="nav-link">Contacte</a>
                 </li>
                 <li class="nav-item">
-                    @if (Route::has('login'))
-                        <div>
-                        @auth
-                            <a href="{{ url('/home') }}" class="nav-link">Home</a>
+                    @if (Auth::check())
+                    <div>
+                        <a href="{{ url('/home') }}" class="nav-link">Home {{ Auth::user() }}</a>
                 </li>
-                        @else
-                            <a href="{{ route('login') }}" class="nav-link">Iniciar sessió</a>
+                    @else
+                        <a href="{{ route('login') }}" class="nav-link">Iniciar sessió</a>
                 </li>
-                            @if (Route::has('register'))
                 <li class="nav-item">
                     <a href="{{ route('register') }}" class="nav-link">Registrar-se</a>
                 </li>
-                            @endif
-                        @endauth
-                        </div>
+                    </div>
                     @endif
             </ul>
         </div>

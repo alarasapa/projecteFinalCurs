@@ -21,6 +21,8 @@ Route::get('/', function () {
 });
 
 Route::get('/index', [HomeController::class, 'index'])->name('index');
+// Route::post('/index', [HomeController::class, 'index'])->name('index');
+
 Route::get('/soci', [HomeController::class, 'soci'])->name('soci');
 Route::get('/reservar', [HomeController::class, 'reservar'])->name('reservar');
 Route::get('/escola', [HomeController::class, 'escola'])->name('escola');
