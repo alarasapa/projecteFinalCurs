@@ -28,52 +28,52 @@
         /**
          * @var Integer
          */
-        private $id;
+        public $id;
 
         /**
          * @var String
          */
-        private $nom;
+        public $nom;
 
         /**
          * @var String
          */
-        private $cognoms;   
+        public $cognoms;   
 
         /**
          * @var String
          */
-        private $nickname;
+        public $nickname;
 
         /**
          * @var String
          */
-        private $contrasenya;
+        public $contrasenya;
 
         /**
          * @var String
          */
-        private $rol;
+        public $rol;
 
         /**
          * @var String
          */
-        private $email;
+        public $email;
 
         /**
          * @var String
          */
-        private $telefon;
+        public $telefon;
 
         /**
          * @var Date
          */
-        private $dataNaixement;
+        public $dataNaixement;
 
         /**
          * @var Datetime
          */
-        private $dataCreacio;
+        public $dataCreacio;
 
         public function __construct(array $args = []){
             $this->setId($args[0]->id);
@@ -136,52 +136,52 @@
 
         public function setId($id){
             $this->id = $id;
-            return $this->id;
+            return $this;
         }
 
         public function setNom($nom){
             $this->nom = $nom;
-            return $this->nom;
+            return $this;
         }
 
         public function setCognoms($cognoms){
             $this->cognoms = $cognoms;
-            return $this->cognoms;
+            return $this;
         }
 
         public function setNickname($nickname){
             $this->nickname = $nickname;
-            return $this->nickname;
+            return $this;
         }
 
         public function setContrasenya($contrasenya){
             $this->contrasenya = $contrasenya;
-            return $this->contrasenya;
+            return $this;
         }
 
         public function setRol($rol){
             $this->rol = $rol;
-            return $this->rol;
+            return $this;
         }
 
         public function setEmail($email){
             $this->email = $email;
-            return $this->email;
+            return $this;
         }
 
         public function setTelefon($telefon){
             $this->telefon = $telefon;
-            return $this->telefon;
+            return $this;
         }
 
         public function setDataNaixement($dataNaixement){
             $this->dataNaixement = $dataNaixement;
-            return $this->dataNaixement;
+            return $this;
         }
 
         public function setDataCreacio($dataCreacio){
             $this->dataCreacio = $dataCreacio;
-            return $this->dataCreacio;
+            return $this;
         }
     }
 ?>

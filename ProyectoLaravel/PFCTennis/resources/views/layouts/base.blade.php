@@ -42,8 +42,8 @@
                 </li>
                 <li class="nav-item">
                     @if (Auth::check())
-                    <div>
-                        <a href="{{ url('/home') }}" class="nav-link">Home {{ Auth::user() }}</a>
+                    <div> 
+                        <a href="{{ url('/home') }}" class="nav-link">Hola {{ Auth::user()->nickname }}!</a>
                 </li>
                     @else
                         <a href="{{ route('login') }}" class="nav-link">Iniciar sessió</a>

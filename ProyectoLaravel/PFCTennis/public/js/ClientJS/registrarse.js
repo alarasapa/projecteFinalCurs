@@ -5,8 +5,12 @@ function init() {
         let telefon = $("#telefon").val();
         if (isNaN(telefon)) {
             alert("El numero de telefon ha de tenir només numeros");
+            submitBtn.attr("disabled", true);
         } else if (telefon.length < 9) {
             alert("El numero de telfon no té la quantitat de numeros adequada");
+            submitBtn.attr("disabled", true);
+        } else {
+            submitBtn.attr("disabled", false);
         }
     });
 

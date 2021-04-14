@@ -76,18 +76,17 @@ class RegisterController extends Controller
         $cognoms       = $request->cognoms;
         $nickname      = $request->nickname;
         $email         = $request->email;
-        $contrasenya   = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
+        $contrasenya   = filter_var($request->password, FILTER_SANITIZE_STRING);
         $contrasenya   = hash('md5', $contrasenya);
         $telefon       = $request->telefon;
         $dataNaixement = $request->dataNaixement;
         $dataCreacio   = date('Y-m-d H:i:s');
-       
         // $validator = validator($data);
         
-        DB::insert('INSERT INTO usuari (nom, cognoms, nickname, email, contrasenya, telefon, dataNaixement, dataCreacio) 
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $nickname, $email, $contrasenya, $telefon, $dataNaixement, $dataCreacio]);
+        // DB::insert('INSERT INTO usuari (nom, cognoms, nickname, email, contrasenya, telefon, dataNaixement, dataCreacio) 
+        // VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $nickname, $email, $contrasenya, $telefon, $dataNaixement, $dataCreacio]);
         
-        return view("index");        
+        // return redirect("index");        
     }
 
     protected function comprovar($tipus, $tipusDada){
