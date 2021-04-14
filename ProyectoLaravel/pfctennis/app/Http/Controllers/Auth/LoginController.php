@@ -40,23 +40,34 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware(['auth');
         $this->middleware('guest')->except('logout');
         // $this->user =  Auth::user();
     }
 
+    /**
+     * Funció per a logearse en la pàgina web
+     * 
+     * @param Request $request Informació del usuari que es vol logar
+     */
     public function login(Request $request){
+        //Nom o correu del usuari
         $usuari      = $request->usuariEmail;
+        //La contrasenya enviada, encriptada amb MD5
         $contrasenya = hash('md5', $request->password);
 
+        //Senténcia SQL on es buscarà l'usuari
         $res = DB::select('SELECT * FROM usuari  
                     WHERE contrasenya = ? AND (nickname = ? OR email = ?)',
                     [$contrasenya, $usuari, $usuari]);
         
-        if (!empty($res)){
+        //Si el resultat de la búsqueda retorna res -> redirigeix de nou al login
+        if (!empty($res)) {
+            //En cas contrari, crea un objecte Usuari...
             $usuari = new Usuari($res);
+            //...y es logeja amb aquest objecte
             Auth::login($usuari);
             
+            //Per últim redirigeix al index
             return redirect("/index");            
         } 
         else return view("auth.login");

@@ -3,7 +3,7 @@
 <head>
     <title>@yield('titol')</title> 
 
-    <!--En el stack se añadirá de forma dinámica el archivo CSS de la página correspondiente-->
+    <!-- En el stack se añadirá de forma dinámica el archivo CSS de la página correspondiente -->
     @stack('css')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
@@ -22,28 +22,52 @@
 
         <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
             <ul class="navbar-nav nav-fill w-100">    
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('/') || Request::is('index') ? 'active' : '' }}">
                     <a href="/index" class="nav-link">Inici</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('soci') ? 'active' : '' }}">
                     <a href="/soci" class="nav-link">Soci</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('reservar') ? 'active' : '' }}">
                     <a href="/reservar" class="nav-link">Reservar</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('escola') ? 'active' : '' }}">
                     <a href="/escola" class="nav-link">Escola</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('casal') ? 'active' : '' }}">
                     <a href="/casal" class="nav-link">Casal</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ Request::is('contacte') ? 'active' : '' }}">
                     <a href="/contacte" class="nav-link">Contacte</a>
                 </li>
                 <li class="nav-item">
                     @if (Auth::check())
                     <div> 
-                        <a href="{{ url('/home') }}" class="nav-link">Hola {{ Auth::user()->nickname }}!</a>
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Hola {{ Auth::user()->nickname }}!
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <!-- Veure on está apuntat y tal -->
+                            <a class="dropdown-item" href="#">
+                                {{ __('Llistat matricules') }}
+                            </a>    
+
+                            <!-- Configuració del propi usuari -->
+                            <a class="dropdown-item" href="{{ url('/home') }}">
+                                {{ __('Configuració') }}
+                            </a>
+
+                            <!-- PER A TANCAR LA SESSIÓ -->
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                                document.getElementById('logout-form').submit();">
+                                {{ __('Tancar Sessió') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
                 </li>
                     @else
                         <a href="{{ route('login') }}" class="nav-link">Iniciar sessió</a>

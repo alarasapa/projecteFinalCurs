@@ -10,6 +10,13 @@
 </head>
 
 <body onload="init()">
+    
+    @if (Auth::check())
+    <script>
+        location.href = '/home';
+    </script>
+    @endif
+
     <div class="container">
         <div class="row">
             <a class="navbar-brand" href="{{ url('/') }}">Tornar</a>

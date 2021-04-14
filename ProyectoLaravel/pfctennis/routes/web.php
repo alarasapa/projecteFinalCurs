@@ -23,22 +23,23 @@ Route::get('/', function () {
 Route::get('/index', [HomeController::class, 'index'])->name('index');
 // Route::post('/index', [HomeController::class, 'index'])->name('index');
 
+// RUTAS (GENERAL) REDIRECCIONAMIENTO 
 Route::get('/soci', [HomeController::class, 'soci'])->name('soci');
 Route::get('/reservar', [HomeController::class, 'reservar'])->name('reservar');
 Route::get('/escola', [HomeController::class, 'escola'])->name('escola');
 Route::get('/casal', [HomeController::class, 'casal'])->name('casal');
 Route::get('/contacte', [HomeController::class, 'contacte'])->name('contacte');
 
-//RUTAS AUTH REDIRECCIONAMIENTO
+// RUTAS (AUTH) REDIRECCIONAMIENTO
 Route::get('/login', [HomeController::class, 'login'])->name('login');
 Route::get('/registrarse', [HomeController::class, 'registrarse'])->name('registrarse');
 Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
 
-//RUTAS PARA EL REGISTRO USUARIO
+// RUTAS PARA EL REGISTRO USUARIO
 Route::post('/registrarse', [RegisterController::class, 'create'])->name('create');
 Route::post('/registrarse/comprovar', [RegisterController::class], 'comprovar')->name('comprovar');
 
-//RUTAS PARA LOGIN
+// RUTAS PARA LOGIN
 Route::post('/login', [LoginController::class], 'login')->name('login');
 
 Route::get('/home', [HomeController::class, 'home'])->name('home');

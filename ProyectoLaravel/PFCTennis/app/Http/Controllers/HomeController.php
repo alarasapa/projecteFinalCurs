@@ -53,7 +53,7 @@ class HomeController extends Controller
     }
 
     public function home(){
-        return view('AdminVista.dashboard');
+        return view('ClientVista.home');
     }
 
     /***
