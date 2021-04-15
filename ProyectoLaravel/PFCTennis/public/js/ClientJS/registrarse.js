@@ -22,8 +22,8 @@ function init() {
         comprovar('email')
     });
 
-    $("#password").change(function() {
-        let password = $("#password").val();
+    $("#contrasenya").change(function() {
+        let password = $("#contrasenya").val();
 
         if (password.length < 8) {
             alert("La contrasenya ha de tenir 8 caracters com a mínim");
@@ -37,8 +37,8 @@ function init() {
         }
     });
 
-    $("#password-confirm").change(function() {
-        let password = $("#password").val();
+    $("#password-confirm").on("change", function() {
+        let password = $("#contrasenya").val();
         let passwordConf = $("#password-confirm").val();
 
         if (password != passwordConf) {

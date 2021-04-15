@@ -12,7 +12,6 @@
         protected $fillable = [
             'nom',
             'cognoms',
-            'nickname',
             'rol',
             'telefon',
             'dataNaixement',
@@ -39,11 +38,6 @@
          * @var String
          */
         public $cognoms;   
-
-        /**
-         * @var String
-         */
-        public $nickname;
 
         /**
          * @var String
@@ -79,7 +73,6 @@
             $this->setId($args[0]->id);
             $this->setNom($args[0]->nom);
             $this->setCognoms($args[0]->cognoms);
-            $this->setNickname($args[0]->nickname);
             $this->setContrasenya($args[0]->contrasenya);
             $this->setRol($args[0]->rol);
             $this->setEmail($args[0]->email);
@@ -87,6 +80,17 @@
             $this->setDataNaixement($args[0]->dataNaixement);
             $this->setDataCreacio($args[0]->dataCreacio);
         }
+
+        // public static function factory2(Request $request){
+        //     $this->setNom(filter_var($request->nom, FILTER_SANITIZE_STRING));
+        //     $this->setCognoms(filter_var($request->cognoms, FILTER_SANITIZE_STRING));
+        //     $email         = $request->email;
+        //     $contrasenya   = filter_var($request->password, FILTER_SANITIZE_STRING);
+        //     $contrasenya   = hash('md5', $contrasenya);
+        //     $telefon       = $request->telefon;
+        //     $dataNaixement = $request->dataNaixement;
+        //     $dataCreacio   = date('Y-m-d H:i:s');
+        // }
 
         //AQUÍ IRÁN OTRAS FUNCIONES, SI HACEN FALTA CLARO
 
@@ -104,10 +108,6 @@
 
         public function getCognoms(){
             return $this->cognoms;
-        }
-
-        public function getNickname(){
-            return $this->nickname;
         }
 
         public function getContrasenya(){
@@ -149,11 +149,6 @@
             return $this;
         }
 
-        public function setNickname($nickname){
-            $this->nickname = $nickname;
-            return $this;
-        }
-
         public function setContrasenya($contrasenya){
             $this->contrasenya = $contrasenya;
             return $this;
@@ -180,7 +175,11 @@
         }
 
         public function setDataCreacio($dataCreacio){
-            $this->dataCreacio = $dataCreacio;
+            if ($dataCreacio == NULL){
+                $this->dataCreacio = date('Y-m-d H:i:s');
+            } else {
+                $this->dataCreacio = $dataCreacio;
+            }
             return $this;
         }
     }

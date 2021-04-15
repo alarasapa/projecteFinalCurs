@@ -51,14 +51,14 @@ class LoginController extends Controller
      */
     public function login(Request $request){
         //Nom o correu del usuari
-        $usuari      = $request->usuariEmail;
+        $email = $request->usuariEmail;
         //La contrasenya enviada, encriptada amb MD5
         $contrasenya = hash('md5', $request->password);
 
         //Senténcia SQL on es buscarà l'usuari
         $res = DB::select('SELECT * FROM usuari  
-                    WHERE contrasenya = ? AND (nickname = ? OR email = ?)',
-                    [$contrasenya, $usuari, $usuari]);
+                    WHERE contrasenya = ? AND email = ?',
+                    [$contrasenya, $email]);
         
         //Si el resultat de la búsqueda retorna res -> redirigeix de nou al login
         if (!empty($res)) {

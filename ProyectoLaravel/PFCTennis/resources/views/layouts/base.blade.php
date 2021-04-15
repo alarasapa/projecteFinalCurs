@@ -44,7 +44,7 @@
                     @if (Auth::check())
                     <div> 
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Hola {{ Auth::user()->nickname }}!
+                            Hola {{ Auth::user()->nom }}!
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <!-- Veure on está apuntat y tal -->

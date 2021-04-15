@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\Usuari;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -66,27 +67,34 @@ class RegisterController extends Controller
      * Crear un usuari
      *
      * @param  Illuminate\Http\Request $request Dades del formulari;
-     * @return \App\Models\Usuari
+     * @return Route Redirecciona a la vista
      */
     protected function create(Request $request)
     {  
-        // $data = [];
-        
-        $nom           = $request->nom;
-        $cognoms       = $request->cognoms;
-        $nickname      = $request->nickname;
+        // Obtenim les dades
+        $nom           = filter_var($request->nom, FILTER_SANITIZE_STRING);
+        $cognoms       = filter_var($request->cognoms, FILTER_SANITIZE_STRING);
         $email         = $request->email;
         $contrasenya   = filter_var($request->password, FILTER_SANITIZE_STRING);
         $contrasenya   = hash('md5', $contrasenya);
+        $rol           = $request->rol;
         $telefon       = $request->telefon;
         $dataNaixement = $request->dataNaixement;
         $dataCreacio   = date('Y-m-d H:i:s');
-        // $validator = validator($data);
+
+        //Insertem l'usuari
+        DB::insert('INSERT INTO usuari (nom, cognoms, email, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $email, $contrasenya, $rol, $telefon, $dataNaixement, $dataCreacio]);
         
-        // DB::insert('INSERT INTO usuari (nom, cognoms, nickname, email, contrasenya, telefon, dataNaixement, dataCreacio) 
-        // VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $nickname, $email, $contrasenya, $telefon, $dataNaixement, $dataCreacio]);
+        //Agafem y igualem al identificador
+        $request->id = $this->obtenirId($email);
+        //Creem l'objecte usuari
+        $usuari = new Usuari([$request]);
         
-        // return redirect("index");        
+        //Iniciem sessió automàticament amb aquest usuari y...
+        Auth::login($usuari);
+        //Redireccionem al index
+        return redirect("/index");        
     }
 
     protected function comprovar($tipus, $tipusDada){
@@ -95,34 +103,15 @@ class RegisterController extends Controller
         return \Response::json($response);
         //DB::select()
     }
+
+    /**
+     * Funció per a obtenir l'identificador del usuari en base al email
+     * 
+     * @param String $email Correu electrónic
+     */
+    protected function obtenirId($email){
+        $res = DB::select("SELECT id FROM usuari WHERE email = ?", [$email]);
+        
+        return $res[0]->id;
+    }
 }
-
-/*
-protected function create(Request $request)
-    {  
-        $data = [];
-        
-        $data['nom']           = $request->nom;
-        $data['cognoms']       = $request->cognoms;
-        $data['nickname']      = $request->nickname;
-        $data['email']         = $request->email;
-        $data['contrasenya']   = Hash::make($request->contrasenya);
-        $data['telefon']       = $request->telefon;
-        $data['dataNaixement'] = $request->dataNaixement;
-       
-        // $validator = validator($data);
-        $data['dataCreacio']   = date('Y-m-d H:i:s');
-        
-        DB::insert('INSERT INTO usuari (nom, cognoms, nickname, email, contrasenya, telefon, dataNaixement, dataCreacio) 
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $nickname, $email, $contrasenya, $telefon, $dataNaixement, $dataCreacio]);
-        
-        return view("index");        
-    }
-
-    protected function comprovar(Request $request){
-        $response = array('res' => 'HOLA');
-
-        return \Response::json($response);
-        //DB::select()
-    }
-*/

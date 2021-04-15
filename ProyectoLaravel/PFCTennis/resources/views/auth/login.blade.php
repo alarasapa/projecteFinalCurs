@@ -20,7 +20,7 @@
                             @csrf
 
                             <div class="form-group row">
-                                <label for="usuariEmail" class="col-md-4 col-form-label text-md-right">{{ __('Adreça Email/Nom usuari') }}</label>
+                                <label for="usuariEmail" class="col-md-4 col-form-label text-md-right">{{ __('Adreça Email') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="usuariEmail" type="text" name="usuariEmail" value="{{ old('usuariEmail') }}" required autofocus>

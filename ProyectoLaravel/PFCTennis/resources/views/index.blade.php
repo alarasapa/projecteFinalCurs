@@ -8,6 +8,7 @@
 <!-- Introducimos los CSS deseados -->
 @push('css')
     <link rel="stylesheet" href="{{ url('css/ClientEstils/base.css') }}" >
+    <link rel="stylesheet" href="{{ url('css/ClientEstils/index.css') }}" >
 @endpush
 
 <div id="slider" class="container">

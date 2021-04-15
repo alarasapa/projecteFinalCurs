@@ -10,18 +10,20 @@ nav {
     background-color: #131418 !important
 }
 
-.nav-item {
-    margin: 3px;
+.navbar {
+    padding: 0em !important;
 }
 
 .nav-item:hover {
     transition: 0.3s;
-    border-radius: 10%;
     background-color: rgb(170, 66, 66) !important
 }
 
+.nav-item {
+    margin-right: 2px;
+}
+
 .active {
-    border-radius: 10%;
     background-color: rgb(158, 22, 22) !important;
 }
 
