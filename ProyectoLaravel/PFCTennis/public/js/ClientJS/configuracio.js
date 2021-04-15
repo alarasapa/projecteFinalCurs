@@ -1,35 +1,27 @@
 function init() {
-    let submitBtn = $("#submit");
-
-    $("#telefon").change(function() {
+    $("#telefon").on("change", function() {
         let telefon = $("#telefon").val();
+
         if (isNaN(telefon)) {
             alert("El numero de telefon ha de tenir només numeros");
-            submitBtn.attr("disabled", true);
         } else if (telefon.length < 9) {
             alert("El numero de telfon no té la quantitat de numeros adequada");
-            submitBtn.attr("disabled", true);
-        } else {
-            submitBtn.attr("disabled", false);
         }
     });
 
-    $("#email").change(function() {
-        comprovar('email')
+    $("#email").on("change", function() {
+        if (comprovar('email')) {
+            alert("Aquest email ja está en ús");
+        }
     });
 
-    $("#contrasenya").change(function() {
+    $("#contrasenya").on("change", function() {
         let password = $("#contrasenya").val();
 
         if (password.length < 8) {
             alert("La contrasenya ha de tenir 8 caracters com a mínim");
-            submitBtn.attr("disabled", true);
-
         } else if (!isNaN(password) || /^[a-zA-Z]+$/.test(password)) {
             alert("La contrasenya ha de contenir lletres, numeros i a poder ser caracters especials")
-            submitBtn.attr("disabled", true);
-        } else {
-            submitBtn.attr("disabled", false);
         }
     });
 
@@ -39,9 +31,6 @@ function init() {
 
         if (password != passwordConf) {
             alert("La contrasenya de confirmació no és la mateixa a la introduïda");
-            submitBtn.attr("disabled", true);
-        } else {
-            submitBtn.attr("disabled", false);
         }
     });
 }
@@ -63,4 +52,30 @@ function comprovar(tipus) {
     }).done(function(res) {
         alert("OASOASMAO: " + res);
     });
+}
+
+function comprovarFormulari() {
+    let estat = true;
+
+    if (isNaN(telefon)) {
+        alert("El numero de telefon ha de tenir només numeros");
+        estat = false;
+    } else if (telefon.length < 9) {
+        alert("El numero de telfon no té la quantitat de numeros adequada");
+        estat = false;
+    } else if (password.length < 8) {
+        alert("La contrasenya ha de tenir 8 caracters com a mínim");
+        estat = false;
+    } else if (!isNaN(password) || /^[a-zA-Z]+$/.test(password)) {
+        alert("La contrasenya ha de contenir lletres, numeros i a poder ser caracters especials")
+        estat = false;
+    } else if (password != passwordConf) {
+        alert("La contrasenya de confirmació no és la mateixa a la introduïda");
+        estat = false;
+    } else if (comprovar('email')) {
+        alert("Aquest email ja está en ús");
+        estat = false;
+    }
+
+    return estat;
 }

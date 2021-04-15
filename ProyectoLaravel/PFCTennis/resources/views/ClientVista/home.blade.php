@@ -1,18 +1,3 @@
-<!-- <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <title>Inici</title>
-        
-        <link rel="stylesheet" href="{{ url('css/home.css') }}" />
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-        <!-- <link rel=”stylesheet” href=”https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css”rel=”nofollow” integrity=”sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm” crossorigin=”anonymous”> -->
-         
-    <!-- </head> -->
-    
-    <!-- <body class="antialiased"> -->
 @extends('layouts.configuracio')
 
 @section('titol', 'Configuració')
@@ -20,19 +5,19 @@
 
 @push('css')
     <link rel="stylesheet" href="{{ url('css/ClientEstils/configuracio.css') }}" >
-@endpush
+
 @push('scripts')
     <script src="{{ url('js/ClientJS/configuracio.js') }}">
-        window.onload() = function(){init()};
+        // window.onload() = function(){init()};
     </script>
 @endpush
-
     <h1>BENVOLGUT A LA TEVA CONFIGURACIÓ: {{ Auth::user()->nom }}</h1>
-    
-    <form id="formConfiguració">
+    <!-- FALTA LA RUTA AL CONTROLADOR AGUSTÍN, HACER UN UPDATE DEL USUARIO Y UN INSERT AL LOG DE USUARIOS -->
+    <form id="formConfiguració" action="" onsubmit="event.preventDefault(); comprovarFormulari()" method="POST">
         @csrf
 
-        <input id="rol" name="rol" type="hidden" value="U">
+        <input id="id" name="id" type="hidden" value="{{ Auth::user()->id }}">
+        <input id="rol" name="rol" type="hidden" value="{{ Auth::user()->rol }}">
 
         <div class="form-group row">
             <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
@@ -134,4 +119,5 @@
             </div>
         </div>
     </form>
+
 @endsection

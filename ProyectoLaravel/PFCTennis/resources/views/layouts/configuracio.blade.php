@@ -16,7 +16,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
 
 </head>
-<body>
+<body onload="init()">
     @if (!Auth::check())
         <script>
             location.href = '/index';
@@ -40,7 +40,7 @@
         <a href="#" class="list-group-item list-group-item-action py-2 ripple {{ Request::is('matricules') ? 'active' : '' }}">
           <i class="fas fa-fw me-1"></i><span>Llistat matricules</span></a>
 
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple {{ Request::is('home') ? 'active' : '' }}"
+        <a href="/home" class="list-group-item list-group-item-action py-2 ripple {{ Request::is('home') ? 'active' : '' }}"
           ><i class="fas fa-chart fa-fw me-3"></i><span>Configuració</span></a>
 
         <a href="#" class="list-group-item list-group-item-action py-2 ripple"
@@ -53,6 +53,6 @@
     @yield('content')
   </div>
 
-@stack('scripts')
+  @stack('scripts') 
 </body>
 </html>

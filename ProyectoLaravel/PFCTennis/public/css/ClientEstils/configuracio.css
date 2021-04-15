@@ -69,9 +69,8 @@ h1 {
     color: white;
     text-align: center !important;
     /* box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%); */
-    text-decoration: underline;
     top: 40px;
-    left: 6em;
+    left: 8em;
 }
 
 #formConfiguració {
