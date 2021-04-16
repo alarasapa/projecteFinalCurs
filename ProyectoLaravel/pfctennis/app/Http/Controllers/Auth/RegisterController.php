@@ -4,53 +4,28 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\Usuari;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use App\Models\Usuari;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //$this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
+    protected function validador(array $data)
     {
         return Validator::make($data, [
             'nom'           => ['required', 'string', 'max:45'],
@@ -97,11 +72,13 @@ class RegisterController extends Controller
         return redirect("/index");        
     }
 
-    protected function comprovar($tipus, $tipusDada){
-        $response = array('res' => 'HOLA');
+    protected function comprovar(Request $request){
+        $email = $request->valor;
+        $emailActual = $request->emailActual;
 
-        return \Response::json($response);
-        //DB::select()
+        $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari WHERE email = ?', [$email]);
+        
+        echo $res[0]->resultat;
     }
 
     /**

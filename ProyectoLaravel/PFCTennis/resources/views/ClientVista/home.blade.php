@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="{{ url('css/ClientEstils/configuracio.css') }}" >
 
 @push('scripts')
-    <script src="{{ url('js/ClientJS/configuracio.js') }}">
-        // window.onload() = function(){init()};
-    </script>
+    <script src="{{ url('js/ClientJS/configuracio.js') }}"></script>
 @endpush
     <h1>BENVOLGUT A LA TEVA CONFIGURACIÓ: {{ Auth::user()->nom }}</h1>
     <!-- FALTA LA RUTA AL CONTROLADOR AGUSTÍN, HACER UN UPDATE DEL USUARIO Y UN INSERT AL LOG DE USUARIOS -->
-    <form id="formConfiguració" action="" onsubmit="event.preventDefault(); comprovarFormulari()" method="POST">
+    <form id="formConfiguració" action="/configuracio/cambiardades" onsubmit="event.preventDefault(); comprovarFormulari()" method="POST">
         @csrf
 
         <input id="id" name="id" type="hidden" value="{{ Auth::user()->id }}">

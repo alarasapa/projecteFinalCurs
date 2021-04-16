@@ -43,8 +43,13 @@
         <a href="/home" class="list-group-item list-group-item-action py-2 ripple {{ Request::is('home') ? 'active' : '' }}"
           ><i class="fas fa-chart fa-fw me-3"></i><span>Configuració</span></a>
 
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"class="list-group-item list-group-item-action py-2 ripple"
           ><i class="fas fa-chart-line fa-fw me-3"></i><span>Tancar Sessió</span></a>
+        
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+          @csrf
+        </form>
+      
       </div>
     </div>
   </nav>

@@ -81,19 +81,6 @@
             $this->setDataCreacio($args[0]->dataCreacio);
         }
 
-        // public static function factory2(Request $request){
-        //     $this->setNom(filter_var($request->nom, FILTER_SANITIZE_STRING));
-        //     $this->setCognoms(filter_var($request->cognoms, FILTER_SANITIZE_STRING));
-        //     $email         = $request->email;
-        //     $contrasenya   = filter_var($request->password, FILTER_SANITIZE_STRING);
-        //     $contrasenya   = hash('md5', $contrasenya);
-        //     $telefon       = $request->telefon;
-        //     $dataNaixement = $request->dataNaixement;
-        //     $dataCreacio   = date('Y-m-d H:i:s');
-        // }
-
-        //AQUÍ IRÁN OTRAS FUNCIONES, SI HACEN FALTA CLARO
-
         /********************
          * GETTER Y SETTERS *
          ********************/
@@ -140,17 +127,17 @@
         }
 
         public function setNom($nom){
-            $this->nom = $nom;
+            $this->nom = filter_var($nom, FILTER_SANITIZE_STRING);
             return $this;
         }
 
         public function setCognoms($cognoms){
-            $this->cognoms = $cognoms;
+            $this->cognoms = filter_var($cognoms, FILTER_SANITIZE_STRING);
             return $this;
         }
 
         public function setContrasenya($contrasenya){
-            $this->contrasenya = $contrasenya;
+            $this->contrasenya = filter_var($contrasenya, FILTER_SANITIZE_STRING);
             return $this;
         }
 
@@ -183,4 +170,3 @@
             return $this;
         }
     }
-?>

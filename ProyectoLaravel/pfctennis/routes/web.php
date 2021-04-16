@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ConfiguracioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +38,13 @@ Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
 
 // RUTAS PARA EL REGISTRO USUARIO
 Route::post('/registrarse', [RegisterController::class, 'create'])->name('create');
-Route::post('/registrarse/comprovar', [RegisterController::class], 'comprovar')->name('comprovar');
+Route::post('/registrarse/comprovar', [RegisterController::class, 'comprovar'])->name('comprovar');
 
 // RUTAS PARA LOGIN
 Route::post('/login', [LoginController::class], 'login')->name('login');
 
+// RUTAS DE HOME
 Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::post('/configuracio/cambiardades', [ConfiguracioController::class, 'cambiarDades'])->name('cambiarDades');
 
 Auth::routes();
