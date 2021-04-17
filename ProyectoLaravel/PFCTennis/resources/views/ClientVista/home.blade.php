@@ -9,9 +9,12 @@
 @push('scripts')
     <script src="{{ url('js/ClientJS/configuracio.js') }}"></script>
 @endpush
+    <script>
+        var emailActual = "{{ Auth::user()->email }}";
+    </script>
+
     <h1>BENVOLGUT A LA TEVA CONFIGURACIÓ: {{ Auth::user()->nom }}</h1>
-    <!-- FALTA LA RUTA AL CONTROLADOR AGUSTÍN, HACER UN UPDATE DEL USUARIO Y UN INSERT AL LOG DE USUARIOS -->
-    <form id="formConfiguració" action="/configuracio/cambiardades" onsubmit="event.preventDefault(); comprovarFormulari()" method="POST">
+    <form id="formConfiguració" action="/configuracio/cambiardades" onsubmit="return comprovarFormulari()" method="POST">
         @csrf
 
         <input id="id" name="id" type="hidden" value="{{ Auth::user()->id }}">
@@ -21,7 +24,7 @@
             <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
 
             <div class="col-md-6">
-                <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ Auth::user()->nom }}" required autocomplete="nom" autofocus>
+                <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ Auth::user()->nom }}" pattern="[a-zA-Z]+" required autocomplete="nom" autofocus>
 
                 @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -35,7 +38,7 @@
             <label for="cognoms" class="col-md-4 col-form-label text-md-right">{{ __('Cognoms') }}</label>
 
             <div class="col-md-6">
-                <input id="cognoms" type="text" class="form-control @error('name') is-invalid @enderror" name="cognoms" value="{{ Auth::user()->cognoms }}" required>
+                <input id="cognoms" type="text" class="form-control @error('name') is-invalid @enderror" name="cognoms" value="{{ Auth::user()->cognoms }}" pattern="[a-zA-Z\s]+" required>
 
                 @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -77,7 +80,7 @@
             <label for="telefon" class="col-md-4 col-form-label text-md-right">{{ __('Telefon') }}</label>
 
             <div class="col-md-6">
-                <input id="telefon" type="text" class="form-control @error('name') is-invalid @enderror" name="telefon" value="{{ Auth::user()->telefon }}" required>
+                <input id="telefon" type="text" class="form-control @error('name') is-invalid @enderror" name="telefon" pattern="[0-9]{9}" value="{{ Auth::user()->telefon }}" required>
 
                 @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -87,7 +90,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <!-- <div class="form-group row">
             <label for="contrasenya" class="col-md-4 col-form-label text-md-right">{{ __('Contrasenya') }}</label>
 
             <div class="col-md-6">
@@ -107,7 +110,7 @@
             <div class="col-md-6">
                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
             </div>
-        </div>
+        </div> -->
 
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">

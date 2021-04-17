@@ -74,7 +74,6 @@ class RegisterController extends Controller
 
     protected function comprovar(Request $request){
         $email = $request->valor;
-        $emailActual = $request->emailActual;
 
         $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari WHERE email = ?', [$email]);
         

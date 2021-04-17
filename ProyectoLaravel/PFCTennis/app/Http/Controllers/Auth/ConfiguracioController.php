@@ -22,6 +22,26 @@ class ConfiguracioController extends Controller {
     protected function cambiarDades(Request $request){
         $usuari = new Usuari([$request]);
         
-        echo var_dump($usuari);
+        DB::update('UPDATE usuari 
+                SET nom = ?, cognoms = ?,
+                email = ?, telefon = ?, dataNaixement = ?', 
+        [$usuari->nom, $usuari->cognoms, $usuari->email, $usuari->telefon, $usuari->dataNaixement]);
+
+        $descripcio = $usuari->nom . " ha cambiat les seves dades";
+        $dataActualitzacio = date('Y-m-d H:i:s');
+        DB::insert('INSERT INTO log_usuari(idUsuari, descripcio, data) VALUES(?, ?, ?)',
+                                        [$usuari->id, $descripcio, $dataActualitzacio]);
+
+        return redirect("/index");
+    }
+
+    protected function comprovar(Request $request){
+        $email = $request->valor;
+        $emailActual = $request->emailActual;
+
+        $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari 
+             WHERE email = ? AND email != ?', [$email, $emailActual]);
+        
+        echo $res[0]->resultat;
     }
 }
