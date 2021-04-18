@@ -55,6 +55,10 @@ class HomeController extends Controller
     public function home(){
         return view('ClientVista.home');
     }
+    public function cambiarPassword(){
+        return view('ClientVista.cambiarpassword');
+    }
+
 
     /***
      * FUNCIONES DE AUTENTIFICACIÓN

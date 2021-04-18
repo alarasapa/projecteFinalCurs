@@ -24,10 +24,11 @@ class ConfiguracioController extends Controller {
         
         DB::update('UPDATE usuari 
                 SET nom = ?, cognoms = ?,
-                email = ?, telefon = ?, dataNaixement = ?', 
-        [$usuari->nom, $usuari->cognoms, $usuari->email, $usuari->telefon, $usuari->dataNaixement]);
+                email = ?, telefon = ?, dataNaixement = ?
+                WHERE id = ?', 
+        [$usuari->nom, $usuari->cognoms, $usuari->email, $usuari->telefon, $usuari->dataNaixement, $usuari->id]);
 
-        $descripcio = $usuari->nom . " ha cambiat les seves dades";
+        $descripcio = "Ha cambiat les seves dades";
         $dataActualitzacio = date('Y-m-d H:i:s');
         DB::insert('INSERT INTO log_usuari(idUsuari, descripcio, data) VALUES(?, ?, ?)',
                                         [$usuari->id, $descripcio, $dataActualitzacio]);
@@ -43,5 +44,23 @@ class ConfiguracioController extends Controller {
              WHERE email = ? AND email != ?', [$email, $emailActual]);
         
         echo $res[0]->resultat;
+    }
+
+    protected function cambiarPassword(Request $request){
+        $id = $request->id;
+        $contrasenya = $request->contrasenya;
+        $contrasenya = filter_var($contrasenya, FILTER_SANITIZE_STRING);
+        $contrasenya = hash('md5', $contrasenya);
+
+        DB::update('UPDATE usuari SET contrasenya = ?
+                    WHERE id = ?', [$contrasenya, $id]);
+
+        $descripcio = "Ha cambiat la seva contrasenya";
+        $dataActualitzacio = date('Y-m-d H:i:s');
+        DB::insert('INSERT INTO log_usuari(idUsuari, descripcio, data) VALUES(?, ?, ?)',
+                            [$id, $descripcio, $dataActualitzacio]);
+        
+        return redirect('/index');
+
     }
 }

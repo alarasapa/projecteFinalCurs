@@ -34,7 +34,7 @@
 
                     <div class="card-body">
 
-                        <form id="form" method="POST" action="{{ url('/registrarse') }}">
+                        <form id="form" method="POST" action="{{ url('/registrarse') }}" onsubmit="return comprovarFormulari()">
                             @csrf
 
                             <input id="rol" name="rol" type="hidden" value="U">
@@ -43,7 +43,7 @@
                                 <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ old('nom') }}" required autocomplete="nom" autofocus>
+                                    <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ old('nom') }}" pattern="[a-zA-Z]+" required autocomplete="nom" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                                 <label for="cognoms" class="col-md-4 col-form-label text-md-right">{{ __('Cognoms') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="cognoms" type="text" class="form-control @error('name') is-invalid @enderror" name="cognoms" value="{{ old('cognoms') }}" required>
+                                    <input id="cognoms" type="text" class="form-control @error('name') is-invalid @enderror" name="cognoms" value="{{ old('cognoms') }}" pattern="[a-zA-Z\s]+" required>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -99,7 +99,7 @@
                                 <label for="telefon" class="col-md-4 col-form-label text-md-right">{{ __('Telefon') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="telefon" type="text" class="form-control @error('name') is-invalid @enderror" name="telefon" value="{{ old('telefon') }}" required>
+                                    <input id="telefon" type="text" class="form-control @error('name') is-invalid @enderror" name="telefon" value="{{ old('telefon') }}" pattern="[0-9]{9}" required>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">

@@ -90,28 +90,6 @@
             </div>
         </div>
 
-        <!-- <div class="form-group row">
-            <label for="contrasenya" class="col-md-4 col-form-label text-md-right">{{ __('Contrasenya') }}</label>
-
-            <div class="col-md-6">
-                <input id="contrasenya" type="password" class="form-control @error('password') is-invalid @enderror" name="contrasenya" required autocomplete="new-password">
-
-                @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirmar Contrasenya') }}</label>
-
-            <div class="col-md-6">
-                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-            </div>
-        </div> -->
-
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button id="submit" type="submit" class="btn btn-block btn-danger">

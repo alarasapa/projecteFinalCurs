@@ -47,11 +47,16 @@
                             Hola {{ Auth::user()->nom }}!
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            @if (Auth::user()->rol == 'U' || Auth::user()->rol == 'S')
                             <!-- Veure on está apuntat y tal -->
                             <a class="dropdown-item" href="#">
                                 {{ __('Llistat matricules') }}
                             </a>    
-
+                            @elseif (Auth::user()->rol == 'A')
+                            <a class="dropdown-item" href="#">
+                                {{ __('Administrar pàgina') }}
+                            </a>    
+                            @endif
                             <!-- Configuració del propi usuari -->
                             <a class="dropdown-item" href="{{ url('/home') }}">
                                 {{ __('Configuració') }}

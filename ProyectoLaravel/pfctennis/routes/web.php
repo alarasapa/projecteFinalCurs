@@ -45,6 +45,9 @@ Route::post('/login', [LoginController::class], 'login')->name('login');
 
 // RUTAS DE HOME
 Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/configuracio/cambiarpassword', [HomeController::class, 'cambiarPassword'])->name('cambiarPassword');
+
+Route::post('/configuracio/cambiarpassword', [ConfiguracioController::class, 'cambiarPassword'])->name('cambiarPassword');
 Route::post('/configuracio/cambiardades', [ConfiguracioController::class, 'cambiarDades'])->name('cambiarDades');
 Route::post('/configuracio/comprovar', [ConfiguracioController::class, 'comprovar'])->name('comprovar');
 
