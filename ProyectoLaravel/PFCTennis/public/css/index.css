@@ -1,0 +1,8 @@
+#carouselIndicador {
+    height: 60% !important;
+    width: 100%;
+}
+
+.carousel-inner {
+    max-height: 500px !important;
+}

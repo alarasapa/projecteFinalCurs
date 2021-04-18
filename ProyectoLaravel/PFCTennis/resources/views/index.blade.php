@@ -8,10 +8,9 @@
 <!-- Introducimos los CSS deseados -->
 @push('css')
     <link rel="stylesheet" href="{{ url('css/ClientEstils/base.css') }}" >
-    <link rel="stylesheet" href="{{ url('css/ClientEstils/index.css') }}" >
+    <link rel="stylesheet" href="{{ url('css/index.css') }}" >
 @endpush
 
-<div id="slider" class="container">
     <div id="carouselIndicador" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselIndicador" data-slide-to="0" class="active"></li>
@@ -40,6 +39,5 @@
             <span class="sr-only">Següent</span>
         </a>
     </div>
-</div>
 
 @endsection
