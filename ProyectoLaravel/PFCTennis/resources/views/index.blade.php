@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ url('css/index.css') }}" >
 @endpush
 
-    <div id="carouselIndicador" class="carousel slide" data-ride="carousel">
+    <div id="carouselIndicador" class="carousel slide" data-interval="5000" data-ride="carousel">
         <ol class="carousel-indicators">
         @foreach ($sliders as $obj)
             <li data-target="#carouselIndicador" data-slide-to="{{ $loop->index }}" class="{{ $loop->index == 0  ? 'active' : '' }}"></li>
@@ -22,6 +22,10 @@
             @foreach ($sliders as $slider)
             <div class="carousel-item {{ $loop->index == 0 ? 'active' : '' }}">
                 <img style="width:100%;" src="imatges/{{ $slider->imatge }}">
+                <div class="carousel-caption">
+                    <h3>{{ $slider->titol }}</h3>
+                    <p>{{ $slider->descripcio }}</p>
+                </div>
             </div>
             @endforeach
         </div>
