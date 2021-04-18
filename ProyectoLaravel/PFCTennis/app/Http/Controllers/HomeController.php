@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Slider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -24,7 +26,14 @@ class HomeController extends Controller
     
     public function index()
     {
-        return view('index');
+        $sliders = [];
+        $res = DB::select('SELECT * FROM inici_vista');
+        
+        foreach ($res as $slider){
+            $obj = new Slider($slider);
+            $sliders[] = $obj;
+        }
+        return view('index', compact('sliders'));
     }
     
     public function soci()

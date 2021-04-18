@@ -17,12 +17,8 @@ use App\Http\Controllers\Auth\ConfiguracioController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
+Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/index', [HomeController::class, 'index'])->name('index');
-// Route::post('/index', [HomeController::class, 'index'])->name('index');
 
 // RUTAS (GENERAL) REDIRECCIONAMIENTO 
 Route::get('/soci', [HomeController::class, 'soci'])->name('soci');
