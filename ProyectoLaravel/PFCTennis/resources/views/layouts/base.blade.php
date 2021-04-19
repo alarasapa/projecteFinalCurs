@@ -53,7 +53,7 @@
                                 {{ __('Llistat matricules') }}
                             </a>    
                             @elseif (Auth::user()->rol == 'A')
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ url('/dashboard') }}">
                                 {{ __('Administrar pàgina') }}
                             </a>    
                             @endif

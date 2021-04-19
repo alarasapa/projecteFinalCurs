@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Slider;
+use App\Models\ObjecteVista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -26,14 +26,25 @@ class HomeController extends Controller
     
     public function index()
     {
+        // Recuperem els sliders de la BBDD
         $sliders = [];
         $res = DB::select('SELECT * FROM inici_vista');
         
         foreach ($res as $slider){
-            $obj = new Slider($slider);
+            $obj = new ObjecteVista($slider);
             $sliders[] = $obj;
         }
-        return view('index', compact('sliders'));
+
+        // Recuperem les cartes de la BBDD
+        $cartes = [];
+        $res = DB::select('SELECT * FROM cartes_inici_vista');
+        
+        foreach ($res as $carta){
+            $obj = new ObjecteVista($carta);
+            $cartes[] = $obj;
+        }
+
+        return view('index', compact('sliders', 'cartes'));
     }
     
     public function soci()
@@ -68,6 +79,10 @@ class HomeController extends Controller
         return view('ClientVista.cambiarpassword');
     }
 
+
+    public function dashboard(){
+        return view('AdminVista.dashboard');
+    }
 
     /***
      * FUNCIONES DE AUTENTIFICACIÓN

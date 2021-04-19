@@ -3,7 +3,7 @@
 
     use Illuminate\Foundation\Auth\User as Authenticatable;
 
-    class Slider {
+    class ObjecteVista {
 
         /**
          * @var Integer
@@ -50,7 +50,7 @@
         }
 
         public function setTitol($titol){
-            $this->titol = $titol;
+            $this->titol = filter_var($titol, FILTER_SANITIZE_STRING);
             return $this;
         }
 
@@ -59,7 +59,7 @@
         }
 
         public function setDescripcio($descripcio){
-            $this->descripcio = $descripcio;
+            $this->descripcio = filter_var($descripcio, FILTER_SANITIZE_STRING);
             return $this;
         }
 
@@ -68,7 +68,7 @@
         }
 
         public function setImatge($imatge){
-            $this->imatge = $imatge;
+            $this->imatge = filter_var($imatge, FILTER_SANITIZE_STRING);
             return $this;
         }
     }
