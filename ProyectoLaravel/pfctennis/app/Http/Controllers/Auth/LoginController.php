@@ -66,9 +66,13 @@ class LoginController extends Controller
             $usuari = new Usuari($res);
             //...y es logeja amb aquest objecte
             Auth::login($usuari);
-            
-            //Per últim redirigeix al index
-            return redirect("/index");            
+
+            if (Auth::user()->rol == 'A'){
+                return redirect('/dashboard');
+            } else {
+                //Per últim redirigeix al index
+                return redirect("/index");            
+            }
         } 
         else return view("auth.login");
     }

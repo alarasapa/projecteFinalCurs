@@ -3,9 +3,12 @@ html {
     -webkit-text-size-adjust: 100% !important
 }
 
-footer,
 nav {
     background-color: #131418 !important
+}
+
+footer {
+    background-color: #2d3748 !important;
 }
 
 .navbar {
@@ -26,7 +29,8 @@ nav {
 }
 
 body {
-    background-color: #2d3748 !important;
+    background-color: #131418 !important;
+    /* background-color: #2d3748 !important; */
     margin: 0;
     font-family: 'Nunito', sans-serif;
 }
