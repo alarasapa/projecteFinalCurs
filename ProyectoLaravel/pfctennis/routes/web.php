@@ -2,20 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ConfiguracioController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 // RUTAS (GENERAL) REDIRECCIONAMIENTO 
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -33,7 +23,9 @@ Route::get('/registrarse', [HomeController::class, 'registrarse'])->name('regist
 Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
 
 // RUTAS PARA ADMINISTRADOR
-Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard/gestio/usuaris', [AdminController::class, 'gestioUsuaris'])->name('gestioUsuaris');
+
 
 // RUTAS PARA EL REGISTRO USUARIO
 Route::post('/registrarse', [RegisterController::class, 'create'])->name('create');

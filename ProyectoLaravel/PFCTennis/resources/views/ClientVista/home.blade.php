@@ -24,7 +24,7 @@
             <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
 
             <div class="col-md-6">
-                <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ Auth::user()->nom }}" pattern="[a-zA-Z]+" required autocomplete="nom" autofocus>
+                <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ Auth::user()->nom }}" pattern="[a-zA-Z\s]+" required autocomplete="nom" autofocus>
 
                 @error('name')
                     <span class="invalid-feedback" role="alert">

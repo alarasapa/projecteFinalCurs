@@ -10,11 +10,6 @@ use App\Models\Log;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         //$this->middleware('auth');
@@ -79,21 +74,6 @@ class HomeController extends Controller
     }
     public function cambiarPassword(){
         return view('ClientVista.cambiarpassword');
-    }
-
-
-    public function dashboard(){
-        $logsUsuaris = [];
-        $res = DB::select('SELECT lg.id, lg.descripcio, lg.data, u.id, u.nom, u.cognoms, u.contrasenya, u.rol, u.email, u.telefon, u.dataNaixement, u.dataCreacio 
-            FROM log_usuari lg INNER JOIN usuari u ON lg.idUsuari = u.id ORDER BY lg.data');
-
-        foreach ($res as $log){
-            $usuariObj = new Usuari(array($log));
-            $logObj = new Log($log, $usuariObj);
-            $logsUsuaris[] = $logObj;
-        }
-
-        return view('AdminVista.dashboard', compact('logsUsuaris'));
     }
 
     /***

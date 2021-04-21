@@ -3,34 +3,33 @@
 @section('titol', 'Inici')
 @section('content')
 
-<div class="container">
-    <!-- AQUI VAN LAS PETICIONES DE LOS USUARIOS -->
+@push('css')
+    <link rel="stylesheet" href="css/AdminEstils/index.css">
+@endpush
 
+<div class="container">
+    <!-- AQUÍ VAN LAS PETICIONES DE LOS USUARIOS -->
 
     <div class="table-responsive">
-    <h2 style="font-family: 'Nunito', sans-serif;">Accions dels usuaris</h2>
-    <table style="text-align: center;" class="table table-sm table-bordered table-dark">
-        <thead>
-            <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Cognoms</th>
-                <th scope="col">Email</th>
-                <th scope="col">Descripció</th>
-                <th scope="col">Data</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($logsUsuaris as $log)
+        <h2 style="font-family: 'Nunito', sans-serif;">Accions dels usuaris</h2>
+        <table style="text-align: center;" class="table table-sm table-bordered table-dark">
+            <thead>
                 <tr>
-                    <th scope="row">{{ $log->usuari->nom }}</th>
-                    <td>{{ $log->usuari->cognoms }}</td>
-                    <td>{{ $log->usuari->email }}</td>
-                    <td>{{ $log->descripcio }}</td>
-                    <td>{{ $log->data }}</td>
+                    <th scope="col">Data</th>
+                    <th scope="col">Nom Complert</th>
+                    <th scope="col">Descripció</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach ($logsUsuaris as $log)
+                    <tr>
+                        <th scope="row">{{ $log->data }}</th>
+                        <td>{{ $log->usuari->nom }} {{ $log->usuari->cognoms }}</td>
+                        <td>{{ $log->descripcio }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
     <!-- <div class="row justify-content-center">
         <div class="col-md-8">

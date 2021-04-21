@@ -5,9 +5,8 @@
 
     <!-- En el stack se añadirá de forma dinámica el archivo CSS de la página correspondiente -->
     @stack('css')
-    <link rel="stylesheet" href="css/AdminEstils/index.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -57,29 +56,29 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="collapsibleNavbar">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="/dashboard">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Inici
+                        <div class="sb-sidenav-menu-heading">Altres</div>
+                        <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
+                            <div class="sb-nav-link-icon"><i class="fa fa-exclamation-circle"></i></div>
+                            Peticions
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Layouts
+                        <div class="sb-sidenav-menu-heading">Gestions</div>
+                        <a class="nav-link collapsed Request::is('dashboard/gestio/usuaris') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#collapseUsuarios" >
+                            <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
+                            Usuaris
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        <div class="collapse" id="collapseUsuarios" aria-labelledby="headingOne">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
+                                <a class="nav-link {{ Request::is('dashboard/gestio/usuaris') ? 'active' : '' }}" href="/dashboard/gestio/usuaris">Gestió General</a>
+                                <!-- <a class="nav-link" href="#">Light Sidenav</a> -->
                             </nav>
                         </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePaginas" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Pages
+                            Pàgines
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+                        <div class="collapse" id="collapsePaginas" aria-labelledby="headingTwo">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                     Authentication
@@ -110,10 +109,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             Charts
                         </a>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Tables
-                        </a>
+
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"class="nav-link"
+                        ><i class="fa fa-sign-out"></i>Tancar Sessió</a>
+        
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf   
+                        </form>
                     </div>
                 </div>
             </nav>
