@@ -68,6 +68,14 @@
                             </div>
                             
                             <div class="form-group row">
+                                <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('DNI/NIF') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="nif" type="text" class="form-control @error('name') is-invalid @enderror" name="nif" value="{{ old('nif') }}" pattern="[0-9]{8}[a-zA-Z]" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
                                 <label for="dataNaixement" class="col-md-4 col-form-label text-md-right">{{ __('Data Naixement') }}</label>
 
                                 <div class="col-md-6">
@@ -92,6 +100,14 @@
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="targetaSanitaria" class="col-md-4 col-form-label text-md-right">{{ __('Targeta sanitària') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="targetaSanitaria" type="text" class="form-control @error('name') is-invalid @enderror" name="targetaSanitaria" value="{{ old('targetaSanitaria') }}" pattern="[a-zA-Z]{4}[0-9]{10}" required>
                                 </div>
                             </div>
 

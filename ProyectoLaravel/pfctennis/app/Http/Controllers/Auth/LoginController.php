@@ -59,7 +59,7 @@ class LoginController extends Controller
         $res = DB::select('SELECT * FROM usuari  
                     WHERE contrasenya = ? AND email = ?',
                     [$contrasenya, $email]);
-        
+                    
         //Si el resultat de la búsqueda retorna res -> redirigeix de nou al login
         if (!empty($res)) {
             //En cas contrari, crea un objecte Usuari...

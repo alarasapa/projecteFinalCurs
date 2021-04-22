@@ -38,8 +38,7 @@
                     return view('AdminVista.formUsuari', ['accio' => $accio, 'id' => $id, 'usuari' => $usuari]);
                 
                 case "editarUsuari":
-                    //TODO CREAR LA FUNCIÓN PARA OBTENER USUARIO
-                    $usuari = AdminDAO::getUsuari();
+                    $usuari = AdminDAO::getUsuari($id);
                     return view('AdminVista.formUsuari', ['accio' => $accio, 'id' => $id, 'usuari' => $usuari]);
                 
                 default:

@@ -1,7 +1,4 @@
-var emailValido = true;
-
-function init() {
-
+window.onload = function() {
     $("#telefon").change(function() {
         let telefon = $("#telefon").val();
         if (isNaN(telefon)) {
@@ -60,13 +57,21 @@ function comprovarEmail() {
     })
 }
 
-function comprovarFormulari() {
+function comprovarFormulariGeneral() {
     let estat = true;
 
     if (!emailValido) {
         alert("Aquest email ja está en ús");
         estat = false;
-    } else if ($("#contrasenya").val().length < 8) {
+    }
+
+    return estat;
+}
+
+function comprovarContrasenya() {
+    let estat = true;
+
+    if ($("#contrasenya").val().length < 8) {
         alert("La contrasenya ha de tenir 8 caracters com a mínim");
         estat = false;
     } else if (!isNaN($("#contrasenya").val()) || /^[a-zA-Z]+$/.test($("#contrasenya").val())) {

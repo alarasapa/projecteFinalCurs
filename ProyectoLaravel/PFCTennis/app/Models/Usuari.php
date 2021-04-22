@@ -3,7 +3,6 @@
 
     use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
-    // use Illuminate\Foundation\Auth\AuthenticatesUsers;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
 
@@ -28,6 +27,18 @@
          * @var Integer
          */
         public $id;
+
+        //TODO RETOCAR FORMULARIOS Y DEMÁS PARA QUE ACEPTE EL NIF/DNI
+        /**
+         * @var String
+         */
+        public $nif;
+
+        //TODO RETOCAR FOMRULARIOS Y DEMÁS PARA QUE ACEPTE TARGETA SANITÁRIA
+        /**
+         * @var String
+         */
+        public $targetaSanitaria; 
 
         /**
          * @var String
@@ -72,6 +83,8 @@
         public function __construct(array $args = []){
             if (empty($args)) return $this;
             $this->setId($args[0]->id);
+            $this->setNif($args[0]->nif);
+            $this->setTargetaSanitaria($args[0]->targetaSanitaria);
             $this->setNom($args[0]->nom);
             $this->setCognoms($args[0]->cognoms);
             $this->setContrasenya($args[0]->contrasenya);
@@ -88,6 +101,14 @@
         
         public function getId(){
             return $this->id;
+        }
+
+        public function getNif(){
+            return $this->nif;
+        }
+
+        public function getTargetaSanitaria(){
+            return $this->targetaSanitaria;
         }
 
         public function getNom(){
@@ -124,6 +145,16 @@
 
         public function setId($id){
             $this->id = $id;
+            return $this;
+        }
+
+        public function setNif($nif){
+            $this->nif = $nif;
+            return $this;
+        }
+
+        public function setTargetaSanitaria($targetaSanitaria){
+            $this->targetaSanitaria = $targetaSanitaria;
             return $this;
         }
 

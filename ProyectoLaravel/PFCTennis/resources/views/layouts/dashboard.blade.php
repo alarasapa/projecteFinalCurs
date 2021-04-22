@@ -48,7 +48,12 @@
                     <a class="dropdown-item" href="#">Settings</a>
                     <a class="dropdown-item" href="#">Activity Log</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"class="nav-link"
+                    ><i class="fa fa-sign-out"></i>Tancar Sessió</a>
+    
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf   
+                    </form>
                 </div>
             </li>
         </ul>
@@ -106,13 +111,6 @@
                                 </div>
                             </nav>
                         </div>
-
-                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"class="nav-link"
-                        ><i class="fa fa-sign-out"></i>Tancar Sessió</a>
-        
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf   
-                        </form>
                     </div>
                 </div>
             </nav>

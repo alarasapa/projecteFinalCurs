@@ -47,19 +47,21 @@ class RegisterController extends Controller
     protected function create(Request $request)
     {  
         // Obtenim les dades
-        $nom           = filter_var($request->nom, FILTER_SANITIZE_STRING);
-        $cognoms       = filter_var($request->cognoms, FILTER_SANITIZE_STRING);
-        $email         = $request->email;
-        $contrasenya   = filter_var($request->password, FILTER_SANITIZE_STRING);
-        $contrasenya   = hash('md5', $contrasenya);
-        $rol           = $request->rol;
-        $telefon       = $request->telefon;
-        $dataNaixement = $request->dataNaixement;
-        $dataCreacio   = date('Y-m-d H:i:s');
+        $nom              = filter_var($request->nom, FILTER_SANITIZE_STRING);
+        $cognoms          = filter_var($request->cognoms, FILTER_SANITIZE_STRING);
+        $email            = $request->email;
+        $nif              = filter_var($request->nif, FILTER_SANITIZE_STRING);
+        $targetaSanitaria = filter_var($request->targetaSanitaria, FILTER_SANITIZE_STRING);
+        $contrasenya      = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
+        $contrasenya      = hash('md5', $contrasenya);
+        $rol              = $request->rol;
+        $telefon          = $request->telefon;
+        $dataNaixement    = $request->dataNaixement;
+        $dataCreacio      = date('Y-m-d H:i:s');
 
         //Insertem l'usuari
-        DB::insert('INSERT INTO usuari (nom, cognoms, email, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
-        VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $email, $contrasenya, $rol, $telefon, $dataNaixement, $dataCreacio]);
+        DB::insert('INSERT INTO usuari (nif, nom, cognoms, email, targetaSanitaria, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
+        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [$nif, $nom, $cognoms, $email, $targetaSanitaria, $contrasenya, $rol, $telefon, $dataNaixement, $dataCreacio]);
         
         //Agafem y igualem al identificador
         $request->id = $this->obtenirId($email);

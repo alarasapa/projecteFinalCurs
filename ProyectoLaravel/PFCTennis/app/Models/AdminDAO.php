@@ -12,7 +12,7 @@
         public static function getLogsUsuari(){
             $logsUsuaris = [];
 
-            $res = DB::select('SELECT lg.id, lg.descripcio, lg.data, u.id, u.nom, u.cognoms, u.contrasenya, u.rol, u.email, u.telefon, u.dataNaixement, u.dataCreacio 
+            $res = DB::select('SELECT lg.id, lg.descripcio, lg.data, u.id, u.nif, u.nom, u.cognoms, u.contrasenya, u.rol, u.email, u.targetaSanitaria, u.telefon, u.dataNaixement, u.dataCreacio 
                 FROM log_usuari lg INNER JOIN usuari u ON lg.idUsuari = u.id ORDER BY lg.data');
     
             foreach ($res as $log){
@@ -40,6 +40,13 @@
             return $usuaris;
         }
 
+        public static function getUsuari($id){
+
+            $res = DB::select('SELECT * FROM usuari WHERE id = ?', [$id]);
+            
+            return new Usuari($res);
+        }
+
         public static function insertarUsuari(Request $request){
             // Obtenim les dades
             $nom           = filter_var($request->nom, FILTER_SANITIZE_STRING);
@@ -57,4 +64,7 @@
             VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $email, $contrasenya, $rol, $telefon, $dataNaixement, $dataCreacio]);
         }
 
+        public static function updateUsuari(Request $request){
+            
+        }
     }

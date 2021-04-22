@@ -3,7 +3,7 @@
 @section('titol', 'Formulari d\'Usuari')
 
 @push('css')
-    <link rel="stylesheet" href="../../../css/AdminEstils/index.css">
+    <link rel="stylesheet" href="../../../../../css/AdminEstils/index.css">
 @endpush
 
 @section('content')
@@ -43,76 +43,90 @@
         });
     }
 
-function comprovarEmail() {
-    let tipusDada = $("#email").val();
+    function comprovarEmail() {
+        let tipusDada = $("#email").val();
 
-    let json = JSON.stringify({ valor: tipusDada, '_token': $('input[name=_token]').val() });
+        let json = JSON.stringify({ valor: tipusDada, '_token': $('input[name=_token]').val() });
 
-    $.ajax({
-        type: 'POST',
-        url: '/registrarse/comprovar',
-        data: json,
-        dataType: 'JSON',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'content-type': 'application/json'
-        },
-        success: function(res) {
-            if (res == 1) {
-                alert("Aquest email ja está en ús");
-                emailValido = false;
-            } else {
-                emailValido = true;
+        $.ajax({
+            type: 'POST',
+            url: '/registrarse/comprovar',
+            data: json,
+            dataType: 'JSON',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'content-type': 'application/json'
+            },
+            success: function(res) {
+                if (res == 1) {
+                    alert("Aquest email ja está en ús");
+                    emailValido = false;
+                } else {
+                    emailValido = true;
+                }
             }
-        }
-    })
-}
-
-function comprovarFormulari() {
-    let estat = true;
-
-    if (!emailValido) {
-        alert("Aquest email ja está en ús");
-        estat = false;
-    } else if ($("#contrasenya").val().length < 8) {
-        alert("La contrasenya ha de tenir 8 caracters com a mínim");
-        estat = false;
-    } else if (!isNaN($("#contrasenya").val()) || /^[a-zA-Z]+$/.test($("#contrasenya").val())) {
-        alert("La contrasenya ha de contenir lletres, numeros i a poder ser caracters especials")
-        estat = false;
-    } else if ($("#contrasenya").val() != $("#password-confirm").val()) {
-        alert("La contrasenya de confirmació no és la mateixa a la introduïda");
-        estat = false;
+        })
     }
 
-    return estat;
-}
+    function comprovarFormulariGeneral() {
+        let estat = true;
+
+        if (!emailValido) {
+            alert("Aquest email ja está en ús");
+            estat = false;
+        }
+
+        return estat;
+    }
+
+    function comprovarContrasenya(){
+        let estat = true;
+
+        if ($("#contrasenya").val().length < 8) {
+            alert("La contrasenya ha de tenir 8 caracters com a mínim");
+            estat = false;
+        } else if (!isNaN($("#contrasenya").val()) || /^[a-zA-Z]+$/.test($("#contrasenya").val())) {
+            alert("La contrasenya ha de contenir lletres, numeros i a poder ser caracters especials")
+            estat = false;
+        } else if ($("#contrasenya").val() != $("#password-confirm").val()) {
+            alert("La contrasenya de confirmació no és la mateixa a la introduïda");
+            estat = false;
+        }
+
+        return estat;
+    }
 </script>
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <!-- TODO IF PARA CAMBIAR EL TITULO EN FUNCION DE LA ACCION QUE SE QUIERA TOMAR -->
-                
-                <div class="card-header">{{ __('Formulari Usuari') }}</div>
+                @if ($accio == 'editarUsuari')
+                    <div class="card-header">Formulari Usuari: {{ $usuari->nom }}</div>
+                @else
+                    <div class="card-header">{{ __('Formulari Usuari') }}</div>
+                @endif
 
                 <div class="card-body">
-                    <!-- TODO OTRO IF PARA CAMBIAR LA RUTA SEGUN LA ACCION QUE SE QUIERA TOMAR -->
-                    <form id="form" method="POST" action="/dashboard/gestio/usuaris/registrarse" onsubmit="return comprovarFormulari()">
+                    @if ($accio == 'nouUsuari')
+                        <form id="form" method="POST" action="/dashboard/gestio/usuaris/registrarse" onsubmit="return comprovarFormulariGeneral()">
+                    @elseif ($accio == 'editarUsuari')
+                        <form id="form" method="POST" action="/dashboard/gestio/usuaris/actualitzar" onsubmit="return comprovarFormulariGeneral()">
+                    @endif
+
                         @csrf
 
                         <select name="rol" id="rol">
-                            <option value="U">Usuari</option>
-                            <option value="S">Soci</option>
-                            <option value="A">Administrador</option>
+                            <option value="U" @if($usuari->rol == 'U') selected = "selected" @endif>Usuari</option>
+                            <option value="S" @if($usuari->rol == 'S') selected = "selected" @endif>Soci</option>
+                            <option value="A" @if($usuari->rol == 'A') selected = "selected" @endif>Administrador</option>
                         </select>
 
                         <div class="form-group row">
                             <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
 
                             <div class="col-md-6">
-                                <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ $usuari->nom }}" pattern="[a-zA-Z]+" required autocomplete="nom" autofocus>
+                                <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ $usuari->nom }}" pattern="[a-zA-Z\s]+" required autocomplete="nom" autofocus>
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -136,6 +150,14 @@ function comprovarFormulari() {
                             </div>
                         </div>
                         
+                        <div class="form-group row">
+                            <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('DNI/NIF') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="nif" type="text" class="form-control @error('name') is-invalid @enderror" name="nif" value="{{ $usuari->nif }}" pattern="[0-9]{8}[a-zA-Z]" required>
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="dataNaixement" class="col-md-4 col-form-label text-md-right">{{ __('Data Naixement') }}</label>
 
@@ -165,6 +187,14 @@ function comprovarFormulari() {
                         </div>
 
                         <div class="form-group row">
+                            <label for="targetaSanitaria" class="col-md-4 col-form-label text-md-right">{{ __('Targeta sanitària') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="targetaSanitaria" type="text" class="form-control @error('name') is-invalid @enderror" name="targetaSanitaria" value="{{ $usuari->targetaSanitaria }}" pattern="[a-zA-Z]{4}[0-9]{10}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="telefon" class="col-md-4 col-form-label text-md-right">{{ __('Telefon') }}</label>
 
                             <div class="col-md-6">
@@ -177,6 +207,21 @@ function comprovarFormulari() {
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button id="submit" type="submit" class="btn btn-primary">
+                                    {{ __('Registrar') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">Cambiar contrasenya</div>
+                    <form action="/dashboard/gestio/usuaris/actualizar" method="POST"  onsubmit="return comprovarContrasenya()">
+                        @csrf
 
                         <div class="form-group row">
                             <label for="contrasenya" class="col-md-4 col-form-label text-md-right">{{ __('Contrasenya') }}</label>
@@ -203,7 +248,7 @@ function comprovarFormulari() {
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button id="submit" type="submit" class="btn btn-primary">
-                                    {{ __('Registrar') }}
+                                    {{ __('Cambiar Contrasenya') }}
                                 </button>
                             </div>
                         </div>
