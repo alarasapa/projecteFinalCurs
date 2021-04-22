@@ -3,6 +3,8 @@
 <head>
     <title>@yield('titol')</title> 
 
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+
     <!-- En el stack se añadirá de forma dinámica el archivo CSS de la página correspondiente -->
     @stack('css')
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -17,7 +19,7 @@
 </head>
 
 <body onload="init()">  
-    @if (!Auth::check())
+    @if (!Auth::check() || (Auth::user()->rol != 'A'))
         <script>
             location.href = '/index';
         </script>
@@ -104,11 +106,6 @@
                                 </div>
                             </nav>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Addons</div>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Charts
-                        </a>
 
                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"class="nav-link"
                         ><i class="fa fa-sign-out"></i>Tancar Sessió</a>

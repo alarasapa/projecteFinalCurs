@@ -70,6 +70,7 @@
         public $dataCreacio;
 
         public function __construct(array $args = []){
+            if (empty($args)) return $this;
             $this->setId($args[0]->id);
             $this->setNom($args[0]->nom);
             $this->setCognoms($args[0]->cognoms);
