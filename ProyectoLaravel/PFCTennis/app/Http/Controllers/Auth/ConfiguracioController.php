@@ -18,15 +18,14 @@ class ConfiguracioController extends Controller {
         // $this->middleware('guest')->except('logout');
     }
 
-
     protected function cambiarDades(Request $request){
         $usuari = new Usuari([$request]);
         
         DB::update('UPDATE usuari 
-                SET nom = ?, cognoms = ?,
-                email = ?, telefon = ?, dataNaixement = ?
+                SET nif = ?, nom = ?, cognoms = ?,
+                email = ?, targetaSanitaria = ?, telefon = ?, dataNaixement = ?
                 WHERE id = ?', 
-        [$usuari->nom, $usuari->cognoms, $usuari->email, $usuari->telefon, $usuari->dataNaixement, $usuari->id]);
+        [$usuari->nif, $usuari->nom, $usuari->cognoms, $usuari->email, $usuari->targetaSanitaria, $usuari->telefon, $usuari->dataNaixement, $usuari->id]);
 
         $descripcio = "Ha cambiat les seves dades";
         $dataActualitzacio = date('Y-m-d H:i:s');
@@ -37,11 +36,26 @@ class ConfiguracioController extends Controller {
     }
 
     protected function comprovar(Request $request){
-        $email = $request->valor;
-        $emailActual = $request->emailActual;
+        $tipusDada = $request->tipusDada;
+        $valor = $request->valor;
+        $dadaActual = $request->dadaActual;
 
-        $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari 
-             WHERE email = ? AND email != ?', [$email, $emailActual]);
+        switch($tipusDada){
+            case "nif":
+                $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari 
+                    WHERE nif = ? AND nif != ?', [$valor, $dadaActual]);
+                break;
+            
+            case "email":
+                $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari 
+                    WHERE email = ? AND email != ?', [$valor, $dadaActual]);
+                break;
+            
+            case "targetaSanitaria":
+                $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari 
+                    WHERE targetaSanitaria = ? AND targetaSanitaria != ?', [$valor, $dadaActual]);
+                break;
+        }
         
         echo $res[0]->resultat;
     }

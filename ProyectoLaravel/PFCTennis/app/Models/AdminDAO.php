@@ -65,6 +65,7 @@
         }
 
         public static function updateUsuari(Request $request){
-            
+            $usuari = new Usuari([$request]);
+            //TODO FALTA TERMINAR EL UPDATE 
         }
     }

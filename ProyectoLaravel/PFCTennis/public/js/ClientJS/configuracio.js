@@ -1,4 +1,5 @@
 var emailValido = true;
+var nifValido = true;
 
 function init() {
 
@@ -12,34 +13,73 @@ function init() {
         }
     });
 
+    $("#nif").on("change", function() {
+        comprovarNif();
+    });
+
     $("#email").on("change", function() {
         comprovarEmail();
     });
 
-    // $("#contrasenya").on("change", function() {
-    //     let password = $("#contrasenya").val();
+    $("#targetaSanitaria").on("change", function() {
+        comprovarTargetaSanitaria();
+    });
+}
 
-    //     if (password.length < 8) {
-    //         alert("La contrasenya ha de tenir 8 caracters com a mínim");
-    //     } else if (!isNaN(password) || /^[a-zA-Z]+$/.test(password)) {
-    //         alert("La contrasenya ha de contenir lletres, numeros i a poder ser caracters especials")
-    //     }
-    // });
+function comprovarTargetaSanitaria() {
+    let valor = $("#targetaSanitaria").val();
 
-    // $("#password-confirm").on("change", function() {
-    //     let password = $("#contrasenya").val();
-    //     let passwordConf = $("#password-confirm").val();
+    let json = JSON.stringify({ tipusDada: 'targetaSanitaria', valor: valor, '_token': $('input[name=_token]').val() });
 
-    //     if (password != passwordConf) {
-    //         alert("La contrasenya de confirmació no és la mateixa a la introduïda");
-    //     }
-    // });
+    $.ajax({
+        type: 'POST',
+        url: '/registrarse/comprovar',
+        data: json,
+        dataType: 'JSON',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'content-type': 'application/json'
+        },
+        success: function(res) {
+            if (res == 1) {
+                alert("Aquesta targeta sanitària ja está en ús");
+                targetaSanitariaValido = false;
+            } else {
+                targetaSanitariaValido = true;
+            }
+        }
+    })
+}
+
+function comprovarNif() {
+    let valor = $("#nif").val();
+
+    let json = JSON.stringify({ tipusDada: 'nif', valor: valor, dadaActual: nifActual, '_token': $('input[name=_token]').val() });
+
+    $.ajax({
+        type: 'POST',
+        url: '/registrarse/comprovar',
+        data: json,
+        dataType: 'JSON',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'content-type': 'application/json'
+        },
+        success: function(res) {
+            if (res == 1) {
+                alert("Aquest NIF ja está en ús");
+                nifValido = false;
+            } else {
+                nifValido = true;
+            }
+        }
+    })
 }
 
 function comprovarEmail() {
-    let tipusDada = $("#email").val();
+    let valor = $("#email").val();
 
-    let json = JSON.stringify({ valor: tipusDada, emailActual: emailActual, '_token': $('input[name=_token]').val() });
+    let json = JSON.stringify({ tipusDada: 'email', valor: valor, dadaActual: emailActual, '_token': $('input[name=_token]').val() });
 
     $.ajax({
         type: 'POST',
@@ -64,29 +104,16 @@ function comprovarEmail() {
 function comprovarFormulari() {
     let estat = true;
 
-    // if (isNaN($("#telefon").val())) {
-    //     alert("El numero de telefon ha de tenir només numeros");
-    //     estat = false;
-    // } else if ($("#telefon").val().length != 9) {
-    //     alert("El numero de telfon no té la quantitat de numeros adequada");
-    //     estat = false;
-    //} else 
     if (!emailValido) {
-        alert("Aquest email ja está en ús");
+        alert("Aquest email ja està en ús");
+        estat = false;
+    } else if (!nifValido) {
+        alert("Aquest NIF ja està en ús");
+        estat = false;
+    } else if (!targetaSanitariaValido) {
+        alert("Aquesta targeta sanitaria ja està en ús");
         estat = false;
     }
-    //else if ($("#contrasenya").val().length < 8) {
-    //     alert("La contrasenya ha de tenir 8 caracters com a mínim");
-    //     estat = false;
-    // } else if (!isNaN($("#contrasenya").val()) || /^[a-zA-Z]+$/.test($("#contrasenya").val())) {
-    //     alert("La contrasenya ha de contenir lletres, numeros i a poder ser caracters especials")
-    //     estat = false;
-    // } else if ($("#contrasenya").val() != $("#password-confirm").val()) {
-    //     alert("La contrasenya de confirmació no és la mateixa a la introduïda");
-    //     estat = false;
-    // }
-
-    // comprovarEmail();
 
     return estat;
 }

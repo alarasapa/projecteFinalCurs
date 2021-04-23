@@ -28,13 +28,11 @@
          */
         public $id;
 
-        //TODO RETOCAR FORMULARIOS Y DEMÁS PARA QUE ACEPTE EL NIF/DNI
         /**
          * @var String
          */
         public $nif;
-
-        //TODO RETOCAR FOMRULARIOS Y DEMÁS PARA QUE ACEPTE TARGETA SANITÁRIA
+        
         /**
          * @var String
          */

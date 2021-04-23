@@ -10,7 +10,9 @@
     <script src="{{ url('js/ClientJS/configuracio.js') }}"></script>
 @endpush
     <script>
+        var nifActual = "{{ Auth::user()->nif }}";
         var emailActual = "{{ Auth::user()->email }}";
+        var targetaSantaria = "{{ Auth::user()->targetaSanitaria }}";
     </script>
 
     <h1>BENVOLGUT A LA TEVA CONFIGURACIÓ: {{ Auth::user()->nom }}</h1>
@@ -19,6 +21,14 @@
 
         <input id="id" name="id" type="hidden" value="{{ Auth::user()->id }}">
         <input id="rol" name="rol" type="hidden" value="{{ Auth::user()->rol }}">
+
+        <div class="form-group row">
+            <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('DNI/NIF') }}</label>
+
+            <div class="col-md-6">
+                <input id="nif" type="text" class="form-control @error('name') is-invalid @enderror" name="nif" value="{{ Auth::user()->nif }}" pattern="[0-9]{8}[a-zA-Z]" required>
+            </div>
+        </div>
 
         <div class="form-group row">
             <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
@@ -73,6 +83,14 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="targetaSanitaria" class="col-md-4 col-form-label text-md-right">{{ __('Targeta sanitària') }}</label>
+
+            <div class="col-md-6">
+                <input id="targetaSanitaria" type="text" class="form-control @error('name') is-invalid @enderror" name="targetaSanitaria" value="{{ Auth::user()->targetaSanitaria }}" pattern="[a-zA-Z]{4}[0-9]{10}" required>
             </div>
         </div>
 

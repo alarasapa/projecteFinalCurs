@@ -109,9 +109,9 @@
 
                 <div class="card-body">
                     @if ($accio == 'nouUsuari')
-                        <form id="form" method="POST" action="/dashboard/gestio/usuaris/registrarse" onsubmit="return comprovarFormulariGeneral()">
+                        <form id="formRegistrar" method="POST" action="/dashboard/gestio/usuaris/registrarse" onsubmit="return comprovarFormulariGeneral()">
                     @elseif ($accio == 'editarUsuari')
-                        <form id="form" method="POST" action="/dashboard/gestio/usuaris/actualitzar" onsubmit="return comprovarFormulariGeneral()">
+                        <form id="formActualitzar" method="POST" action="/dashboard/gestio/usuaris/actualizar" onsubmit="return comprovarFormulariGeneral()">
                     @endif
 
                         @csrf
@@ -220,7 +220,7 @@
 
                 <div class="card">
                     <div class="card-header">Cambiar contrasenya</div>
-                    <form action="/dashboard/gestio/usuaris/actualizar" method="POST"  onsubmit="return comprovarContrasenya()">
+                    <form id="formContrasenya" method="POST" action="/dashboard/gestio/usuaris/actualizar" onsubmit="return comprovarContrasenya()">
                         @csrf
 
                         <div class="form-group row">

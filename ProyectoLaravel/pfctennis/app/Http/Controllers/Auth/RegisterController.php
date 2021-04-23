@@ -25,18 +25,18 @@ class RegisterController extends Controller
         //$this->middleware('guest');
     }
 
-    protected function validador(array $data)
-    {
-        return Validator::make($data, [
-            'nom'           => ['required', 'string', 'max:45'],
-            'cognoms'       => ['required', 'string', 'max:70'],
-            'contrasenya'   => ['required', 'string', 'min:8', 'confirmed'],
-            'nickname'      => ['required', 'string', 'max:45', 'unique:usuari'],
-            'email'         => ['required', 'string', 'email', 'max:45', 'unique:usuari'],
-            'telefon'       => ['required', 'string', 'max:12'],
-            'dataNaixement' => ['required', 'date']
-        ]->validate());
-    }
+    // protected function validador(array $data)
+    // {
+    //     return Validator::make($data, [
+    //         'nom'           => ['required', 'string', 'max:45'],
+    //         'cognoms'       => ['required', 'string', 'max:70'],
+    //         'contrasenya'   => ['required', 'string', 'min:8', 'confirmed'],
+    //         'nickname'      => ['required', 'string', 'max:45', 'unique:usuari'],
+    //         'email'         => ['required', 'string', 'email', 'max:45', 'unique:usuari'],
+    //         'telefon'       => ['required', 'string', 'max:12'],
+    //         'dataNaixement' => ['required', 'date']
+    //     ]->validate());
+    // }
 
     /**
      * Crear un usuari
@@ -46,6 +46,17 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {  
+        request()->validate([
+            'nom' => 'required',
+            'cognoms' => 'required',
+            'email' => 'required | email',
+            'telefon' => 'required',
+            'dataNaixement' => 'required',
+            'nif' => 'required | regex: /^[0-9]{8}[a-zA-Z]/',
+            'telefon' => 'required',
+            'contrasenya' => 'required | min:8'
+        ]);
+
         // Obtenim les dades
         $nom              = filter_var($request->nom, FILTER_SANITIZE_STRING);
         $cognoms          = filter_var($request->cognoms, FILTER_SANITIZE_STRING);
@@ -75,9 +86,22 @@ class RegisterController extends Controller
     }
 
     protected function comprovar(Request $request){
-        $email = $request->valor;
-
-        $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari WHERE email = ?', [$email]);
+        $tipusDada = $request->tipusDada;
+        $valor = $request->valor;
+        
+        switch ($tipusDada) {
+            case "email":
+                $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari WHERE email = ?', [$valor]);
+                break;
+            
+            case "nif":
+                $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari WHERE nif = ?', [$valor]);
+                break;
+                
+            case "targetaSanitaria":
+                $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari WHERE targetaSanitaria = ?', [$valor]);
+                break;
+        }
         
         echo $res[0]->resultat;
     }

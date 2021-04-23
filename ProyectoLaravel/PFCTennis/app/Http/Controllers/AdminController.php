@@ -52,5 +52,12 @@
 
             return redirect()->route('gestioUsuaris');
         }
+        
+
+        public function actualizar(Request $request){
+            AdminDAO::updateUsuari($request);
+
+            return redirect()->route('gestioUsuaris');
+        }
 
     }
