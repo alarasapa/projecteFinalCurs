@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Usuari;
+use App\Models\AuthDAO;
 
 class LoginController extends Controller
 {
@@ -50,16 +51,8 @@ class LoginController extends Controller
      * @param Request $request Informació del usuari que es vol logar
      */
     public function login(Request $request){
-        //Nom o correu del usuari
-        $email = $request->usuariEmail;
-        //La contrasenya enviada, encriptada amb MD5
-        $contrasenya = hash('md5', $request->password);
+        $res = AuthDAO::login($request);
 
-        //Senténcia SQL on es buscarà l'usuari
-        $res = DB::select('SELECT * FROM usuari  
-                    WHERE contrasenya = ? AND email = ?',
-                    [$contrasenya, $email]);
-                    
         //Si el resultat de la búsqueda retorna res -> redirigeix de nou al login
         if (!empty($res)) {
             //En cas contrari, crea un objecte Usuari...

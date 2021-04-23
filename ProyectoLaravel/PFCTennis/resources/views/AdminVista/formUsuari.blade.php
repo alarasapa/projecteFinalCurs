@@ -112,6 +112,7 @@
                         <form id="formRegistrar" method="POST" action="/dashboard/gestio/usuaris/registrarse" onsubmit="return comprovarFormulariGeneral()">
                     @elseif ($accio == 'editarUsuari')
                         <form id="formActualitzar" method="POST" action="/dashboard/gestio/usuaris/actualizar" onsubmit="return comprovarFormulariGeneral()">
+                            <input id="id" name="id" type="hidden" value="{{ $usuari->id }}">
                     @endif
 
                         @csrf
@@ -211,7 +212,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button id="submit" type="submit" class="btn btn-primary">
-                                    {{ __('Registrar') }}
+                                    {{ __('Actualitzar') }}
                                 </button>
                             </div>
                         </div>

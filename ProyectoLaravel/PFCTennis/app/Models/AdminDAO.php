@@ -3,6 +3,7 @@
 
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
+    use Illuminate\Support\Facades\Auth;
     use App\Models\Usuari;
     use App\Models\ObjecteVista;
     use App\Models\Log;
@@ -65,7 +66,24 @@
         }
 
         public static function updateUsuari(Request $request){
+            // Creem l'objecte de l'usuari
             $usuari = new Usuari([$request]);
-            //TODO FALTA TERMINAR EL UPDATE 
+
+            // Fem l'actualització del usuari
+            DB::update('UPDATE usuari 
+                SET nif = ?, nom = ?, cognoms = ?,
+                email = ?, targetaSanitaria = ?, telefon = ?, dataNaixement = ?, rol = ?
+                WHERE id = ?', 
+                [$usuari->nif, $usuari->nom, $usuari->cognoms, $usuari->email, $usuari->targetaSanitaria, $usuari->telefon, $usuari->dataNaixement, $usuari->rol, $usuari->id]);
+
+            // Afegim als logs que hem fet els canvis
+            $descripcio = "Ha cambiat les dades de " . $usuari->nom . " " . $usuari->cognoms;
+            $dataActualitzacio = date('Y-m-d H:i:s');
+
+            DB::insert('INSERT INTO log_admin(idAdmin, descripcio, data) VALUES(?, ?, ?)',
+                                        [Auth::user()->id, $descripcio, $dataActualitzacio]);
+
+            // Redireccionem a la taula d'usuaris
+            return redirect("gestioUsuaris");
         }
     }
