@@ -35,7 +35,7 @@
     </script>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="/index">RAQUETA</a>
+        <a class="navbar-brand" href="{{ route('index') }}">RAQUETA</a>
         
         <button class="btn d-lg-none btn-link btn-sm order-1 order-lg-0" data-toggle="collapse" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>            
 
@@ -45,7 +45,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> {{ Auth::user()->nom }}</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="/home">Configuracio</a>
+                    <a class="dropdown-item" href="{{ route('home') }}">Configuracio</a>
                     <a class="dropdown-item" href="#">Últimes accions</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -64,19 +64,20 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Altres</div>
-                        <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">
+                        <a class="nav-link {{ rutaActual('dashboard') }}" href="{{ route('dashboard') }}">
                             <div class="sb-nav-link-icon"><i class="fa fa-exclamation-circle"></i></div>
                             Peticions
                         </a>
                         <div class="sb-sidenav-menu-heading">Gestions</div>
-                        <a class="nav-link collapsed Request::is('dashboard/gestio/usuaris') ? 'active' : '' }}" href="#" data-toggle="collapse" data-target="#collapseUsuarios" >
+                        <a class="nav-link collapsed {{ rutaActual('gestioUsuaris') }}" href="#" data-toggle="collapse" data-target="#collapseUsuarios" >
                             <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
                             Usuaris
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapseUsuarios" aria-labelledby="headingOne">
+                        <div class="collapse" id="collapseUsuarios">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ Request::is('dashboard/gestio/usuaris') ? 'active' : '' }}" href="/dashboard/gestio/usuaris">Gestió General</a>
+                                <a class="nav-link {{ rutaActual('gestioUsuaris') }}" href="{{ route('gestioUsuaris') }}">Gestió General</a>
+                                <a class="nav-link {{ rutaActual('dashboard/gestio/usuaris/nouUsuari')}}" href="{{ route('formulariUsuari', ['accio' => 'nouUsuari']) }}">Crear Usuari</a>
                                 <!-- <a class="nav-link" href="#">Light Sidenav</a> -->
                             </nav>
                         </div>
@@ -85,8 +86,10 @@
                             Pàgines
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="collapsePaginas" aria-labelledby="headingTwo">
+                        <div class="collapse" id="collapsePaginas">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/slider') }}" href="{{ route('slider') }}" aria-expanded="false">Slider</a>
+
                                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                                     Authentication
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>

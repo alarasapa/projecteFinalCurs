@@ -4,7 +4,7 @@
 @section('content')
 
 @push('css')
-    <link rel="stylesheet" href="../../css/AdminEstils/index.css">
+    <link rel="stylesheet" href="{{ asset('css/AdminEstils/index.css') }}">
 @endpush
 
 <div class="container">

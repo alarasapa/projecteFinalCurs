@@ -3,6 +3,7 @@
     namespace App\Http\Controllers;
 
     use App\Models\AdminDAO;
+    use App\Models\HomeDAO;
     use Illuminate\Http\Request;
     use App\Models\Usuari;
 
@@ -63,6 +64,13 @@
             AdminDAO::eliminarUsuari($request->id);
 
             return redirect()->route('gestioUsuaris');
+        }
+
+        public function getSliders(){
+            $sliders = [];
+            $sliders = HomeDAO::getSliders();
+
+            return view('AdminVista.slider', compact('sliders'));
         }
 
     }

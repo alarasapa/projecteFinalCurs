@@ -22,22 +22,22 @@
         <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
             <ul class="navbar-nav nav-fill w-100">    
                 <li class="nav-item {{ Request::is('/') || Request::is('index') ? 'active' : '' }}">
-                    <a href="/index" class="nav-link">Inici</a>
+                    <a href="{{ route('index') }}" class="nav-link">Inici</a>
                 </li>
                 <li class="nav-item {{ Request::is('soci') ? 'active' : '' }}">
-                    <a href="/soci" class="nav-link">Soci</a>
+                    <a href="{{ route('soci') }}" class="nav-link">Soci</a>
                 </li>
                 <li class="nav-item {{ Request::is('reservar') ? 'active' : '' }}">
-                    <a href="/reservar" class="nav-link">Reservar</a>
+                    <a href="{{ route('reservar') }}" class="nav-link">Reservar</a>
                 </li>
                 <li class="nav-item {{ Request::is('escola') ? 'active' : '' }}">
-                    <a href="/escola" class="nav-link">Escola</a>
+                    <a href="{{ route('escola') }}" class="nav-link">Escola</a>
                 </li>
                 <li class="nav-item {{ Request::is('casal') ? 'active' : '' }}">
-                    <a href="/casal" class="nav-link">Casal</a>
+                    <a href="{{ route('casal') }}" class="nav-link">Casal</a>
                 </li>
                 <li class="nav-item {{ Request::is('contacte') ? 'active' : '' }}">
-                    <a href="/contacte" class="nav-link">Contacte</a>
+                    <a href="{{ route('contacte') }}" class="nav-link">Contacte</a>
                 </li>
                 <li class="nav-item">
                     @if (Auth::check())
@@ -52,12 +52,12 @@
                                 {{ __('Llistat matricules') }}
                             </a>    
                             @elseif (Auth::user()->rol == 'A')
-                            <a class="dropdown-item" href="{{ url('/dashboard') }}">
+                            <a class="dropdown-item" href="{{ route('dashboard') }}">
                                 {{ __('Administrar pàgina') }}
                             </a>    
                             @endif
                             <!-- Configuració del propi usuari -->
-                            <a class="dropdown-item" href="{{ url('/home') }}">
+                            <a class="dropdown-item" href="{{ route('home') }}">
                                 {{ __('Configuració') }}
                             </a>
 

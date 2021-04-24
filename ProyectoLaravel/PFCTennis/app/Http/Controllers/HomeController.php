@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Usuari;
 use App\Models\Log;
+use App\Models\HomeDAO;
 
 class HomeController extends Controller
 {
@@ -25,21 +26,11 @@ class HomeController extends Controller
     {
         // Recuperem els sliders de la BBDD
         $sliders = [];
-        $res = DB::select('SELECT * FROM inici_vista');
-        
-        foreach ($res as $slider){
-            $obj = new ObjecteVista($slider);
-            $sliders[] = $obj;
-        }
+        $sliders = HomeDAO::getSliders();
 
         // Recuperem les cartes de la BBDD
         $cartes = [];
-        $res = DB::select('SELECT * FROM cartes_inici_vista');
-        
-        foreach ($res as $carta){
-            $obj = new ObjecteVista($carta);
-            $cartes[] = $obj;
-        }
+        $cartes = HomeDAO::getCartes();
 
         return view('index', compact('sliders', 'cartes'));
     }

@@ -24,9 +24,11 @@ Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
 
 // RUTAS PARA ADMINISTRADOR
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard/gestio/slider', [AdminController::class, 'getSliders'])->name('slider');
+
+// GESTIÓ USUARIS
 Route::get('/dashboard/gestio/usuaris', [AdminController::class, 'gestioUsuaris'])->name('gestioUsuaris');
 Route::get('/dashboard/gestio/usuaris/{accio}/{id?}', [AdminController::class, 'formulariUsuari'])->name('formulariUsuari');
-
 Route::post('/dashboard/gestio/usuaris/registrarse', [AdminController::class, 'registrar'])->name('registrarAdmin');
 Route::post('/dashboard/gestio/usuaris/actualizar', [AdminController::class, 'actualizar'])->name('actualitzarUsuari');
 Route::post('/dashboard/gestio/usuaris/eliminarUsuari/{id}', [AdminController::class, 'eliminar'])->name('eliminarUsuari');
