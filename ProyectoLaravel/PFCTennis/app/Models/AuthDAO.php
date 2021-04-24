@@ -43,39 +43,37 @@
             request()->validate([
                 'nom' => 'required',
                 'cognoms' => 'required',
-                'email' => 'required | email',
-                'telefon' => 'required',
+                'nif' => 'required | unique:usuari',
                 'dataNaixement' => 'required',
-                'nif' => 'required | regex: /^[0-9]{8}[a-zA-Z]/',
+                'email' => 'required | email | unique:usuari',
+                'targetaSanitaria' =>'required | unique:usuari',
                 'telefon' => 'required',
                 'contrasenya' => 'required | min:8'
             ]);
     
-            // Obtenim les dades
-            $nom              = filter_var($request->nom, FILTER_SANITIZE_STRING);
-            $cognoms          = filter_var($request->cognoms, FILTER_SANITIZE_STRING);
-            $email            = $request->email;
-            $nif              = filter_var($request->nif, FILTER_SANITIZE_STRING);
-            $targetaSanitaria = filter_var($request->targetaSanitaria, FILTER_SANITIZE_STRING);
+            // Creem un objecte usuari
+            $usuari = new Usuari([$request]);
+
+            // Fem la encriptació de la contrasenya
             $contrasenya      = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
             $contrasenya      = hash('md5', $contrasenya);
-            $rol              = $request->rol;
-            $telefon          = $request->telefon;
-            $dataNaixement    = $request->dataNaixement;
-            $dataCreacio      = date('Y-m-d H:i:s');
+            // Y la emmagetzem en l'objecte
+            $usuari->setContrasenya($contrasenya);
     
             //Insertem l'usuari
-            DB::insert('INSERT INTO usuari (nif, nom, cognoms, email, targetaSanitaria, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [$nif, $nom, $cognoms, $email, $targetaSanitaria, $contrasenya, $rol, $telefon, $dataNaixement, $dataCreacio]);
-            
+            DB::insert('INSERT INTO usuari (nom, cognoms, nif, targetaSanitaria, email, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+                [$usuari->nom, $usuari->cognoms, $usuari->nif, $usuari->targetaSanitaria, $usuari->email, $usuari->contrasenya, 
+                $usuari->rol, $usuari->telefon, $usuari->dataNaixement, $usuari->dataCreacio]);
+
             // Agafem el identificador
-            $res = DB::select("SELECT id FROM usuari WHERE nif = ?", [$nif]);
+            $res = DB::select("SELECT id FROM usuari WHERE nif = ?", [$usuari->nif]);
 
-            // Agafem y igualem al identificador
-            $request->id = $res[0]->id;
+            // Agafem y setejem el identificador
+            $usuari->setId($res[0]->id);
 
-            // Creem l'objecte usuari
-            return new Usuari([$request]);
+            // Retornem l'objecte usuari
+            return $usuari;
         } 
 
         /**
@@ -106,9 +104,4 @@
             return $res[0]->resultat;
         }
 
-        // public static function obtenirId($nif){
-        //     $res = DB::select("SELECT id FROM usuari WHERE nif = ?", [$nif]);
-        
-        //     return $res[0]->id;
-        // }
     }

@@ -26,17 +26,23 @@
             <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('DNI/NIF') }}</label>
 
             <div class="col-md-6">
-                <input id="nif" type="text" class="form-control @error('name') is-invalid @enderror" name="nif" value="{{ Auth::user()->nif }}" pattern="[0-9]{8}[a-zA-Z]" required>
+                <input id="nif" type="text" class="form-control @error('nif') is-invalid @enderror" name="nif" value="{{ Auth::user()->nif }}" pattern="[0-9]{8}[a-zA-Z]" required>
             </div>
+
+            @error('nif')
+                <span class="text-danger" style="position: relative; left: 250px">
+                    <smmall><strong>{{ $message }}</strong></small>
+                </span>
+            @enderror
         </div>
 
         <div class="form-group row">
             <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
 
             <div class="col-md-6">
-                <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ Auth::user()->nom }}" pattern="[a-zA-Z\s]+" required autocomplete="nom" autofocus>
+                <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ Auth::user()->nom }}" pattern="[a-zA-Z\s]+" required autocomplete="nom" autofocus>
 
-                @error('name')
+                @error('nom')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -48,9 +54,9 @@
             <label for="cognoms" class="col-md-4 col-form-label text-md-right">{{ __('Cognoms') }}</label>
 
             <div class="col-md-6">
-                <input id="cognoms" type="text" class="form-control @error('name') is-invalid @enderror" name="cognoms" value="{{ Auth::user()->cognoms }}" pattern="[a-zA-Z\s]+" required>
+                <input id="cognoms" type="text" class="form-control @error('cognoms') is-invalid @enderror" name="cognoms" value="{{ Auth::user()->cognoms }}" pattern="[a-zA-Z\s]+" required>
 
-                @error('name')
+                @error('cognoms')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -62,9 +68,9 @@
             <label for="dataNaixement" class="col-md-4 col-form-label text-md-right">{{ __('Data Naixement') }}</label>
 
             <div class="col-md-6">
-                <input id="dataNaixement" type="date" class="form-control @error('name') is-invalid @enderror" name="dataNaixement" value="{{ Auth::user()->dataNaixement }}">
+                <input id="dataNaixement" type="date" class="form-control @error('dataNaixement') is-invalid @enderror" name="dataNaixement" value="{{ Auth::user()->dataNaixement }}" required>
 
-                @error('name')
+                @error('dataNaixement')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -90,17 +96,23 @@
             <label for="targetaSanitaria" class="col-md-4 col-form-label text-md-right">{{ __('Targeta sanitària') }}</label>
 
             <div class="col-md-6">
-                <input id="targetaSanitaria" type="text" class="form-control @error('name') is-invalid @enderror" name="targetaSanitaria" value="{{ Auth::user()->targetaSanitaria }}" pattern="[a-zA-Z]{4}[0-9]{10}" required>
+                <input id="targetaSanitaria" type="text" class="form-control @error('targetaSanitaria') is-invalid @enderror" name="targetaSanitaria" value="{{ Auth::user()->targetaSanitaria }}" pattern="[a-zA-Z]{4}[0-9]{10}" required>
             </div>
+
+            @error('targetaSanitaria')
+                <span class="text-danger" style="position: relative; left: 250px">
+                    <smmall><strong>{{ $message }}</strong></small>
+                </span>
+            @enderror
         </div>
 
         <div class="form-group row">
             <label for="telefon" class="col-md-4 col-form-label text-md-right">{{ __('Telefon') }}</label>
 
             <div class="col-md-6">
-                <input id="telefon" type="text" class="form-control @error('name') is-invalid @enderror" name="telefon" pattern="[0-9]{9}" value="{{ Auth::user()->telefon }}" required>
+                <input id="telefon" type="text" class="form-control @error('telefon') is-invalid @enderror" name="telefon" pattern="[0-9]{9}" value="{{ Auth::user()->telefon }}" required>
 
-                @error('name')
+                @error('telefon')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

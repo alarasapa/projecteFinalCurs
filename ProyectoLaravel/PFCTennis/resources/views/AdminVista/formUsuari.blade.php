@@ -173,7 +173,7 @@
                             <label for="dataNaixement" class="col-md-4 col-form-label text-md-right">{{ __('Data Naixement') }}</label>
 
                             <div class="col-md-6">
-                                <input id="dataNaixement" type="date" class="form-control @error('dataNaixement') is-invalid @enderror" name="dataNaixement" value="{{ $usuari->dataNaixement }}" require>
+                                <input id="dataNaixement" type="date" class="form-control @error('dataNaixement') is-invalid @enderror" name="dataNaixement" value="{{ $usuari->dataNaixement }}" required>
 
                                 @error('dataNaixement')
                                     <span class="invalid-feedback" role="alert">

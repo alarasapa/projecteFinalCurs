@@ -85,7 +85,7 @@
                                 <label for="dataNaixement" class="col-md-4 col-form-label text-md-right">{{ __('Data Naixement') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="dataNaixement" type="date" class="form-control @error('dataNaixement') is-invalid @enderror" name="dataNaixement" value="{{ old('dataNaixement') }}">
+                                    <input id="dataNaixement" type="date" class="form-control @error('dataNaixement') is-invalid @enderror" name="dataNaixement" value="{{ old('dataNaixement') }}" required>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">

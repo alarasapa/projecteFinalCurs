@@ -14,6 +14,16 @@
          * Funció per a cambiar les dades d'un usuari
          */
         public static function cambiarDades(Request $request){
+            request()->validate([
+                'nom' => 'required',
+                'cognoms' => 'required',
+                'nif' => 'required | unique:usuari,nif,'.Auth::user()->id,
+                'dataNaixement' => 'required',
+                'email' => 'required | email | unique:usuari,email,'.Auth::user()->id,
+                'targetaSanitaria' =>'required | unique:usuari,targetaSanitaria,'.Auth::user()->id,
+                'telefon' => 'required',
+            ]);
+
             // Creem l'objecte de l'usuari
             $usuari = new Usuari([$request]);
         
@@ -36,6 +46,10 @@
          * Funció per a cambiar la contrasenya del usuari
          */
         public static function cambiarPassword(Request $request){
+            request()->validate([
+                'contrasenya' => 'required | min:8'
+            ]);
+
             $id = $request->id;
             $contrasenya = $request->contrasenya;
             $contrasenya = filter_var($contrasenya, FILTER_SANITIZE_STRING);

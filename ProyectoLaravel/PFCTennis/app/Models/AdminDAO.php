@@ -60,26 +60,40 @@
                 'contrasenya' => 'required | min:8'
             ]);
                 
-            // Obtenim les dades
-            $nom              = filter_var($request->nom, FILTER_SANITIZE_STRING);
-            $cognoms          = filter_var($request->cognoms, FILTER_SANITIZE_STRING);
-            $nif              = filter_var($request->nif, FILTER_SANITIZE_STRING);
-            $targetaSanitaria = filter_var($request->targetaSanitaria, FILTER_SANITIZE_STRING);
-            $email            = $request->email;
+            // Creem un objecte usuari
+            $usuari = new Usuari([$request]);
+
+            // Fem la encriptació de la contrasenya
             $contrasenya      = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
             $contrasenya      = hash('md5', $contrasenya);
-            $rol              = $request->rol;
-            $telefon          = $request->telefon;
-            $dataNaixement    = $request->dataNaixement;
-            $dataCreacio      = date('Y-m-d H:i:s');
+            // Y la emmagetzem en l'objecte
+            $usuari->setContrasenya($contrasenya);
 
             //Insertem l'usuari
             DB::insert('INSERT INTO usuari (nom, cognoms, nif, targetaSanitaria, email, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-            [$nom, $cognoms, $nif, $targetaSanitaria, $email, $contrasenya, $rol, $telefon, $dataNaixement, $dataCreacio]);
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+                [$usuari->nom, $usuari->cognoms, $usuari->nif, $usuari->targetaSanitaria, $usuari->email, $usuari->contrasenya, 
+                $usuari->rol, $usuari->telefon, $usuari->dataNaixement, $usuari->dataCreacio]);
+        
+             // Afegim als logs que hem fet els canvis
+             $descripcio = "Ha afegit l'usuari: " . $usuari->nom . " " . $usuari->cognoms;
+             $dataActualitzacio = date('Y-m-d H:i:s');
+ 
+             DB::insert('INSERT INTO log_admin(idAdmin, descripcio, data) VALUES(?, ?, ?)',
+                [Auth::user()->id, $descripcio, $dataActualitzacio]); 
         }
 
         public static function updateUsuari(Request $request){
+            request()->validate([
+                'nom' => 'required',
+                'cognoms' => 'required',
+                'nif' => 'required | unique:usuari,nif,' . $request->id,
+                'dataNaixement' => 'required',
+                'email' => 'required | email | unique:usuari,email,' . $request->id,
+                'targetaSanitaria' =>'required | unique:usuari,targetaSanitaria,' . $request->id,
+                'telefon' => 'required',
+            ]);
+
             // Creem l'objecte de l'usuari
             $usuari = new Usuari([$request]);
 
