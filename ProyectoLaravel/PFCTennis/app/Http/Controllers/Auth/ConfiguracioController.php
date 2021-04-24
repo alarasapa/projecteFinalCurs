@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\ConfiguracioDAO;
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Usuari;
 
@@ -37,8 +33,12 @@ class ConfiguracioController extends Controller {
         // Cridem la funció per a cambiar la contrasenya
         ConfiguracioDAO::cambiarPassword($request);
         
-        // Redireccionem a la configuració
-        return redirect('home');
+        // Redireccionem 
+        if (Auth::user()->rol == 'A'){
+            return redirect('dashboard');
+        } else {
+            return redirect('home');
+        }
 
     }
 }

@@ -43,7 +43,7 @@
                                 <label for="nom" class="col-md-4 col-form-label text-md-right">{{ __('Nom') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="nom" type="text" class="form-control @error('name') is-invalid @enderror" name="nom" value="{{ old('nom') }}" pattern="[a-zA-Z]+" required autocomplete="nom" autofocus>
+                                    <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom') }}" pattern="[a-zA-Z]+" required autocomplete="nom" autofocus>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -57,7 +57,7 @@
                                 <label for="cognoms" class="col-md-4 col-form-label text-md-right">{{ __('Cognoms') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="cognoms" type="text" class="form-control @error('name') is-invalid @enderror" name="cognoms" value="{{ old('cognoms') }}" pattern="[a-zA-Z\s]+" required>
+                                    <input id="cognoms" type="text" class="form-control @error('cognoms') is-invalid @enderror" name="cognoms" value="{{ old('cognoms') }}" pattern="[a-zA-Z\s]+" required>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -71,12 +71,12 @@
                                 <label for="nif" class="col-md-4 col-form-label text-md-right">{{ __('DNI/NIF') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="nif" type="text" class="form-control @error('name') is-invalid @enderror" name="nif" value="{{ old('nif') }}" >
+                                    <input id="nif" type="text" class="form-control @error('nif') is-invalid @enderror" name="nif" value="{{ old('nif') }}" >
                                 </div>
 
                                 @error('nif')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="text-danger" style="position: relative; left: 250px">
+                                        <smmall><strong>{{ $message }}</strong></small>
                                     </span>
                                 @enderror
                             </div>
@@ -85,7 +85,7 @@
                                 <label for="dataNaixement" class="col-md-4 col-form-label text-md-right">{{ __('Data Naixement') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="dataNaixement" type="date" class="form-control @error('name') is-invalid @enderror" name="dataNaixement" value="{{ old('dataNaixement') }}">
+                                    <input id="dataNaixement" type="date" class="form-control @error('dataNaixement') is-invalid @enderror" name="dataNaixement" value="{{ old('dataNaixement') }}">
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -113,12 +113,12 @@
                                 <label for="targetaSanitaria" class="col-md-4 col-form-label text-md-right">{{ __('Targeta sanitària') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="targetaSanitaria" type="text" class="form-control @error('name') is-invalid @enderror" name="targetaSanitaria" value="{{ old('targetaSanitaria') }}" pattern="[a-zA-Z]{4}[0-9]{10}" required>
+                                    <input id="targetaSanitaria" type="text" class="form-control @error('targetaSanitaria') is-invalid @enderror" name="targetaSanitaria" value="{{ old('targetaSanitaria') }}" pattern="[a-zA-Z]{4}[0-9]{10}" required>
                                 </div>
 
                                 @error('targetaSanitaria')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                    <span class="text-danger" style="position: relative; left: 250px">
+                                        <smmall><strong>{{ $message }}</strong></small>
                                     </span>
                                 @enderror
                             </div>
@@ -127,7 +127,7 @@
                                 <label for="telefon" class="col-md-4 col-form-label text-md-right">{{ __('Telefon') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="telefon" type="text" class="form-control @error('name') is-invalid @enderror" name="telefon" value="{{ old('telefon') }}" pattern="[0-9]{9}" required>
+                                    <input id="telefon" type="text" class="form-control @error('telefon') is-invalid @enderror" name="telefon" value="{{ old('telefon') }}" pattern="[0-9]{9}" required>
 
                                     @error('name')
                                         <span class="invalid-feedback" role="alert">
@@ -141,7 +141,7 @@
                                 <label for="contrasenya" class="col-md-4 col-form-label text-md-right">{{ __('Contrasenya') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="contrasenya" type="password" class="form-control @error('password') is-invalid @enderror" name="contrasenya" required autocomplete="new-password">
+                                    <input id="contrasenya" type="password" class="form-control @error('contrasenya') is-invalid @enderror" name="contrasenya" required autocomplete="new-password">
 
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">

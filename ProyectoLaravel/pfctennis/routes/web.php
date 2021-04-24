@@ -19,7 +19,7 @@ Route::get('/contacte', [HomeController::class, 'contacte'])->name('contacte');
 
 // RUTAS (AUTH) REDIRECCIONAMIENTO
 Route::get('/login', [HomeController::class, 'login'])->name('login');
-Route::get('/registrarse', [HomeController::class, 'registrarse'])->name('registrarse');
+Route::get('/registrarse', [HomeController::class, 'registrarse'])->name('registrarUsuari');
 Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
 
 // RUTAS PARA ADMINISTRADOR
@@ -27,8 +27,9 @@ Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard
 Route::get('/dashboard/gestio/usuaris', [AdminController::class, 'gestioUsuaris'])->name('gestioUsuaris');
 Route::get('/dashboard/gestio/usuaris/{accio}/{id?}', [AdminController::class, 'formulariUsuari'])->name('formulariUsuari');
 
-Route::post('/dashboard/gestio/usuaris/registrarse', [AdminController::class, 'registrar'])->name('registrar');
-Route::post('/dashboard/gestio/usuaris/actualizar', [AdminController::class, 'actualizar'])->name('actualizar');
+Route::post('/dashboard/gestio/usuaris/registrarse', [AdminController::class, 'registrar'])->name('registrarAdmin');
+Route::post('/dashboard/gestio/usuaris/actualizar', [AdminController::class, 'actualizar'])->name('actualitzarUsuari');
+Route::post('/dashboard/gestio/usuaris/eliminarUsuari/{id}', [AdminController::class, 'eliminar'])->name('eliminarUsuari');
 
 // RUTAS PARA EL REGISTRO USUARIO
 Route::post('/registrarse', [RegisterController::class, 'create'])->name('create');

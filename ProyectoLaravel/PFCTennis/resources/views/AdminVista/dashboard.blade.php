@@ -11,7 +11,7 @@
     <!-- AQUÍ VAN LAS PETICIONES DE LOS USUARIOS -->
 
     <div class="table-responsive">
-        <h2 style="font-family: 'Nunito', sans-serif;">Accions dels usuaris</h2>
+        <h2 style="font-family: 'Nunito', sans-serif;">Accions dels administradors</h2>
         <table style="text-align: center;" class="table table-sm table-bordered table-dark">
             <thead>
                 <tr>

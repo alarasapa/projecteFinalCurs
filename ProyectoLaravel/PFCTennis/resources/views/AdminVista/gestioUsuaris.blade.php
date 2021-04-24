@@ -11,7 +11,7 @@
     <div class="table-responsive">
         <h2 style="font-family: 'Nunito', sans-serif;">Llistat d'usuaris</h2>
         
-        <a type="button" href="/dashboard/gestio/usuaris/nouUsuari">CREAR USUARI</a>
+        <a type="button" href="{{ route('formulariUsuari', ['accio' => 'nouUsuari']) }}">CREAR USUARI</a>
         <table style="text-align: center;" class="table table-sm table-bordered table-dark">
             <thead>
                 <tr>
@@ -40,9 +40,18 @@
                             @endif
 
                         <td>{{ $usuari->dataCreacio }}</td>
+                        <!-- TODO PONER PÁGINAS ESTÁTICAS PARA PRESENTARLO -->
+                        <!-- TODO HACER EL DASHBOARD MAS ANGOSTO -->
+                        <!-- TODO GESTIONAR SLIDER, ESO SIGNIFICA PONER SECCION EN DASHBOARD -->
                         <td>
-                            <a href="/dashboard/gestio/usuaris/editarUsuari/{{ $usuari->id }}">Editar</a>
-                            <a href="/dashboard/gestio/usuaris/eliminarUsuari/{{ $usuari->id }}">Eliminar</a>
+                            <a href="{{ route('formulariUsuari', ['accio' => 'editarUsuari', 'id' => $usuari->id]) }}">
+                                <button><i class="fas fa-edit"></i></button>
+                            </a>
+                            
+                            <form id="eliminar-{{ $usuari->id }}" action="{{ route('eliminarUsuari', ['id' => $usuari->id]) }}" method="POST">
+                                @csrf
+                                <button type="submit" href="{{ route('eliminarUsuari', ['id' => $usuari->id]) }}" onclick="return confirm('Estàs segur que vols eliminar aquest usuari?')"><i class="far fa-trash-alt"></i></button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

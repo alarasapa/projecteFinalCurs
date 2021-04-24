@@ -38,7 +38,7 @@
             Auth::login($usuari);
             
             // Redireccionem al index
-            return redirect("/index");        
+            return redirect("index");        
         }
 
         protected function comprovar(Request $request){

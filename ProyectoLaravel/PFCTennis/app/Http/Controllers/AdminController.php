@@ -42,7 +42,7 @@
                     return view('AdminVista.formUsuari', ['accio' => $accio, 'id' => $id, 'usuari' => $usuari]);
                 
                 default:
-                    return redirect('dashboard');
+                    return redirect('gestioUsuaris');
             }
 
         }
@@ -52,10 +52,15 @@
 
             return redirect()->route('gestioUsuaris');
         }
-        
 
         public function actualizar(Request $request){
             AdminDAO::updateUsuari($request);
+
+            return redirect()->route('gestioUsuaris');
+        }
+
+        public function eliminar(Request $request){
+            AdminDAO::eliminarUsuari($request->id);
 
             return redirect()->route('gestioUsuaris');
         }

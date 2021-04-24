@@ -44,10 +44,10 @@
             DB::update('UPDATE usuari SET contrasenya = ?
                         WHERE id = ?', [$contrasenya, $id]);
 
-            $descripcio = "Ha cambiat la seva contrasenya";
-            $dataActualitzacio = date('Y-m-d H:i:s');
-            DB::insert('INSERT INTO log_usuari(idUsuari, descripcio, data) VALUES(?, ?, ?)',
-                    [$id, $descripcio, $dataActualitzacio]);
+            // $descripcio = "Ha cambiat la seva contrasenya";
+            // $dataActualitzacio = date('Y-m-d H:i:s');
+            // DB::insert('INSERT INTO log_usuari(idUsuari, descripcio, data) VALUES(?, ?, ?)',
+            //         [$id, $descripcio, $dataActualitzacio]);
         }
 
         /**

@@ -11,18 +11,18 @@
     class AdminDAO {
 
         public static function getLogsUsuari(){
-            $logsUsuaris = [];
+            $logsAdmins = [];
 
             $res = DB::select('SELECT lg.id, lg.descripcio, lg.data, u.id, u.nif, u.nom, u.cognoms, u.contrasenya, u.rol, u.email, u.targetaSanitaria, u.telefon, u.dataNaixement, u.dataCreacio 
-                FROM log_usuari lg INNER JOIN usuari u ON lg.idUsuari = u.id ORDER BY lg.data');
+                FROM log_admin lg INNER JOIN usuari u ON lg.idAdmin = u.id ORDER BY lg.data');
     
             foreach ($res as $log){
                 $usuariObj = new Usuari(array($log));
                 $logObj = new Log($log, $usuariObj);
-                $logsUsuaris[] = $logObj;
+                $logsAdmins[] = $logObj;
             }
 
-            return $logsUsuaris;
+            return $logsAdmins;
         }
 
         public static function getUsuaris(){
@@ -49,20 +49,34 @@
         }
 
         public static function insertarUsuari(Request $request){
+            request()->validate([
+                'nom' => 'required',
+                'cognoms' => 'required',
+                'nif' => 'required | unique:usuari',
+                'dataNaixement' => 'required',
+                'email' => 'required | email | unique:usuari',
+                'targetaSanitaria' =>'required | unique:usuari',
+                'telefon' => 'required',
+                'contrasenya' => 'required | min:8'
+            ]);
+                
             // Obtenim les dades
-            $nom           = filter_var($request->nom, FILTER_SANITIZE_STRING);
-            $cognoms       = filter_var($request->cognoms, FILTER_SANITIZE_STRING);
-            $email         = $request->email;
-            $contrasenya   = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
-            $contrasenya   = hash('md5', $contrasenya);
-            $rol           = $request->rol;
-            $telefon       = $request->telefon;
-            $dataNaixement = $request->dataNaixement;
-            $dataCreacio   = date('Y-m-d H:i:s');
+            $nom              = filter_var($request->nom, FILTER_SANITIZE_STRING);
+            $cognoms          = filter_var($request->cognoms, FILTER_SANITIZE_STRING);
+            $nif              = filter_var($request->nif, FILTER_SANITIZE_STRING);
+            $targetaSanitaria = filter_var($request->targetaSanitaria, FILTER_SANITIZE_STRING);
+            $email            = $request->email;
+            $contrasenya      = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
+            $contrasenya      = hash('md5', $contrasenya);
+            $rol              = $request->rol;
+            $telefon          = $request->telefon;
+            $dataNaixement    = $request->dataNaixement;
+            $dataCreacio      = date('Y-m-d H:i:s');
 
             //Insertem l'usuari
-            DB::insert('INSERT INTO usuari (nom, cognoms, email, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?)', [$nom, $cognoms, $email, $contrasenya, $rol, $telefon, $dataNaixement, $dataCreacio]);
+            DB::insert('INSERT INTO usuari (nom, cognoms, nif, targetaSanitaria, email, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+            [$nom, $cognoms, $nif, $targetaSanitaria, $email, $contrasenya, $rol, $telefon, $dataNaixement, $dataCreacio]);
         }
 
         public static function updateUsuari(Request $request){
@@ -85,5 +99,18 @@
 
             // Redireccionem a la taula d'usuaris
             return redirect("gestioUsuaris");
+        }
+
+        public static function eliminarUsuari($id){
+            DB::delete('DELETE FROM usuari WHERE id = ?', [$id]);
+
+            // Afegim als logs que hem fet els canvis
+            // $descripcio = "Ha eliminat un usuari";
+            // $dataActualitzacio = date('Y-m-d H:i:s');
+
+            // DB::insert('INSERT INTO log_admin(idAdmin, descripcio, data) VALUES(?, ?, ?)',
+            //                             [Auth::user()->id, $descripcio, $dataActualitzacio]);
+
+
         }
     }
