@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="{{ asset('css/AdminEstils/formVista.css') }}">
     <script src="{{ asset('js/AdminJS/formVista.js') }}"></script>
 @endpush
-    <!-- TODO CREAR RUTAS PARA DIRIGIR AL FORMULARIO Y CONTROLAR QUE SE MANDE EL TIPO DE OBJETO AL FORMULARIO -->
-    <!-- TODO SEGUIR CAMBIANDO LOS SQL POR LOS ::TABLE, AL MENOS LOS SELECTS AGUS... -->
 
 <div class="container">
     <div class="row justify-content-center">
@@ -27,11 +25,16 @@
                         
                         @csrf
                         
+                        <div class="img-actual">
+                            <h3>Imatge actual</h3>
+                            <img width="400" src="{{ asset('imatges/'. $tipus .'/' . $vista->imatge) }}">
+                        </div>
+
                         <div class="file-upload">
                             <button class="file-upload-btn" onclick="$('.file-upload-input').trigger('click')" type="button">Afegir Imatge</button>
 
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                                <input class="file-upload-input" name="imatge" type='file' onchange="readURL(this);" accept="image/*" />
                                 <div class="drag-text">
                                 <h3>Arrosega o selecciona'n una imatge</h3>
                                 </div>
@@ -56,10 +59,10 @@
                         </div>
                         
                         <div class="form-group row">
-                            <label for="descripcio" class="col-md-4 col-form-label text-md-right">{{ __('Descripcio') }}</label>
+                            <label for="descripcio" class="col-md-4 col-form-label text-md-right">{{ __('Descripció') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="descripcio" type="text" class="form-control @error('descripcio') is-invalid @enderror" name="nom" value="{{ $vista->descripcio }}" pattern="[a-zA-Z\s]+" required></textarea>
+                                <textarea id="descripcio" rows="5" style="width: 450px;" class="form-control @error('descripcio') is-invalid @enderror" name="nom" pattern="[a-zA-Z\s]+"  required>{{ $vista->descripcio }}</textarea>
 
                                 @error('descripcio')
                                     <span class="invalid-feedback" role="alert">

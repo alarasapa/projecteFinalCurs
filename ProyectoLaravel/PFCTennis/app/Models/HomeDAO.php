@@ -45,6 +45,13 @@
          * @return ObjecteVista Objecte retornat de la base de dades
          */
         public static function getObjecteVista($taula, $id){
+            // Consultem la base de dades, passant per paràmetre l'dentificador
+            $res = DB::table($taula)
+                        ->where('id', $id)
+                        ->first();
 
+
+            // Creem l'objecte i el retornem
+            return new ObjecteVista($res);
         }
     }

@@ -59,9 +59,6 @@
                     $usuari = AdminDAO::getUsuari($id);
                     // I retornem la vista
                     return view('AdminVista.formUsuari', ['accio' => $accio, 'id' => $id, 'usuari' => $usuari]);
-                
-                default:
-                    return redirect('gestioUsuaris');
             }
 
         }
@@ -69,14 +66,21 @@
         /**
          * Funció per redireccionar al formulari de vistes
          * 
-         * @param String $tipus Tipus de formulari
+         * @param String $accio Tipus de formulari
+         * @param String $tipus Tipus d'objecte
          * @param Integer $id Identificador del objecte
          */
-        public function formulariVista($tipus, $id = null){
+        public function formulariVista($accio, $tipus, $id = null){
 
-            
+            switch ($accio){
+                case "nouVista":
+                    return view('AdminVista.formVista', ['accio' => 'nouVista', 'tipus' => $tipus, 'vista' => new ObjecteVista()]);
+                    
+                case "editarVista":
+                    $objecte = AdminDAO::getObjecteVista($tipus, $id);
+                    return view('AdminVista.formVista', ['accio' => 'editarVista', 'tipus' => $tipus, 'vista' => $objecte]);
+            }
 
-            return view('AdminVista.formVista', ['accio' => 'nouVista', 'tipus' => $tipus, 'vista' => new ObjecteVista()]);
         }
 
         /**

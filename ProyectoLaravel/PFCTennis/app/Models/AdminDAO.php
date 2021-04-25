@@ -4,6 +4,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
+    use App\Models\HomeDAO;
     use App\Models\Usuari;
     use App\Models\ObjecteVista;
     use App\Models\Log;
@@ -175,5 +176,16 @@
                                         [Auth::user()->id, $descripcio, $dataActualitzacio]);
 
 
+        }
+
+        public static function getObjecteVista($accio, $id){
+            
+            switch ($accio){
+                case "slider":
+                    return HomeDAO::getObjecteVista('inici_vista', $id);
+                
+                case "cartes":
+                    return HomeDAO::getObjecteVista('cartes_inici_vista', $id);
+            }
         }
     }

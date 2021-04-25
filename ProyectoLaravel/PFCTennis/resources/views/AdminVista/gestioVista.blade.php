@@ -11,7 +11,7 @@
     <div class="table-responsive">
         <h2 style="font-family: 'Nunito', sans-serif;">Llistat {{ $tipus }}</h2>
         
-        <a type="button" href="{{ route('formulariVista', ['tipus' => $tipus]) }}">Afegir {{ $tipus }}</a>
+        <a type="button" href="{{ route('formulariVista', ['accio' => 'nouVista','tipus' => $tipus]) }}">Afegir {{ $tipus }}</a>
         <table style="text-align: center;" class="table table-sm table-bordered table-dark">
             <thead>
                 <tr>
@@ -28,7 +28,7 @@
                         <td>{{ $elem->titol }}</td>
                         <td>{{ $elem->descripcio }}</td>
                         <td>
-                            <a href="#">
+                            <a href="{{ route('formulariVista', ['accio' => 'editarVista', 'tipus' => $tipus, 'id' => $elem->id]) }}">
                                 <button><i class="fas fa-edit"></i></button>
                             </a>
                             

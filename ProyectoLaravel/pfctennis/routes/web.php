@@ -29,7 +29,7 @@ Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard
 Route::get('/dashboard/gestio/slider', [AdminController::class, 'getSliders'])->name('slider');
 Route::get('/dashboard/gestio/carta', [AdminController::class, 'getCartes'])->name('carta');
 
-Route::get('/dashboard/gestio/form/{tipus}/{id?}', [AdminController::class, 'formulariVista'])->name('formulariVista');
+Route::get('/dashboard/gestio/form/{accio}/{tipus}/{id?}', [AdminController::class, 'formulariVista'])->name('formulariVista');
 
 // GESTIÓ USUARIS
 Route::get('/dashboard/gestio/usuaris', [AdminController::class, 'gestioUsuaris'])->name('gestioUsuaris');
