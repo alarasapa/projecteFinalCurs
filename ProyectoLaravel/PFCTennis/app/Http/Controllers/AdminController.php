@@ -98,6 +98,12 @@
             return redirect()->route('gestioUsuaris');
         }
 
+        public function insertarVista(Request $request){
+            AdminDAO::insertarVista($request);
+
+            return redirect()->route($request->tipus);
+        }
+
         /**
          * Funció per actualitzar les dades d'un usuari
          * 

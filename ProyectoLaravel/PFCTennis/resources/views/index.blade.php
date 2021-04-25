@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-md-6">
                 <div class="card-img-bottom">
-                    <img style="width:90%; center no-repeat" src="imatges/cartas/{{ $carta->imatge }}">
+                    <img style="width:90%; center no-repeat" src="imatges/cartes/{{ $carta->imatge }}">
                 </div>
                 </div>
             </div>

@@ -17,18 +17,21 @@
 
                 <div class="card-body">
                     @if ($accio == 'nouVista')
-                        <form id="formRegistrar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()">
+                    <form id="formRegistrar" method="POST" action="{{ route('insertarVista') }}" onsubmit="return comprovarFormulariGeneral()">
                     @elseif ($accio == 'editarVista')
-                        <form id="formActualitzar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()">
-                            <input id="id" name="id" type="hidden" value="{{ $vista->id }}">
+                    <form id="formActualitzar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()">
+                        <input id="id" name="id" type="hidden" value="{{ $vista->id }}">
                     @endif
-                        
                         @csrf
                         
-                        <div class="img-actual">
-                            <h3>Imatge actual</h3>
-                            <img width="400" src="{{ asset('imatges/'. $tipus .'/' . $vista->imatge) }}">
-                        </div>
+                        <input id="tipus" name="tipus" type="hidden" value="{{ $tipus }}">
+
+                        @if ($accio == 'editarVista')
+                            <div class="img-actual">
+                                <h3>Imatge actual</h3>
+                                <img width="400" src="{{ asset('imatges/'. $tipus .'/' . $vista->imatge) }}">
+                            </div>
+                        @endif
 
                         <div class="file-upload">
                             <button class="file-upload-btn" onclick="$('.file-upload-input').trigger('click')" type="button">Afegir Imatge</button>
@@ -36,7 +39,7 @@
                             <div class="image-upload-wrap">
                                 <input class="file-upload-input" name="imatge" type='file' onchange="readURL(this);" accept="image/*" />
                                 <div class="drag-text">
-                                <h3>Arrosega o selecciona'n una imatge</h3>
+                                    <h3>Arrosega o selecciona'n una imatge</h3>
                                 </div>
                             </div>
                             <div class="file-upload-content">
@@ -48,7 +51,7 @@
                             <label for="titol" class="col-md-4 col-form-label text-md-right">{{ __('Titol') }}</label>
 
                             <div class="col-md-6">
-                                <input id="titol" type="text" class="form-control @error('titol') is-invalid @enderror" name="nom" value="{{ $vista->titol }}" pattern="[a-zA-Z\s]+" required autocomplete="titol" autofocus>
+                                <input id="titol" type="text" class="form-control @error('titol') is-invalid @enderror" name="titol" value="{{ $vista->titol }}" pattern="[a-zA-Z\s]+" required autocomplete="titol" autofocus>
 
                                 @error('titol')
                                     <span class="invalid-feedback" role="alert">
@@ -62,7 +65,7 @@
                             <label for="descripcio" class="col-md-4 col-form-label text-md-right">{{ __('Descripció') }}</label>
 
                             <div class="col-md-6">
-                                <textarea id="descripcio" rows="5" style="width: 450px;" class="form-control @error('descripcio') is-invalid @enderror" name="nom" pattern="[a-zA-Z\s]+"  required>{{ $vista->descripcio }}</textarea>
+                                <textarea id="descripcio" rows="5" style="width: 450px;" class="form-control @error('descripcio') is-invalid @enderror" name="descripcio" pattern="[a-zA-Z\s]+"  required>{{ $vista->descripcio }}</textarea>
 
                                 @error('descripcio')
                                     <span class="invalid-feedback" role="alert">

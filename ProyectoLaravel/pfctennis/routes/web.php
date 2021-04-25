@@ -30,6 +30,7 @@ Route::get('/dashboard/gestio/slider', [AdminController::class, 'getSliders'])->
 Route::get('/dashboard/gestio/carta', [AdminController::class, 'getCartes'])->name('carta');
 
 Route::get('/dashboard/gestio/form/{accio}/{tipus}/{id?}', [AdminController::class, 'formulariVista'])->name('formulariVista');
+Route::post('/dashboard/gestio/vista/insertar', [AdminController::class, 'insertarVista'])->name('insertarVista');
 
 // GESTIÓ USUARIS
 Route::get('/dashboard/gestio/usuaris', [AdminController::class, 'gestioUsuaris'])->name('gestioUsuaris');

@@ -119,6 +119,35 @@
                 [Auth::user()->id, $descripcio, $dataActualitzacio]); 
         }
 
+        public static function insertarVista(Request $request){
+            // Validem les dades
+            $request->validate([
+                'titol' => 'required',
+                'descripcio' => 'required',
+                'imatge' => 'required'
+            ]);
+
+            $vista = new ObjecteVista($request);
+            
+            switch ($request->tipus){
+                case 'slider':
+                    $taula = 'inici_vista';
+                    break;
+                
+                case 'cartes':
+                    $taula = 'cartes_inici_vista';
+                    break;
+            }
+
+            
+
+            DB::table($taula)->insert([
+                'titol' => $vista->titol,
+                'descripcio' => $vista->descripcio,
+                'imatge' => $vista->imatge,
+            ]);
+        }
+
         /**
          * Funció per a actualitzar un usuari
          * 
