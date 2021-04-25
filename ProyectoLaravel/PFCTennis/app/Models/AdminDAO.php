@@ -10,23 +10,40 @@
 
     class AdminDAO {
 
-        public static function getLogsUsuari(){
+        /**
+         * Funció per agafar els registres dels administradors
+         * 
+         * @return Array Llistat dels registres dels administradors
+         */
+        public static function getLogsAdmins(){
+            // Inicialitzem el llistat de registres
             $logsAdmins = [];
 
+            // Realitzem la consulta en la base de dades
             $res = DB::select('SELECT lg.id, lg.descripcio, lg.data, u.id, u.nif, u.nom, u.cognoms, u.contrasenya, u.rol, u.email, u.targetaSanitaria, u.telefon, u.dataNaixement, u.dataCreacio 
                 FROM log_admin lg INNER JOIN usuari u ON lg.idAdmin = u.id ORDER BY lg.data');
     
+            // Iterem el resultat obtingut
             foreach ($res as $log){
+                // Creem un objecte d'un usuari
                 $usuariObj = new Usuari(array($log));
+                // Creem un objecte d'un registre
                 $logObj = new Log($log, $usuariObj);
+                // Afegim al llistat de registres
                 $logsAdmins[] = $logObj;
             }
 
             return $logsAdmins;
         }
 
+        /**
+         * Funció per a agafar tots els usuaris de la base de dades
+         * 
+         * @return Array Llistat d'objectes d'usuaris
+         */
         public static function getUsuaris(){
             $usuaris = [];
+
             // Agafem tots els usuaris i els ordenem pel cognom 
             $res = DB::table('usuari')
                         ->orderByDesc('cognoms')
@@ -43,16 +60,30 @@
             return $usuaris;
         }
 
+        /**
+         * Funció per a agafar un usuari específic
+         * 
+         * @param Integer Identificador del usuari
+         * 
+         * @return Usauri Objecte usuari agafat de la base de dades
+         */
         public static function getUsuari($id){
-
+            // Consultem la base de dades, passant per paràmetre l'dentificador
             $res = DB::table('usuari')
                         ->where('id', $id)
                         ->first();
 
+            // Creem l'objecte i el retornem
             return new Usuari([$res]);
         }
 
+        /**
+         * Funció per a insertar un usuari a la base de dades
+         * 
+         * @param Request $request Informació del formulari del usuari
+         */
         public static function insertarUsuari(Request $request){
+            // Validem les dades
             request()->validate([
                 'nom' => 'required',
                 'cognoms' => 'required',
@@ -87,7 +118,15 @@
                 [Auth::user()->id, $descripcio, $dataActualitzacio]); 
         }
 
+        /**
+         * Funció per a actualitzar un usuari
+         * 
+         * @param Request $request Informació del formulari del usuari
+         * 
+         * @return Route Redireccionament 
+         */
         public static function updateUsuari(Request $request){
+            // Validació de les dades
             request()->validate([
                 'nom' => 'required',
                 'cognoms' => 'required',
@@ -119,15 +158,21 @@
             return redirect("gestioUsuaris");
         }
 
+        /**
+         * Funció per eliminar un usuari
+         * 
+         * @param Integer $id Identificador d'un usuari
+         */
         public static function eliminarUsuari($id){
+            // Eliminem l'usuari passant-li l'identificador del usuari
             DB::delete('DELETE FROM usuari WHERE id = ?', [$id]);
-
+            
             // Afegim als logs que hem fet els canvis
-            // $descripcio = "Ha eliminat un usuari";
-            // $dataActualitzacio = date('Y-m-d H:i:s');
+            $descripcio = "Ha eliminat un usuari";
+            $dataActualitzacio = date('Y-m-d H:i:s');
 
-            // DB::insert('INSERT INTO log_admin(idAdmin, descripcio, data) VALUES(?, ?, ?)',
-            //                             [Auth::user()->id, $descripcio, $dataActualitzacio]);
+            DB::insert('INSERT INTO log_admin(idAdmin, descripcio, data) VALUES(?, ?, ?)',
+                                        [Auth::user()->id, $descripcio, $dataActualitzacio]);
 
 
         }

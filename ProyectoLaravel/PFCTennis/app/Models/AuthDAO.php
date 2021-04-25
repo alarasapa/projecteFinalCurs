@@ -40,6 +40,7 @@
          * @return Usuari Retorna un objecte Usuari
          */
         public static function insertarUsuari(Request $request){
+            // Validem les dades
             request()->validate([
                 'nom' => 'required',
                 'cognoms' => 'required',
@@ -84,9 +85,12 @@
          * @return Boolean Retorna si ja existeix el camp específic
          */
         public static function comprovar(Request $request){
+            // Agafem el tipus de dada que es vol comprovar
             $tipusDada = $request->tipusDada;
+            // Agafem el valor de la dada
             $valor = $request->valor;
             
+            // En funció del tipus de dada, comprovem si ja hi existeix un registre igual
             switch ($tipusDada) {
                 case "email":
                     $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari WHERE email = ?', [$valor]);
@@ -101,6 +105,7 @@
                     break;
             }
             
+            // Retornem si es dona el cas o no
             return $res[0]->resultat;
         }
 

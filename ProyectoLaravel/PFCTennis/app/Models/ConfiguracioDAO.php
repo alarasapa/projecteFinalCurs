@@ -12,8 +12,11 @@
 
         /**
          * Funció per a cambiar les dades d'un usuari
+         * 
+         * @param Request $request Informació del formulari
          */
         public static function cambiarDades(Request $request){
+            // Validem les dades
             request()->validate([
                 'nom' => 'required',
                 'cognoms' => 'required',
@@ -44,34 +47,42 @@
 
         /**
          * Funció per a cambiar la contrasenya del usuari
+         * 
+         * @param Request $request Informació del formulari
          */
         public static function cambiarPassword(Request $request){
+            // Validem les dades
             request()->validate([
                 'contrasenya' => 'required | min:8'
             ]);
 
+            // Agafem les dades
             $id = $request->id;
             $contrasenya = $request->contrasenya;
             $contrasenya = filter_var($contrasenya, FILTER_SANITIZE_STRING);
             $contrasenya = hash('md5', $contrasenya);
 
+            // Actualitzem les dades del usuari en la base de dades
             DB::update('UPDATE usuari SET contrasenya = ?
                         WHERE id = ?', [$contrasenya, $id]);
-
-            // $descripcio = "Ha cambiat la seva contrasenya";
-            // $dataActualitzacio = date('Y-m-d H:i:s');
-            // DB::insert('INSERT INTO log_usuari(idUsuari, descripcio, data) VALUES(?, ?, ?)',
-            //         [$id, $descripcio, $dataActualitzacio]);
         }
 
         /**
          * Funció per a comprovar les dades d'un usuari
+         * 
+         * @param Request $request Informació del formulari
+         * 
+         * @return Boolean Retorna si ja existeix el camp específic
          */
         public static function comprovarDades(Request $request){
+            // Agafem el tipus de dada que es vol comprovar
             $tipusDada = $request->tipusDada;
+            // Agafem el valor de la dada
             $valor = $request->valor;
+            // Agafem el valor de la dada actual
             $dadaActual = $request->dadaActual;
 
+            // En funció del tipus de dada, comprovem si ja hi existeix un registre igual
             switch($tipusDada){
                 case "nif":
                     $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari 
@@ -88,7 +99,8 @@
                         WHERE targetaSanitaria = ? AND targetaSanitaria != ?', [$valor, $dadaActual]);
                     break;
             }
-
+            
+            // Retornem si es dona el cas o no
             return $res[0]->resultat;
         }
 
