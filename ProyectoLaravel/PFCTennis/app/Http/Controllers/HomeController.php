@@ -26,11 +26,11 @@ class HomeController extends Controller
     {
         // Recuperem els sliders de la BBDD
         $sliders = [];
-        $sliders = HomeDAO::getSliders();
+        $sliders = HomeDAO::getObjecteVista('inici_vista');
 
         // Recuperem les cartes de la BBDD
         $cartes = [];
-        $cartes = HomeDAO::getCartes();
+        $cartes = HomeDAO::getObjecteVista('cartes_inici_vista');
 
         return view('index', compact('sliders', 'cartes'));
     }

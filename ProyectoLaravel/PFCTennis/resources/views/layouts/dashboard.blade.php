@@ -88,9 +88,16 @@
                         </a>
                         <div class="collapse" id="collapsePaginas">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/slider') }}" href="{{ route('slider') }}" aria-expanded="false">Slider</a>
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#paginesInici" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Inici
+                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                                </a>
+                                <div class="collapse" id="paginesInici" data-parent="#sidenavAccordionPages">
+                                    <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/slider') }}" href="{{ route('slider') }}">Slider</a>
+                                    <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/carta') }}" href="{{ route('carta') }}">Cartes</a>
+                                </div>
 
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth">
                                     Authentication
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>

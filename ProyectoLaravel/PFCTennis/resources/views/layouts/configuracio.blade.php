@@ -31,16 +31,22 @@
     <div class="position-sticky" id="collapsibleNavbar">
       <div class="list-group list-group-flush mx-5 mt-4">
         <a
-          href="/index"
+          href="{{ route('index') }}"
           class="list-group-item list-group-item-action py-2 ripple"
           aria-current="true"
         >
           <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Tornar</span>
         </a>
-        <a href="#" class="list-group-item list-group-item-action py-2 ripple {{ rutaActual('matricules') }}">
-          <i class="fas fa-fw me-1"></i><span>Llistat matricules</span></a>
+        
+        @if (Auth::user()->rol == 'A')
+          <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-fw me-1"></i><span>Adminstrar pàgina</span></a>
+        @else 
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple {{ rutaActual('matricules') }}">
+            <i class="fas fa-fw me-1"></i><span>Llistat matricules</span></a>
+        @endif
 
-        <a href="/home" class="list-group-item list-group-item-action py-2 ripple {{ rutaActual('home') }}"
+        <a href="{{ route('home') }}" class="list-group-item list-group-item-action py-2 ripple {{ rutaActual('home') }}"
           ><i class="fas fa-chart fa-fw me-3"></i><span>Cambiar dades generals</span></a>
 
         <a href="{{ route('cambiarPassword') }}" class="list-group-item list-group-item-action py-2 ripple {{ rutaActual('configuracio/cambiarpassword') }}"

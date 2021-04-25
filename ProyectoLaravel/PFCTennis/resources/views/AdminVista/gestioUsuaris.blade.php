@@ -41,8 +41,6 @@
 
                         <td>{{ $usuari->dataCreacio }}</td>
                         <!-- TODO PONER PÁGINAS ESTÁTICAS PARA PRESENTARLO -->
-                        <!-- TODO HACER EL DASHBOARD MAS ANGOSTO -->
-                        <!-- TODO GESTIONAR SLIDER, ESO SIGNIFICA PONER SECCION EN DASHBOARD -->
                         <td>
                             <a href="{{ route('formulariUsuari', ['accio' => 'editarUsuari', 'id' => $usuari->id]) }}">
                                 <button><i class="fas fa-edit"></i></button>

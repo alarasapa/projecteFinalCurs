@@ -68,9 +68,20 @@
 
         public function getSliders(){
             $sliders = [];
-            $sliders = HomeDAO::getSliders();
+            $sliders = HomeDAO::getObjecteVista('inici_vista');
 
-            return view('AdminVista.slider', compact('sliders'));
+            return view('AdminVista.gestioVista', ['tipus' => 'slider', 'llista' => $sliders]);
+        }
+        
+        public function getCartes(){
+            $cartes = [];
+            $cartes = HomeDAO::getObjecteVista('cartes_inici_vista');
+
+            return view('AdminVista.gestioVista', ['tipus' => 'cartes', 'llista' => $cartes]);
         }
 
+        public function formulariVista($tipus, $id = null){
+
+            return view('AdminVista.formVista', ['tipus' => $tipus]);
+        }
     }

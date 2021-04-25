@@ -9,28 +9,17 @@
     use App\Models\Log;
 
     class HomeDAO {
-        public static function getSliders(){
-            $sliders = [];
+        public static function getObjecteVista($taula){
+            $objectes = [];
 
-            $res = DB::select('SELECT * FROM inici_vista');
+            $res = DB::table($taula)->get();
             
-            foreach ($res as $slider){
-                $obj = new ObjecteVista($slider);
-                $sliders[] = $obj;
+            foreach ($res as $obj){
+                $instancia = new ObjecteVista($obj);
+                $objectes[] = $instancia;
             }
 
-            return $sliders; 
+            return $objectes; 
         }
 
-        public static function getCartes(){
-            $cartes = [];
-            $res = DB::select('SELECT * FROM cartes_inici_vista');
-        
-            foreach ($res as $carta){
-                $obj = new ObjecteVista($carta);
-                $cartes[] = $obj;
-            }
-
-            return $cartes;
-        }
     }

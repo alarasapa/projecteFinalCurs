@@ -28,7 +28,9 @@
         public static function getUsuaris(){
             $usuaris = [];
             // Agafem tots els usuaris i els ordenem pel cognom 
-            $res = DB::select('SELECT * FROM usuari ORDER BY cognoms');
+            $res = DB::table('usuari')
+                        ->orderByDesc('cognoms')
+                        ->get();
     
             // Iterem el resultat obtingut de la BBDD
             foreach ($res as $usuari){
@@ -43,9 +45,11 @@
 
         public static function getUsuari($id){
 
-            $res = DB::select('SELECT * FROM usuari WHERE id = ?', [$id]);
-            
-            return new Usuari($res);
+            $res = DB::table('usuari')
+                        ->where('id', $id)
+                        ->first();
+
+            return new Usuari([$res]);
         }
 
         public static function insertarUsuari(Request $request){

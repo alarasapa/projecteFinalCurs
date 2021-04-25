@@ -1,5 +1,4 @@
 window.onload = function() {
-    console.log("sasa");
     $("#telefon").change(function() {
         let telefon = $("#telefon").val();
         if (isNaN(telefon)) {
