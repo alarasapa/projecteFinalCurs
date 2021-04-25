@@ -25,7 +25,8 @@
          */
         public $imatge;
         
-        public function __construct($args){
+        public function __construct($args = []){
+            if (empty($args)) return $this;
             $this->setId($args->id);
             $this->setTitol($args->titol);
             $this->setDescripcio($args->descripcio);

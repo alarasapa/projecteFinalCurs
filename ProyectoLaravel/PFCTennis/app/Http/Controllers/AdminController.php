@@ -6,6 +6,8 @@
     use App\Models\HomeDAO;
     use Illuminate\Http\Request;
     use App\Models\Usuari;
+    use App\Models\ObjecteVista;
+
 
     class AdminController extends Controller {
 
@@ -82,6 +84,6 @@
 
         public function formulariVista($tipus, $id = null){
 
-            return view('AdminVista.formVista', ['tipus' => $tipus]);
+            return view('AdminVista.formVista', ['accio' => 'nouVista', 'tipus' => $tipus, 'vista' => new ObjecteVista()]);
         }
     }

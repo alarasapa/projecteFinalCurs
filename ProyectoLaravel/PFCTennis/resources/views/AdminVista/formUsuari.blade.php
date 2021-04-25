@@ -29,10 +29,6 @@
                     @endif
 
                         @csrf
-                        
-                        @if ($errors->any())
-                            <?php //dd($errors) ?>
-                        @endif
 
                         <select name="rol" id="rol">
                             <option value="U" @if($usuari->rol == 'U') selected = "selected" @endif>Usuari</option>

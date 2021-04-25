@@ -11,7 +11,7 @@
     <div class="table-responsive">
         <h2 style="font-family: 'Nunito', sans-serif;">Llistat {{ $tipus }}</h2>
         
-        <a type="button" href="{{ route('formulariVista', ['tipus' => 'slider']) }}">Afegir {{ $tipus }}</a>
+        <a type="button" href="{{ route('formulariVista', ['tipus' => $tipus]) }}">Afegir {{ $tipus }}</a>
         <table style="text-align: center;" class="table table-sm table-bordered table-dark">
             <thead>
                 <tr>
@@ -34,7 +34,7 @@
                             
                             <form id="eliminar-{{ $elem->id }}" action="#" method="POST">
                                 @csrf
-                                <button type="submit" href="#" onclick="return confirm('Estàs segur que vols eliminar aquest slider?')"><i class="far fa-trash-alt"></i></button>
+                                <button type="submit" href="#" onclick="return confirm('Estàs segur que vols eliminar aquest/a {{ $tipus }}?')"><i class="far fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>
