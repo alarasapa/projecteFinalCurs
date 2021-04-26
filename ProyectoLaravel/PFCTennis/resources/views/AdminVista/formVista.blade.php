@@ -16,12 +16,12 @@
                 <div class="card-header">Formulari: {{ $tipus }}</div>
 
                 <div class="card-body">
-                    @if ($accio == 'nouVista')
-                    <form id="formRegistrar" method="POST" action="{{ route('insertarVista') }}" onsubmit="return comprovarFormulariGeneral()">
-                    @elseif ($accio == 'editarVista')
-                    <form id="formActualitzar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()">
+                @if ($accio == 'nouVista')
+                    <form id="formRegistrar" method="POST" action="{{ route('insertarVista') }}" onsubmit="return comprovarFormulariGeneral()" enctype="multipart/form-data">
+                @elseif ($accio == 'editarVista')
+                    <form id="formActualitzar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()" enctype="multipart/form-data">
                         <input id="id" name="id" type="hidden" value="{{ $vista->id }}">
-                    @endif
+                @endif
                         @csrf
                         
                         <input id="tipus" name="tipus" type="hidden" value="{{ $tipus }}">
@@ -37,7 +37,7 @@
                             <button class="file-upload-btn" onclick="$('.file-upload-input').trigger('click')" type="button">Afegir Imatge</button>
 
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input" name="imatge" type='file' onchange="readURL(this);" accept="image/*" />
+                                <input class="file-upload-input" id="imatge" name="imatge" type='file' onchange="readURL(this);" accept="image/*" />
                                 <div class="drag-text">
                                     <h3>Arrosega o selecciona'n una imatge</h3>
                                 </div>
@@ -45,13 +45,19 @@
                             <div class="file-upload-content">
                                 <img class="file-upload-image" src="#" alt="Imatge" />
                             </div>
+                            
+                            @error('imatge')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
 
                         <div class="form-group row">
                             <label for="titol" class="col-md-4 col-form-label text-md-right">{{ __('Titol') }}</label>
 
                             <div class="col-md-6">
-                                <input id="titol" type="text" class="form-control @error('titol') is-invalid @enderror" name="titol" value="{{ $vista->titol }}" pattern="[a-zA-Z\s]+" required autocomplete="titol" autofocus>
+                                <input id="titol" type="text" class="form-control @error('titol') is-invalid @enderror" name="titol" value="{{ $vista->titol }}" pattern="[a-zA-Z\s\.]+" required autocomplete="titol" autofocus>
 
                                 @error('titol')
                                     <span class="invalid-feedback" role="alert">

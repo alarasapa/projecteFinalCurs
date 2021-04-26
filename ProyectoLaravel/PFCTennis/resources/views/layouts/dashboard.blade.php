@@ -94,7 +94,7 @@
                                 </a>
                                 <div class="collapse" id="paginesInici" data-parent="#sidenavAccordionPages">
                                     <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/slider') }}" href="{{ route('slider') }}">Slider</a>
-                                    <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/carta') }}" href="{{ route('carta') }}">Cartes</a>
+                                    <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/carta') }}" href="{{ route('cartes') }}">Cartes</a>
                                 </div>
 
                                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth">

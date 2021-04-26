@@ -7,7 +7,7 @@
     use Illuminate\Http\Request;
     use App\Models\Usuari;
     use App\Models\ObjecteVista;
-
+    use File;
 
     class AdminController extends Controller {
 
@@ -99,8 +99,17 @@
         }
 
         public function insertarVista(Request $request){
+            // Guardem la vista en la base de dades
             AdminDAO::insertarVista($request);
 
+            // Guardem la imatge en els arxius
+            $arxiu = $request->file('imatge');
+
+            $name = $arxiu->getClientOriginalName();
+            
+            $arxiu->move('imatges/' . $request->tipus . '/', $name);
+            
+            // Redirigimos al gestor de la vista en específico
             return redirect()->route($request->tipus);
         }
 

@@ -124,11 +124,15 @@
             $request->validate([
                 'titol' => 'required',
                 'descripcio' => 'required',
-                'imatge' => 'required'
+                'imatge' => 'required',
             ]);
 
+            $request->imatge = $request->imatge->getClientOriginalName();
+
+            // Creem un objecte vista
             $vista = new ObjecteVista($request);
             
+            // Segons el tipus és una taula o una altre
             switch ($request->tipus){
                 case 'slider':
                     $taula = 'inici_vista';
@@ -139,8 +143,7 @@
                     break;
             }
 
-            
-
+            // Per últim afegim a la base de dades
             DB::table($taula)->insert([
                 'titol' => $vista->titol,
                 'descripcio' => $vista->descripcio,
