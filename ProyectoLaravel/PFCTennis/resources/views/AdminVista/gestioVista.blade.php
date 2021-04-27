@@ -32,9 +32,9 @@
                                 <button><i class="fas fa-edit"></i></button>
                             </a>
                             
-                            <form id="eliminar-{{ $elem->id }}" action="#" method="POST">
+                            <form id="eliminar-{{ $elem->id }}" action="{{ route('eliminarVista', ['tipus' => $tipus, 'id' => $elem->id]) }}" method="POST">
                                 @csrf
-                                <button type="submit" href="#" onclick="return confirm('Estàs segur que vols eliminar aquest/a {{ $tipus }}?')"><i class="far fa-trash-alt"></i></button>
+                                <button type="submit" href="{{ route('eliminarVista', ['tipus' => $tipus, 'id' => $elem->id]) }}" onclick="return confirm('Estàs segur que vols eliminar aquest/a {{ $tipus }}?')"><i class="far fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>

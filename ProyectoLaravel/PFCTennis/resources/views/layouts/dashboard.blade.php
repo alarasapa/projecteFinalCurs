@@ -81,6 +81,7 @@
                                 <!-- <a class="nav-link" href="#">Light Sidenav</a> -->
                             </nav>
                         </div>
+                        
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePaginas" aria-expanded="false" aria-controls="collapsePages">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Pàgines
@@ -97,7 +98,7 @@
                                     <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/carta') }}" href="{{ route('cartes') }}">Cartes</a>
                                 </div>
 
-                                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth">
+                                <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth">
                                     Authentication
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
@@ -107,7 +108,19 @@
                                         <a class="nav-link" href="register.html">Register</a>
                                         <a class="nav-link" href="password.html">Forgot Password</a>
                                     </nav>
-                                </div>
+                                </div> -->
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseActivitats" aria-controls="collapseActivitats">
+                            <div class="sb-nav-link-icon"><i class="fa fa-briefcase"></i></div>
+                            Activitats
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseActivitats">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link {{ rutaActual('gestioUsuaris') }}" href="{{ route('gestioUsuaris') }}">Gestió General</a>
+                                
                             </nav>
                         </div>
                     </div>

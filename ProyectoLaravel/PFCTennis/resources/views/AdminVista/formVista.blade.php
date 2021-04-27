@@ -19,7 +19,7 @@
                 @if ($accio == 'nouVista')
                     <form id="formRegistrar" method="POST" action="{{ route('insertarVista') }}" onsubmit="return comprovarFormulariGeneral()" enctype="multipart/form-data">
                 @elseif ($accio == 'editarVista')
-                    <form id="formActualitzar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()" enctype="multipart/form-data">
+                    <form id="formActualitzar" method="POST" action="{{ route('actualitzarVista') }}" onsubmit="return comprovarFormulariGeneral()" enctype="multipart/form-data">
                         <input id="id" name="id" type="hidden" value="{{ $vista->id }}">
                 @endif
                         @csrf

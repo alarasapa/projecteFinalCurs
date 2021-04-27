@@ -119,6 +119,11 @@
                 [Auth::user()->id, $descripcio, $dataActualitzacio]); 
         }
 
+        /**
+         * Funció per a insertar una vista en la base de dades
+         * 
+         * @param Reques $request Informació del formulari
+         */
         public static function insertarVista(Request $request){
             // Validem les dades
             $request->validate([
@@ -127,21 +132,13 @@
                 'imatge' => 'required',
             ]);
 
+            // Agafem el nom real de la imatge
             $request->imatge = $request->imatge->getClientOriginalName();
 
             // Creem un objecte vista
             $vista = new ObjecteVista($request);
             
-            // Segons el tipus és una taula o una altre
-            switch ($request->tipus){
-                case 'slider':
-                    $taula = 'inici_vista';
-                    break;
-                
-                case 'cartes':
-                    $taula = 'cartes_inici_vista';
-                    break;
-            }
+            $taula = AdminDAO::switchVista($request->tipus);
 
             // Per últim afegim a la base de dades
             DB::table($taula)->insert([
@@ -191,6 +188,30 @@
             return redirect("gestioUsuaris");
         }
 
+        public static function updateVista(Request $request){
+            // Validem les dades
+            $request->validate([
+                'titol' => 'required',
+                'descripcio' => 'required',
+                'imatge' => 'required',
+            ]);
+
+            // Agafem el nom real de la imatge
+            $request->imatge = $request->imatge->getClientOriginalName();
+
+            // Creem un objecte vista
+            $vista = new ObjecteVista($request);
+
+            // Segons el tipus és una taula o una altre
+            $taula = AdminDAO::switchVista($request->tipus);
+
+            DB::table($taula)->where('id', $request->id)->update([
+                'imatge' => $request->imatge,
+                'titol' => $request->titol,
+                'descripcio' => $request->descripcio,
+            ]);
+        }
+
         /**
          * Funció per eliminar un usuari
          * 
@@ -210,6 +231,20 @@
 
         }
 
+        /**
+         * Funció per a eliminar una vista
+         * 
+         * @param Integer $id Identificador de la vista
+         * @param String $tipus Tipus de vista
+         */
+        public static function eliminarVista($id, $tipus){
+            // Agafem la taula a la que es refereix
+            $taula = AdminDAO::switchVista($tipus);
+
+            // Eliminem la taula
+            DB::table($taula)->delete($id);
+        }
+
         public static function getObjecteVista($accio, $id){
             
             switch ($accio){
@@ -220,4 +255,16 @@
                     return HomeDAO::getObjecteVista('cartes_inici_vista', $id);
             }
         }
+
+
+        public static function switchVista($tipo){
+            switch ($tipo) {
+                case "slider":
+                    return 'inici_vista';
+
+                case "cartes":
+                    return 'cartes_inici_vista';
+            }
+        }
+
     }

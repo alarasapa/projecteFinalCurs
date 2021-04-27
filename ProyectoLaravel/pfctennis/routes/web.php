@@ -31,6 +31,8 @@ Route::get('/dashboard/gestio/cartes', [AdminController::class, 'getCartes'])->n
 
 Route::get('/dashboard/gestio/form/{accio}/{tipus}/{id?}', [AdminController::class, 'formulariVista'])->name('formulariVista');
 Route::post('/dashboard/gestio/vista/insertar', [AdminController::class, 'insertarVista'])->name('insertarVista');
+Route::post('/dashboard/gestio/vista/actualizar', [AdminController::class, 'actualizarVista'])->name('actualitzarVista');
+Route::post('/dashboard/gestio/vista/eliminar/{tipus}/{id}', [AdminController::class, 'eliminarVista'])->name('eliminarVista');
 
 // GESTIÓ USUARIS
 Route::get('/dashboard/gestio/usuaris', [AdminController::class, 'gestioUsuaris'])->name('gestioUsuaris');

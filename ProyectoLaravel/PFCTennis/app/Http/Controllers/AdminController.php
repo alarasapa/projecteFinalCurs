@@ -98,6 +98,13 @@
             return redirect()->route('gestioUsuaris');
         }
 
+        /**
+         * Funció per a registrar una vista en la base de dades
+         * 
+         * @param Request $request Informació del formulari
+         * 
+         * @return Route Redireccionament
+         */
         public function insertarVista(Request $request){
             // Guardem la vista en la base de dades
             AdminDAO::insertarVista($request);
@@ -128,6 +135,21 @@
             return redirect()->route('gestioUsuaris');
         }
 
+        //TODO ARREGLAR LOS ESTILOS DE LAS ACCIONES DE LA TABLA  
+        public function actualizarVista(Request $request){
+            // Actualitzem la vista
+            AdminDAO::updateVista($request);
+
+            // Guardem la imatge en els arxius
+            $arxiu = $request->file('imatge');
+
+            $name = $arxiu->getClientOriginalName();
+            
+            $arxiu->move('imatges/' . $request->tipus . '/', $name);
+
+            return redirect()->route($request->tipus);
+        }
+
         /**
          * Funció per eliminar un usuari
          * 
@@ -137,7 +159,23 @@
             // Eliminem l'usuari
             AdminDAO::eliminarUsuari($request->id);
 
+            // Redireccionem
             return redirect()->route('gestioUsuaris');
+        }
+
+        /**
+         * Funció que elimina una vista 
+         * 
+         * @param Request $request Informació del formulari
+         * 
+         * @return Route Redireccionament
+         */
+        public function eliminarVista(Request $request){
+            // Eliminem la vista
+            AdminDAO::eliminarVista($request->id, $request->tipus);
+
+            // Redireccionem
+            return redirect()->route($request->tipus);
         }
 
         /**
