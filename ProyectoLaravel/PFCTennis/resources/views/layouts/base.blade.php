@@ -24,10 +24,22 @@
                 <li class="nav-item {{ Request::is('/') || Request::is('index') ? 'active' : '' }}">
                     <a href="{{ route('index') }}" class="nav-link">Inici</a>
                 </li>
+                <li class="nav-item dropdown-hover">
+                    <a class="nav-link dropdown-toggle" href="#" id="activitatsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Activitats
+                    </a>
+                    <div class="dropdown-menu dropdown-hover-menu" aria-labelledby="activitatsDropdown">
+                        <!-- <nav id="navbarActivitats" class="sb-sidenav-menu-nested nav"> -->
+                            <a href="{{ route('reservar') }}" class="dropdown-item">Reservar</a>
+                            <a href="{{ route('escola') }}" class="dropdown-item">Escola</a>
+                            <a href="{{ route('casal') }}" class="dropdown-item">Casal</a>
+                        <!-- </nav> -->
+                    </div>     
+                </li>
                 <li class="nav-item {{ Request::is('soci') ? 'active' : '' }}">
                     <a href="{{ route('soci') }}" class="nav-link">Soci</a>
                 </li>
-                <li class="nav-item {{ Request::is('reservar') ? 'active' : '' }}">
+                <!-- <li class="nav-item {{ Request::is('reservar') ? 'active' : '' }}">
                     <a href="{{ route('reservar') }}" class="nav-link">Reservar</a>
                 </li>
                 <li class="nav-item {{ Request::is('escola') ? 'active' : '' }}">
@@ -35,7 +47,7 @@
                 </li>
                 <li class="nav-item {{ Request::is('casal') ? 'active' : '' }}">
                     <a href="{{ route('casal') }}" class="nav-link">Casal</a>
-                </li>
+                </li> --> 
                 <li class="nav-item {{ Request::is('contacte') ? 'active' : '' }}">
                     <a href="{{ route('contacte') }}" class="nav-link">Contacte</a>
                 </li>

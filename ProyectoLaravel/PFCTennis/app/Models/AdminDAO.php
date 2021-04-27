@@ -193,17 +193,21 @@
             $request->validate([
                 'titol' => 'required',
                 'descripcio' => 'required',
-                'imatge' => 'required',
             ]);
-
-            // Agafem el nom real de la imatge
-            $request->imatge = $request->imatge->getClientOriginalName();
-
-            // Creem un objecte vista
-            $vista = new ObjecteVista($request);
-
+            
             // Segons el tipus és una taula o una altre
             $taula = AdminDAO::switchVista($request->tipus);
+            
+            if ($request->imatge == NULL){
+                $aux = DB::table($taula)->select('imatge')->where('id', $request->id)->get();
+                $request->imatge = $aux[0]->imatge;
+            } else {
+                // Agafem el nom real de la imatge
+                $request->imatge = $request->imatge->getClientOriginalName();
+            }
+            
+            // Creem un objecte vista
+            $vista = new ObjecteVista($request);
 
             DB::table($taula)->where('id', $request->id)->update([
                 'imatge' => $request->imatge,
