@@ -9,12 +9,15 @@
 @push('css')
     <link rel="stylesheet" href="{{ url('css/ClientEstils/base.css') }}" >
     <link rel="stylesheet" href="{{ url('css/ClientEstils/soci.css') }}">
+@push('scripts')
+    <script src="https://kit.fontawesome.com/037c3bf4d0.js" crossorigin="anonymous"></script>   
 @endpush
 
+<!-- TODO CAMBIAR RUTAS PARA HACER EL usuari.* Y QUE SALGA ACTIVE TODO -->
+
+<img src="imatges/soci/sociBanner.png" style="width: 100%"><br><br>
+
 <div class="container">
-
-    <!-- TODO IMAGEN PARA TRANSICIONAR A LAS CARTAS -->
-
     <div class="card">
         <div class="row">
             <div class="col-md-3">
@@ -110,7 +113,46 @@
             </div>
         </div>
     </div>
-
 </div>
+
+<div id="nostresServeis" class="container">
+    <h2>ELS NOSTRES SERVEIS</h2>
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <ul>
+                <li><i class="fa fa-graduation-cap"></i> Escola</li><br>
+                <li><i class="fas fa-swimmer"></i> Piscina</li><br>
+                <li><i class="fas fa-dumbbell"></i> Gimnàs</li><br>
+            </ul>
+        </div>
+
+        <div class="col-md-3">
+            <ul>
+                <li><i class="fas fa-utensils"></i> Bar / restaurant</li><br>
+                <li><i class="fas fa-trophy"></i> Competicions per equips</li><br>
+                <li><i class="far fa-smile"></i> Zona chill out</li><br>
+                <li><i class="fas fa-child"></i> Zona infantil</li><br>
+            </ul>
+        </div>
+
+        <div class="col-md-3">
+            <ul>
+                <li><i class="fas fa-parking"></i> Parking</li><br>
+                <li><i class="fa fa-wifi"></i> Wifi</li><br>
+                <li><i class="fas fa-umbrella-beach"></i> Casal d’estiu</li><br>
+                <li><i class="fas fa-shopping-cart"></i> Servei de botiga</li><br>
+            </ul>
+        </div>
+
+        <div class="col-md-3">
+            <ul>
+                <li>Servei d’encordat de raquetes</li><br>
+                <li>Descomptes amb els nostres col·laboradors</li><br>
+            </ul>
+        </div>
+    </div>
+</div>
+
 
 @endsection

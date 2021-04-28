@@ -32,7 +32,7 @@ body {
     background-color: #131418 !important;
     /* background-color: #2d3748 !important; */
     margin: 0;
-    font-family: 'Nunito', sans-serif;
+    /* font-family: 'Nunito', sans-serif; */
 }
 
 a {
@@ -83,147 +83,6 @@ video {
 
 .dropdown-menu a {
     color: #ffff;
-}
-
-.bg-white {
-    --bg-opacity: 1;
-    background-color: #fff;
-    background-color: rgba(255, 255, 255, var(--bg-opacity))
-}
-
-.bg-gray-100 {
-    --bg-opacity: 1;
-    background-color: #f7fafc;
-    background-color: rgba(247, 250, 252, var(--bg-opacity))
-}
-
-.border-gray-200 {
-    --border-opacity: 1;
-    border-color: #edf2f7;
-    border-color: rgba(237, 242, 247, var(--border-opacity))
-}
-
-.border-t {
-    border-top-width: 1px
-}
-
-.flex {
-    display: flex
-}
-
-.grid {
-    display: grid
-}
-
-.hidden {
-    display: none
-}
-
-.items-center {
-    align-items: center
-}
-
-.justify-center {
-    justify-content: center
-}
-
-.font-semibold {
-    font-weight: 600
-}
-
-.h-5 {
-    height: 1.25rem
-}
-
-.h-8 {
-    height: 2rem
-}
-
-.h-16 {
-    height: 4rem
-}
-
-.text-sm {
-    font-size: .875rem
-}
-
-.text-lg {
-    font-size: 1.125rem
-}
-
-.leading-7 {
-    line-height: 1.75rem
-}
-
-.mx-auto {
-    margin-left: auto;
-    margin-right: auto
-}
-
-.ml-1 {
-    margin-left: .25rem
-}
-
-.mt-2 {
-    margin-top: .5rem
-}
-
-.mr-2 {
-    margin-right: .5rem
-}
-
-.ml-2 {
-    margin-left: .5rem
-}
-
-.mt-4 {
-    margin-top: 1rem
-}
-
-.ml-4 {
-    margin-left: 1rem
-}
-
-.mt-8 {
-    margin-top: 2rem
-}
-
-.ml-12 {
-    margin-left: 3rem
-}
-
-.-mt-px {
-    margin-top: -1px
-}
-
-.max-w-6xl {
-    max-width: 72rem
-}
-
-.min-h-screen {
-    min-height: 100vh
-}
-
-.overflow-hidden {
-    overflow: hidden
-}
-
-.p-6 {
-    padding: 1.5rem
-}
-
-.py-4 {
-    padding-top: 1rem;
-    padding-bottom: 1rem
-}
-
-.px-6 {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem
-}
-
-.pt-8 {
-    padding-top: 2rem
 }
 
 .fixed {
@@ -400,3 +259,33 @@ video {
         color: rgba(203, 213, 224, var(--text-opacity))
     }
 }
+
+@media only screen and (min-width: 960px) {
+    .dropdown-hover:hover .dropdown-hover-menu {
+        display: block;
+        margin-top: 0;
+        left: 190px;
+        padding-right: 130px;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .dropdown-hover:hover .dropdown-toggle::after {
+        border-bottom: 0.3em solid;
+        border-top: 0;
+    }
+}
+
+.dropdown-item {
+    width: 100%;
+}
+
+
+/* .navbar .navbar-nav .nav-link {
+    color: #000000;
+    font-size: 1.1em;
+}
+/*
+.navbar .navbar-nav .nav-link:hover {
+    color: #808080;
+} */
