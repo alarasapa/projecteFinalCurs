@@ -42,25 +42,30 @@
 
     <!-- Consultar para poner las cartas de forma "elegante" -->
     <!-- https://stackoverflow.com/questions/39225608/bootstrap-flexbox-card-move-image-to-left-right-side-on-desktop -->
-    <div class="container">
+    <div class="row">
     @foreach ($cartes as $carta)
-        <div class="card">
-            <div class="row">
-                <div class="col-md-6">
-                <div class="card-block">
-                    <h4 class="card-title">{{ $carta->titol }}</h4>
-                    <p class="card-text">{{ $carta->descripcio }}</p>
+        <div class="col-md-6">
+            <div class="card">
+                <img width="50%" src="imatges/cartes/{{ $carta->imatge }}">
+                <div class="card-body">
+                <!-- <div class="row">
+                    <div class="col-md-6"> -->
+                    <div class="card-block">
+                        <h4 class="card-title">{{ $carta->titol }}</h4>
+                        <p class="card-text">{{ $carta->descripcio }}</p>
+                    </div>                    
                 </div>
-                </div>
-                <div class="col-md-6">
-                <div class="card-img-bottom">
-                    <img style="width:90%; center no-repeat" src="imatges/cartes/{{ $carta->imatge }}">
-                </div>
-                </div>
+                    <!-- <div class="row">
+                        <div class="card-img-bottom">
+                            
+                        </div>
+                    </div> -->
+                <!-- </div> -->
             </div>
         </div>
     @endforeach
     </div>
+
 @endsection
 
 <!--  -->

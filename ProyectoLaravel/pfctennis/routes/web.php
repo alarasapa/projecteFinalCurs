@@ -26,8 +26,8 @@ Route::get('/resetear', [HomeController::class, 'resetear'])->name('resetear');
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
 // GESTIÓ PÀGINES
-Route::get('/dashboard/gestio/slider', [AdminController::class, 'getSliders'])->name('slider');
-Route::get('/dashboard/gestio/cartes', [AdminController::class, 'getCartes'])->name('cartes');
+Route::get('/dashboard/gestio/vista/slider', [AdminController::class, 'getSliders'])->name('slider');
+Route::get('/dashboard/gestio/vista/cartes', [AdminController::class, 'getCartes'])->name('cartes');
 
 Route::get('/dashboard/gestio/form/{accio}/{tipus}/{id?}', [AdminController::class, 'formulariVista'])->name('formulariVista');
 Route::post('/dashboard/gestio/vista/insertar', [AdminController::class, 'insertarVista'])->name('insertarVista');
@@ -35,8 +35,8 @@ Route::post('/dashboard/gestio/vista/actualizar', [AdminController::class, 'actu
 Route::post('/dashboard/gestio/vista/eliminar/{tipus}/{id}', [AdminController::class, 'eliminarVista'])->name('eliminarVista');
 
 // GESTIÓ USUARIS
-Route::get('/dashboard/gestio/usuaris', [AdminController::class, 'gestioUsuaris'])->name('gestioUsuaris');
-Route::get('/dashboard/gestio/usuaris/{accio}/{id?}', [AdminController::class, 'formulariUsuari'])->name('formulariUsuari');
+Route::get('/dashboard/gestio/usuaris', [AdminController::class, 'gestioUsuaris'])->name('usuaris.gestioUsuaris');
+Route::get('/dashboard/gestio/usuaris/{accio}/{id?}', [AdminController::class, 'formulariUsuari'])->name('usuaris.formulariUsuari');
 Route::post('/dashboard/gestio/usuaris/registrarse', [AdminController::class, 'registrar'])->name('registrarAdmin');
 Route::post('/dashboard/gestio/usuaris/actualizar', [AdminController::class, 'actualizar'])->name('actualitzarUsuari');
 Route::post('/dashboard/gestio/usuaris/eliminarUsuari/{id}', [AdminController::class, 'eliminar'])->name('eliminarUsuari');
@@ -44,7 +44,6 @@ Route::post('/dashboard/gestio/usuaris/eliminarUsuari/{id}', [AdminController::c
 // RUTAS PARA EL REGISTRO USUARIO
 Route::post('/registrarse', [RegisterController::class, 'create'])->name('create');
 Route::post('/registrarse/comprovar', [RegisterController::class, 'comprovar'])->name('comprovar');
-
 
 // RUTAS PARA LOGIN
 Route::post('/login', [LoginController::class], 'login')->name('login');

@@ -11,7 +11,7 @@
     <div class="table-responsive">
         <h2 style="font-family: 'Nunito', sans-serif;">Llistat d'usuaris</h2>
         
-        <a type="button" href="{{ route('formulariUsuari', ['accio' => 'nouUsuari']) }}">CREAR USUARI</a>
+        <a type="button" href="{{ route('usuaris.formulariUsuari', ['accio' => 'nouUsuari']) }}">CREAR USUARI</a>
         <table style="text-align: center;" class="table table-sm table-bordered table-dark">
             <thead>
                 <tr>
@@ -42,7 +42,7 @@
                         <td>{{ $usuari->dataCreacio }}</td>
                         <!-- TODO PONER PÁGINAS ESTÁTICAS PARA PRESENTARLO -->
                         <td>
-                            <a href="{{ route('formulariUsuari', ['accio' => 'editarUsuari', 'id' => $usuari->id]) }}">
+                            <a href="{{ route('usuaris.formulariUsuari', ['accio' => 'editarUsuari', 'id' => $usuari->id]) }}">
                                 <button><i class="fas fa-edit"></i></button>
                             </a>
                             
