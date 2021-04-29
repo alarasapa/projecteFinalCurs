@@ -36,19 +36,10 @@
                         <!-- </nav> -->
                     </div>     
                 </li>
-                <li class="nav-item {{ Request::is('soci') ? 'active' : '' }}">
+                <li class="nav-item {{ rutaActual('soci') }}">
                     <a href="{{ route('soci') }}" class="nav-link">Soci</a>
                 </li>
-                <!-- <li class="nav-item {{ Request::is('reservar') ? 'active' : '' }}">
-                    <a href="{{ route('reservar') }}" class="nav-link">Reservar</a>
-                </li>
-                <li class="nav-item {{ Request::is('escola') ? 'active' : '' }}">
-                    <a href="{{ route('escola') }}" class="nav-link">Escola</a>
-                </li>
-                <li class="nav-item {{ Request::is('casal') ? 'active' : '' }}">
-                    <a href="{{ route('casal') }}" class="nav-link">Casal</a>
-                </li> --> 
-                <li class="nav-item {{ Request::is('contacte') ? 'active' : '' }}">
+                <li class="nav-item {{ rutaActual('contacte') }}">
                     <a href="{{ route('contacte') }}" class="nav-link">Contacte</a>
                 </li>
                 <li class="nav-item">
@@ -63,7 +54,7 @@
                             <a class="dropdown-item" href="#">
                                 {{ __('Llistat matricules') }}
                             </a>    
-                            @elseif (Auth::user()->rol == 'A')
+                            @elseif (isAdmin())
                             <a class="dropdown-item" href="{{ route('dashboard') }}">
                                 {{ __('Administrar pàgina') }}
                             </a>    

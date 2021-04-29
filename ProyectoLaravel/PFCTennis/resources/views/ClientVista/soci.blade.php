@@ -13,8 +13,6 @@
     <script src="https://kit.fontawesome.com/037c3bf4d0.js" crossorigin="anonymous"></script>   
 @endpush
 
-<!-- TODO CAMBIAR RUTAS PARA HACER EL usuari.* Y QUE SALGA ACTIVE TODO -->
-
 <img src="imatges/soci/sociBanner.png" style="width: 100%"><br><br>
 
 <div class="container">
@@ -50,7 +48,7 @@
                             <div class="head_bg"></div>
                             <div class="head"> <span>Individual (Full)</span> </div>
                         </div>
-                        <div class="mypricing_price_tag clearfix"> <span class="price"><span class="currency">35</span><span class="sign">€</span><span class="cent"></span> <span class="month">/mes</span> </span> </div>
+                        <div class="mypricing_price_tag clearfix"> <span class="price"><span class="currency">45</span><span class="sign">€</span><span class="cent"></span> <span class="month">/mes</span> </span> </div>
                     </div>
                     <div class="mypricing_feature_list">
                         <ul>
@@ -148,11 +146,11 @@
         <div class="col-md-3">
             <ul>
                 <li>Servei d’encordat de raquetes</li><br>
-                <li>Descomptes amb els nostres col·laboradors</li><br>
+                <li>Descomptes amb els nostres col·laboradors del club vela</li><br>
+                <li><img width="200" src="imatges/soci/clubVela.jpg"></li>
             </ul>
         </div>
     </div>
 </div>
-
 
 @endsection

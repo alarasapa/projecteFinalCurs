@@ -93,6 +93,15 @@
             $this->setDataCreacio($args[0]->dataCreacio);
         }
 
+        /**
+         * Funció que mostra si l'usuari és un administrador o no
+         * 
+         * @return Boolean Retorna si es dona el cas
+         */
+        public function isAdmin(){
+            return $this->rol == 'A';
+        }
+
         /********************
          * GETTER Y SETTERS *
          ********************/

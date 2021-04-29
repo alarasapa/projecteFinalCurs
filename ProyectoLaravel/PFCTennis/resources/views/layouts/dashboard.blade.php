@@ -97,18 +97,7 @@
                                     <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/vista/slider') }}" href="{{ route('slider') }}">Slider</a>
                                     <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/vista/carta') }}" href="{{ route('cartes') }}">Cartes</a>
                                 </div>
-
-                                <!-- <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseAuth">
-                                    Authentication
-                                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                                </a>
-                                <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
-                                    <nav class="sb-sidenav-menu-nested nav">
-                                        <a class="nav-link" href="login.html">Login</a>
-                                        <a class="nav-link" href="register.html">Register</a>
-                                        <a class="nav-link" href="password.html">Forgot Password</a>
-                                    </nav>
-                                </div> -->
+                                
                             </nav>
                         </div>
 
@@ -129,6 +118,7 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
+                @include('layouts.session-status')
                 @yield('content') @section('content')
             </main>
         </div>

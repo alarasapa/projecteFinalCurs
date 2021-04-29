@@ -35,10 +35,10 @@
           class="list-group-item list-group-item-action py-2 ripple"
           aria-current="true"
         >
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Tornar</span>
+          <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Tornar Inici</span>
         </a>
         
-        @if (Auth::user()->rol == 'A')
+        @if ( isAdmin() )
           <a href="{{ route('dashboard') }}" class="list-group-item list-group-item-action py-2 ripple">
             <i class="fas fa-fw me-1"></i><span>Adminstrar pàgina</span></a>
         @else 
@@ -56,7 +56,7 @@
           ><i class="fas fa-chart-line fa-fw me-3"></i><span>Tancar Sessió</span></a>
         
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-          @csrf
+        	@csrf
         </form>
       
       </div>
@@ -64,6 +64,10 @@
   </nav>
   
   </div class="container">
+    <div class="session-status">
+      @include('layouts.session-status')
+    </div>
+
     @yield('content')
   </div>
 

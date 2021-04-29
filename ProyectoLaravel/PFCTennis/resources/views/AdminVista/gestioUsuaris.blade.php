@@ -12,7 +12,7 @@
         <h2 style="font-family: 'Nunito', sans-serif;">Llistat d'usuaris</h2>
         
         <a type="button" href="{{ route('usuaris.formulariUsuari', ['accio' => 'nouUsuari']) }}">CREAR USUARI</a>
-        <table style="text-align: center;" class="table table-sm table-bordered table-dark">
+        <table style="text-align: center;" class="table-sm table-bordered table-dark">
             <thead>
                 <tr>
                     <th scope="col">DNI/NIF</th>
@@ -42,19 +42,25 @@
                         <td>{{ $usuari->dataCreacio }}</td>
                         <!-- TODO PONER PÁGINAS ESTÁTICAS PARA PRESENTARLO -->
                         <td>
-                            <a href="{{ route('usuaris.formulariUsuari', ['accio' => 'editarUsuari', 'id' => $usuari->id]) }}">
-                                <button><i class="fas fa-edit"></i></button>
-                            </a>
-                            
-                            <form id="eliminar-{{ $usuari->id }}" action="{{ route('eliminarUsuari', ['id' => $usuari->id]) }}" method="POST">
-                                @csrf
-                                <button type="submit" href="{{ route('eliminarUsuari', ['id' => $usuari->id]) }}" onclick="return confirm('Estàs segur que vols eliminar aquest usuari?')"><i class="far fa-trash-alt"></i></button>
-                            </form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{{ route('usuaris.formulariUsuari', ['accio' => 'editarUsuari', 'id' => $usuari->id]) }}">
+                                        <button><i class="fas fa-edit"></i></button>
+                                    </a>
+                                </div>
+                                <div class="col-md-6">
+                                    <form id="eliminar-{{ $usuari->id }}" action="{{ route('eliminarUsuari', ['id' => $usuari->id]) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" href="{{ route('eliminarUsuari', ['id' => $usuari->id]) }}" onclick="return confirm('Estàs segur que vols eliminar aquest usuari?')"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+        {{ $usuaris->links('pagination::bootstrap-4') }}
     </div>
 </div>
 

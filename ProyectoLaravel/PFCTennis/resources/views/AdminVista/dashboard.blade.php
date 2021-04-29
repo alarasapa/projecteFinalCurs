@@ -31,16 +31,8 @@
             </tbody>
         </table>
     </div>
-    <!-- <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-title">
-                </div>
-                <div class="card-body">
-                    S
-                </div>
-            </div>
-        </div>
-    </div> -->
+
+    {{ $logsUsuaris->links('pagination::bootstrap-4') }}
+    
 </div>
 @endsection

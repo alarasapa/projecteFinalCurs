@@ -17,7 +17,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Redirigen a la vista especificada
+     * Redireccionen a la vista especificada
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -32,6 +32,7 @@ class HomeController extends Controller
         $cartes = [];
         $cartes = HomeDAO::getLlistatObjecteVista('cartes_inici_vista');
 
+        // Retirnem
         return view('index', compact('sliders', 'cartes'));
     }
     

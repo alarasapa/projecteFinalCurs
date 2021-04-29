@@ -185,7 +185,7 @@
                                         [Auth::user()->id, $descripcio, $dataActualitzacio]);
 
             // Redireccionem a la taula d'usuaris
-            return redirect("gestioUsuaris");
+            return redirect("usuaris.gestioUsuaris");
         }
 
         public static function updateVista(Request $request){

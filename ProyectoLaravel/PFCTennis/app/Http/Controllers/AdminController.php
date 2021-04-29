@@ -21,6 +21,8 @@
         public function dashboard(){
             $logsUsuaris = AdminDAO::getLogsAdmins();
     
+            $logsUsuaris = paginate($logsUsuaris);
+
             return view('AdminVista.dashboard', compact('logsUsuaris'));
         }
 
@@ -32,6 +34,8 @@
         public function gestioUsuaris(){
             // Agafem els usuaris 
             $usuaris = AdminDAO::getUsuaris();
+
+            $usuaris = paginate($usuaris);
 
             // Retornem a la vista amb l'array d'usuaris com a paràmetre
             return view('AdminVista.gestioUsuaris', compact('usuaris'));
@@ -95,7 +99,7 @@
             AdminDAO::insertarUsuari($request);
 
             // Redireccionem al gestor d'usuaris
-            return redirect()->route('gestioUsuaris');
+            return redirect()->route('usuaris.gestioUsuaris')->with('status', 'S\'ha registrar amb èxit!');
         }
 
         /**
@@ -117,7 +121,7 @@
             $arxiu->move('imatges/' . $request->tipus . '/', $name);
             
             // Redirigimos al gestor de la vista en específico
-            return redirect()->route($request->tipus);
+            return redirect()->route($request->tipus)->with('status', 'S\'ha registrat amb èxit!');
         }
 
         /**
@@ -132,7 +136,7 @@
             AdminDAO::updateUsuari($request);
 
             // Redireccionem al gestor d'usuaris
-            return redirect()->route('gestioUsuaris');
+            return redirect()->route('usuaris.gestioUsuaris')->with('status', 'S\'ha actualitzat amb èxit!');
         }
 
         //TODO ARREGLAR LOS ESTILOS DE LAS ACCIONES DE LA TABLA  
@@ -147,7 +151,7 @@
             
             $arxiu->move('imatges/' . $request->tipus . '/', $name);
 
-            return redirect()->route($request->tipus);
+            return redirect()->route($request->tipus)->with('status', 'S\'ha actualitzat amb èxit');
         }
 
         /**
@@ -160,7 +164,7 @@
             AdminDAO::eliminarUsuari($request->id);
 
             // Redireccionem
-            return redirect()->route('gestioUsuaris');
+            return redirect()->route('usuaris.gestioUsuaris')->with('status', 'S\'ha eliminat amb èxit!');
         }
 
         /**
@@ -175,7 +179,7 @@
             AdminDAO::eliminarVista($request->id, $request->tipus);
 
             // Redireccionem
-            return redirect()->route($request->tipus);
+            return redirect()->route($request->tipus)->with('status', 'S\'ha eliminat amb èxit!');
         }
 
         /**

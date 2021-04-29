@@ -20,7 +20,7 @@ class ConfiguracioController extends Controller {
         ConfiguracioDAO::cambiarDades($request);
 
         // Redireccionem al index
-        return redirect("home");
+        return redirect("home")->with('status', 'S\'han cambiat les teves dades amb èxit!');
     }
 
     protected function comprovar(Request $request){
@@ -34,11 +34,7 @@ class ConfiguracioController extends Controller {
         ConfiguracioDAO::cambiarPassword($request);
         
         // Redireccionem 
-        if (Auth::user()->rol == 'A'){
-            return redirect('dashboard');
-        } else {
-            return redirect('home');
-        }
+        return redirect('cambiarPassword')->with('status', 'S\'ha cambiat la contrasenya amb èxit!');
 
     }
 }

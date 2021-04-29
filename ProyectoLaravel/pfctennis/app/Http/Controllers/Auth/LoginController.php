@@ -51,6 +51,11 @@ class LoginController extends Controller
      * @param Request $request Informació del usuari que es vol logar
      */
     public function login(Request $request){
+        request()->validate([
+            "usuariEmail" => 'required',
+            "password" => 'required',
+        ]);
+            
         $res = AuthDAO::login($request);
 
         //Si el resultat de la búsqueda retorna res -> redirigeix de nou al login
@@ -60,13 +65,13 @@ class LoginController extends Controller
             //...y es logeja amb aquest objecte
             Auth::login($usuari);
 
-            if (Auth::user()->rol == 'A'){
+            if (isAdmin()){
                 return redirect('/dashboard');
             } else {
                 //Per últim redirigeix al index
                 return redirect("/index");            
             }
         } 
-        else return view("auth.login");
+        else return redirect()->route("login")->with('status', 'Hi ha hagut un error amb l\'email o la contrasenya');
     }
 }
