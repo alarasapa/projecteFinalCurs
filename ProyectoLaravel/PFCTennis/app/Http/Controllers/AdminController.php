@@ -8,6 +8,7 @@
     use App\Models\Usuari;
     use App\Models\Log;
     use App\Models\ObjecteVista;
+    use App\Models\Localitzacio;
     
     class AdminController extends Controller {
 
