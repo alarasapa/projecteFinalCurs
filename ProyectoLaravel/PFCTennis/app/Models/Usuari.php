@@ -5,6 +5,7 @@
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Notifications\Notifiable;
+    use App\Models\Localitzacio;
 
     class Usuari extends Authenticatable {
 
@@ -64,9 +65,19 @@
         public $email;
 
         /**
+         * @var Localitzacio
+         */
+        public $localitzacio;
+
+        /**
          * @var String
          */
         public $telefon;
+
+        /**
+         * @var String
+         */
+        public $telefon2;
 
         /**
          * @var Date
@@ -88,7 +99,9 @@
             $this->setContrasenya($args[0]->contrasenya);
             $this->setRol($args[0]->rol);
             $this->setEmail($args[0]->email);
+            // $this->setLocalitzacio($args[0]->localitzacio);
             $this->setTelefon($args[0]->telefon);
+            $this->setTelefon2($args[0]->telefon2);
             $this->setDataNaixement($args[0]->dataNaixement);
             $this->setDataCreacio($args[0]->dataCreacio);
         }
@@ -138,8 +151,16 @@
             return $this->email;
         }
 
+        public function getLocalitzacio(){
+            return $this->localitzacio;
+        }
+
         public function getTelefon(){
             return $this->telefon;
+        }
+
+        public function getTelefon2(){
+            return $this->telefon2;
         }
 
         public function getDataNaixement(){
@@ -185,6 +206,11 @@
             return $this;
         }
 
+        public function setLocalitzacio($localitzacio){
+            $this->localitzacio = $localitzacio;
+            return $this;
+        }
+
         public function setEmail($email){
             $this->email = $email;
             return $this;
@@ -192,6 +218,11 @@
 
         public function setTelefon($telefon){
             $this->telefon = $telefon;
+            return $this;
+        }
+
+        public function setTelefon2($telefon2){
+            $this->telefon2 = $telefon2;
             return $this;
         }
 

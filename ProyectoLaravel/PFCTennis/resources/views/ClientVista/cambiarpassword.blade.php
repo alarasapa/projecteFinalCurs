@@ -1,6 +1,6 @@
 @extends('layouts.configuracio')
 
-@section('titol', 'Configuració')
+@section('titol', 'Cambiar Contrasenya')
 @section('content')
 
 @push('css')
@@ -9,6 +9,7 @@
 @push('scripts')
     <script src="{{ url('js/ClientJS/cambiarpassword.js') }}"></script>
 @endpush
+
     <h1>CAMBIAR LA CONTRASENYA DE: {{ Auth::user()->nom }}</h1>
     <form id="formConfiguració" action="/configuracio/cambiarpassword" onsubmit="return comprovarFormulari()" method="POST">
         @csrf

@@ -6,9 +6,9 @@
     use App\Models\HomeDAO;
     use Illuminate\Http\Request;
     use App\Models\Usuari;
+    use App\Models\Log;
     use App\Models\ObjecteVista;
-    use File;
-
+    
     class AdminController extends Controller {
 
         public function __constructor(){}
@@ -19,6 +19,9 @@
          */
 
         public function dashboard(){
+            //TODO BUSCAR EL ERROR DEL PAGINATE BUSCAR FICHERO DE LOG
+            
+            // $logsUsuaris = Log::paginate(5);
             $logsUsuaris = AdminDAO::getLogsAdmins();
     
             $logsUsuaris = paginate($logsUsuaris);
@@ -55,6 +58,7 @@
                 case "nouUsuari":
                     // Si és un nou usuari creem una instància buida
                     $usuari = new Usuari();
+                    $usuari->setLocalitzacio(new Localitzacio);
                     // I retornem la vista
                     return view('AdminVista.formUsuari', ['accio' => $accio, 'id' => $id, 'usuari' => $usuari]);
                 

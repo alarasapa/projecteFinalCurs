@@ -31,11 +31,9 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">{{ __('Registrar-se al Club de Tennis') }}</div>
-
                     <div class="card-body">
-
-                        <form id="form" method="POST" action="{{ url('/registrarse') }}" onsubmit="return comprovarFormulari()">
-                            @csrf
+                    <form id="form" method="POST" action="{{ url('/registrarse') }}" onsubmit="return comprovarFormulari()">
+                        @csrf
 
                             <input id="rol" name="rol" type="hidden" value="U">
 
@@ -45,7 +43,7 @@
                                 <div class="col-md-6">
                                     <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom') }}" pattern="[a-zA-Z]+" required autocomplete="nom" autofocus>
 
-                                    @error('name')
+                                    @error('nom')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -59,7 +57,7 @@
                                 <div class="col-md-6">
                                     <input id="cognoms" type="text" class="form-control @error('cognoms') is-invalid @enderror" name="cognoms" value="{{ old('cognoms') }}" pattern="[a-zA-Z\s]+" required>
 
-                                    @error('name')
+                                    @error('cognoms')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -87,7 +85,7 @@
                                 <div class="col-md-6">
                                     <input id="dataNaixement" type="date" class="form-control @error('dataNaixement') is-invalid @enderror" name="dataNaixement" value="{{ old('dataNaixement') }}" required>
 
-                                    @error('name')
+                                    @error('dataNaixement')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -129,11 +127,86 @@
                                 <div class="col-md-6">
                                     <input id="telefon" type="text" class="form-control @error('telefon') is-invalid @enderror" name="telefon" value="{{ old('telefon') }}" pattern="[0-9]{9}" required>
 
-                                    @error('name')
+                                    @error('telefon')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="telefon2" class="col-md-4 col-form-label text-md-right">{{ __('Segon Telefon') }}</label>
+
+                                <div class="col-md-6">
+                                    <input id="telefon2" type="text" class="form-control @error('telefon2') is-invalid @enderror" name="telefon2" value="{{ old('telefon2') }}" pattern="[0-9]{9}">
+
+                                    @error('telfon2')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="card">
+                                <div class="card-header">La teva Localitzacio</div>
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="adreca" class="col-md-4 col-form-label text-md-right">{{ __('Adreça') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="adreca" type="text" class="form-control @error('adreca') is-invalid @enderror" name="adreca" value="{{ old('adreca') }}" pattern="[a-zA-Z\s\\]+" required>
+
+                                            @error('adreca')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group row">
+                                        <label for="poblacio" class="col-md-4 col-form-label text-md-right">{{ __('Població') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="poblacio" type="text" class="form-control @error('poblacio') is-invalid @enderror" name="poblacio" value="{{ old('poblacio') }}" pattern="[a-zA-Z\s]+" required>
+
+                                            @error('poblacio')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="codiPostal" class="col-md-4 col-form-label text-md-right">{{ __('Codi Postal') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="codiPostal" type="text" class="form-control @error('codiPostal') is-invalid @enderror" name="codiPostal" value="{{ old('codiPostal') }}" pattern="[0-9]{5}" required>
+
+                                            @error('codiPostal')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="provincia" class="col-md-4 col-form-label text-md-right">{{ __('Provincia') }}</label>
+
+                                        <div class="col-md-6">
+                                            <input id="provincia" type="text" class="form-control @error('provincia') is-invalid @enderror" name="provincia" value="{{ old('provincia') }}" pattern="[a-zA-Z\s]+" required>
+
+                                            @error('provincia')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -143,7 +216,7 @@
                                 <div class="col-md-6">
                                     <input id="contrasenya" type="password" class="form-control @error('contrasenya') is-invalid @enderror" name="contrasenya" required autocomplete="new-password">
 
-                                    @error('password')
+                                    @error('contrasenya')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

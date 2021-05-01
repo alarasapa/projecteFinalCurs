@@ -8,6 +8,7 @@
     use App\Models\Usuari;
     use App\Models\ObjecteVista;
     use App\Models\Log;
+    use App\Models\Localitzacio;
 
     class AuthDAO {
 
@@ -42,40 +43,77 @@
         public static function insertarUsuari(Request $request){
             // Validem les dades
             request()->validate([
-                'nom' => 'required',
-                'cognoms' => 'required',
-                'nif' => 'required | unique:usuari',
-                'dataNaixement' => 'required',
-                'email' => 'required | email | unique:usuari',
+                'nom'              => 'required',
+                'cognoms'          => 'required',
+                'nif'              => 'required | unique:usuari',
+                'dataNaixement'    => 'required',
+                'email'            => 'required | email | unique:usuari',
                 'targetaSanitaria' =>'required | unique:usuari',
-                'telefon' => 'required',
-                'contrasenya' => 'required | min:8'
+                'telefon'          => 'required',
+                'adreca'           => 'required',
+                'poblacio'         => 'required',
+                'codiPostal'       => 'required',
+                'provincia'        => 'required',
+                'contrasenya'      => 'required | min:8',
             ]);
-    
+            
+            // Creem un objecte de localització
+            $localitzacio = new Localitzacio([$request]);
+
+            // La insertem en la base de dades i agafem l'id
+            $localitzacioId = DB::table('localitzacio')->insertGetId([
+                'adreca'     => $localitzacio->adreca,
+                'poblacio'   => $localitzacio->poblacio,
+                'codiPostal' => $localitzacio->codiPostal,
+                'provincia'  => $localitzacio->provincia,
+            ]);
+            
+            $localitzacio->setID($localitzacioId);
+            // $request->localitzacio = $localitzacio;
+            
             // Creem un objecte usuari
             $usuari = new Usuari([$request]);
-
+            
             // Fem la encriptació de la contrasenya
             $contrasenya      = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
             $contrasenya      = hash('md5', $contrasenya);
+            
             // Y la emmagetzem en l'objecte
             $usuari->setContrasenya($contrasenya);
-    
-            //Insertem l'usuari
-            DB::insert('INSERT INTO usuari (nom, cognoms, nif, targetaSanitaria, email, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-                [$usuari->nom, $usuari->cognoms, $usuari->nif, $usuari->targetaSanitaria, $usuari->email, $usuari->contrasenya, 
-                $usuari->rol, $usuari->telefon, $usuari->dataNaixement, $usuari->dataCreacio]);
-
-            // Agafem el identificador
-            $res = DB::select("SELECT id FROM usuari WHERE nif = ?", [$usuari->nif]);
-
-            // Agafem y setejem el identificador
-            $usuari->setId($res[0]->id);
+            $usuari->setLocalitzacio($localitzacio);
+            
+            // Insertem l'usuari i agafem el seu identificador
+            $usuariId = DB::table('usuari')->insertGetId([
+                'nom'              => $usuari->nom,
+                'cognoms'          => $usuari->cognoms,
+                'nif'              => $usuari->nif,
+                'targetaSanitaria' => $usuari->targetaSanitaria,
+                'email'            => $usuari->email,
+                'localitzacio'     => $usuari->localitzacio->id,
+                'contrasenya'      => $usuari->contrasenya,
+                'rol'              => $usuari->rol,
+                'telefon'          => $usuari->telefon,
+                'telefon2'         => $usuari->telefon2,
+                'dataNaixement'    => $usuari->dataNaixement,
+                'dataCreacio'      => $usuari->dataCreacio
+            ]);
+            
+            // Setejem el identificador
+            $usuari->setId($usuariId);
 
             // Retornem l'objecte usuari
             return $usuari;
         } 
+
+        public static function getLocalitzacio($id){
+            $res = DB::table('localitzacio')
+                    ->join('usuari', 'localitzacio.id', '=', 'usuari.localitzacio')
+                    ->select('localitzacio.id', 'localitzacio.adreca', 'localitzacio.poblacio', 'localitzacio.codiPostal', 'localitzacio.provincia')
+                    ->where('usuari.id', $id)
+                    ->get();
+            
+            return new Localitzacio($res);
+        }
 
         /**
          * Funció per a comprovar les dades enviades
@@ -91,6 +129,7 @@
             $valor = $request->valor;
             
             // En funció del tipus de dada, comprovem si ja hi existeix un registre igual
+            // $res = DB::table('usuari')->where($tipusDada, $valor);
             switch ($tipusDada) {
                 case "email":
                     $res = DB::select('SELECT COUNT(*) AS resultat FROM usuari WHERE email = ?', [$valor]);

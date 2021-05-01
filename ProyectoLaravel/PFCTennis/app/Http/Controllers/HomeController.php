@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ObjecteVista;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ObjecteVista;
 use App\Models\Usuari;
 use App\Models\Log;
 use App\Models\HomeDAO;
+use App\Models\AuthDAO;
+
 
 class HomeController extends Controller
 {
@@ -63,6 +66,11 @@ class HomeController extends Controller
 
     public function home(){
         return view('ClientVista.home');
+    }
+    public function cambiarLocalitzacio(){
+        $localitzacio = AuthDAO::getLocalitzacio(Auth::user()->id);
+
+        return view('ClientVista.cambiarLocalitzacio', compact('localitzacio'));
     }
     public function cambiarPassword(){
         return view('ClientVista.cambiarpassword');

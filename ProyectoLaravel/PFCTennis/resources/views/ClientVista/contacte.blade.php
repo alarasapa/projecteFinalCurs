@@ -28,6 +28,8 @@
         </div>
         <input class="btn btn-dark btn-lg btn-block" type="submit" id="submit" name="submit" value="Enviar" onclick="enviar()">
     </form>
+    <!-- TODO FALTA ARREGLAR MAPS, SERA AMPLIO COMO EL SLIDER -->
+    <iframe class="iframe" src="https://maps.google.com/?ll=23.135249,-82.359685&z=14&t=m&output=embed" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
 </div>
 
 @endsection

@@ -33,16 +33,37 @@
             // Actualitzem les seves dades
             DB::update('UPDATE usuari 
                     SET nif = ?, nom = ?, cognoms = ?,
-                    email = ?, targetaSanitaria = ?, telefon = ?, dataNaixement = ?
+                    email = ?, targetaSanitaria = ?, telefon = ?, telefon2 = ?, dataNaixement = ?
                     WHERE id = ?', 
             [$usuari->nif, $usuari->nom, $usuari->cognoms, $usuari->email, 
-            $usuari->targetaSanitaria, $usuari->telefon, $usuari->dataNaixement, $usuari->id]);
+            $usuari->targetaSanitaria, $usuari->telefon, $usuari->telefon2, $usuari->dataNaixement, $usuari->id]);
     
             // Afegim als logs el canvi
             $descripcio = "Ha cambiat les seves dades";
             $dataActualitzacio = date('Y-m-d H:i:s');
             DB::insert('INSERT INTO log_usuari(idUsuari, descripcio, data) VALUES(?, ?, ?)',
                             [$usuari->id, $descripcio, $dataActualitzacio]);    
+        }
+
+        public static function cambiarLocalitzacio(Request $request){
+            request()->validate([
+                'adreca'        => 'required',
+                'poblacio'      => 'required',
+                'codiPostal'    => 'required',
+                'provincia'     => 'required',
+            ]);
+
+            $localitzacio = new Localitzacio([$request]);
+            
+            DB::table('localitzacio')
+                ->where('id', $localitzacio->id)
+                ->update([
+                    'adreca'     => $localitzacio->adreca,
+                    'poblacio'   => $localitzacio->poblacio,
+                    'codiPostal' => $localitzacio->codiPostal,
+                    'provincia'  => $localitzacio->provincia,
+                ]);
+            
         }
 
         /**

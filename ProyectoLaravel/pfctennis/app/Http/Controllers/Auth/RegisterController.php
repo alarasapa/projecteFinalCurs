@@ -33,7 +33,7 @@
         protected function create(Request $request) {  
             // Afegim l'usuari a la BBDD
             $usuari = AuthDAO::insertarUsuari($request);
-            
+
             // Iniciem sessió automàticament amb aquest usuari y...
             Auth::login($usuari);
             

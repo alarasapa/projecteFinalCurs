@@ -120,6 +120,20 @@
             </div>
         </div>
 
+        <div class="form-group row">
+            <label for="telefon2" class="col-md-4 col-form-label text-md-right">{{ __('Segon Telefon') }}</label>
+
+            <div class="col-md-6">
+                <input id="telefon2" type="text" class="form-control @error('telefon') is-invalid @enderror" name="telefon2" pattern="[0-9]{9}" value="{{ old('telefon2', Auth::user()->telefon2) }}">
+
+                @error('telefon')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </div>
+
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button id="submit" type="submit" class="btn btn-block btn-danger">

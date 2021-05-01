@@ -49,6 +49,9 @@
         <a href="{{ route('home') }}" class="list-group-item list-group-item-action py-2 ripple {{ rutaActual('home') }}"
           ><i class="fas fa-chart fa-fw me-3"></i><span>Cambiar dades generals</span></a>
 
+        <a href="{{ route('cambiarLocalitzacio') }}" class="list-group-item list-group-item-action py-2 ripple {{ rutaActual('configuracio/cambiarlocalitzacio') }}"
+        ><i class="fas fa-chart fa-fw me-3"></i><span>Cambiar localització</span></a>
+
         <a href="{{ route('cambiarPassword') }}" class="list-group-item list-group-item-action py-2 ripple {{ rutaActual('configuracio/cambiarpassword') }}"
         ><i class="fas fa-chart fa-fw me-3"></i><span>Cambiar contrasenya</span></a>
       

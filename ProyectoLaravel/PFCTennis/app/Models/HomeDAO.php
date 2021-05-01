@@ -35,7 +35,6 @@
             return $objectes; 
         }
 
-
         /**
          * Funció per agafar un objecte específic d'una taula específica
          * 
@@ -49,7 +48,6 @@
             $res = DB::table($taula)
                         ->where('id', $id)
                         ->first();
-
 
             // Creem l'objecte i el retornem
             return new ObjecteVista($res);

@@ -8,6 +8,7 @@
     use App\Models\Usuari;
     use App\Models\ObjecteVista;
     use App\Models\Log;
+    use App\Models\Localitzacio;
 
     class AdminDAO {
 
@@ -21,7 +22,7 @@
             $logsAdmins = [];
 
             // Realitzem la consulta en la base de dades
-            $res = DB::select('SELECT lg.id, lg.descripcio, lg.data, u.id, u.nif, u.nom, u.cognoms, u.contrasenya, u.rol, u.email, u.targetaSanitaria, u.telefon, u.dataNaixement, u.dataCreacio 
+            $res = DB::select('SELECT lg.id, lg.descripcio, lg.data, u.id, u.nif, u.nom, u.cognoms, u.contrasenya, u.rol, u.email, u.targetaSanitaria, u.telefon, u.telefon2, u.dataNaixement, u.dataCreacio 
                 FROM log_admin lg INNER JOIN usuari u ON lg.idAdmin = u.id ORDER BY lg.data');
     
             // Iterem el resultat obtingut
@@ -75,7 +76,12 @@
                         ->first();
 
             // Creem l'objecte i el retornem
-            return new Usuari([$res]);
+            $usuari = new Usuari([$res]);            
+
+            $localitzacio = AuthDAO::getLocalitzacio($id);
+            $usuari->setLocalitzacio($localitzacio);
+
+            return $usuari;
         }
 
         /**
@@ -86,37 +92,68 @@
         public static function insertarUsuari(Request $request){
             // Validem les dades
             request()->validate([
-                'nom' => 'required',
-                'cognoms' => 'required',
-                'nif' => 'required | unique:usuari',
-                'dataNaixement' => 'required',
-                'email' => 'required | email | unique:usuari',
+                'nom'              => 'required',
+                'cognoms'          => 'required',
+                'nif'              => 'required | unique:usuari',
+                'dataNaixement'    => 'required',
+                'email'            => 'required | email | unique:usuari',
                 'targetaSanitaria' =>'required | unique:usuari',
-                'telefon' => 'required',
-                'contrasenya' => 'required | min:8'
+                'telefon'          => 'required',
+                'adreca'           => 'required',
+                'poblacio'         => 'required',
+                'codiPostal'       => 'required',
+                'provincia'        => 'required',
+                'contrasenya'      => 'required | min:8',
             ]);
-                
+            
+            // Agafem la localització
+            $localitzacio = new Localitzacio([$request]);
+
+            // La insertem en la base de dades i agafem l'id
+            $localitzacioId = DB::table('localitzacio')->insertGetId([
+                'adreca'     => $localitzacio->adreca,
+                'poblacio'   => $localitzacio->poblacio,
+                'codiPostal' => $localitzacio->codiPostal,
+                'provincia'  => $localitzacio->provincia,
+            ]);
+            
+            $localitzacio->setID($localitzacioId);
+
             // Creem un objecte usuari
             $usuari = new Usuari([$request]);
 
             // Fem la encriptació de la contrasenya
             $contrasenya      = filter_var($request->contrasenya, FILTER_SANITIZE_STRING);
             $contrasenya      = hash('md5', $contrasenya);
+            
             // Y la emmagetzem en l'objecte
             $usuari->setContrasenya($contrasenya);
+            $usuari->setLocalitzacio($localitzacio);
 
             //Insertem l'usuari
-            DB::insert('INSERT INTO usuari (nom, cognoms, nif, targetaSanitaria, email, contrasenya, rol, telefon, dataNaixement, dataCreacio) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
-                [$usuari->nom, $usuari->cognoms, $usuari->nif, $usuari->targetaSanitaria, $usuari->email, $usuari->contrasenya, 
-                $usuari->rol, $usuari->telefon, $usuari->dataNaixement, $usuari->dataCreacio]);
-        
-             // Afegim als logs que hem fet els canvis
-             $descripcio = "Ha afegit l'usuari: " . $usuari->nom . " " . $usuari->cognoms;
-             $dataActualitzacio = date('Y-m-d H:i:s');
+            DB::table('usuari')->insert([
+                'nom'              => $usuari->nom,
+                'cognoms'          => $usuari->cognoms,
+                'nif'              => $usuari->nif,
+                'targetaSanitaria' => $usuari->targetaSanitaria,
+                'email'            => $usuari->email,
+                'contrasenya'      => $usuari->contrasenya,
+                'telefon'          => $usuari->telefon,
+                'telefon2'         => $usuari->telefon2,
+                'dataNaixement'    => $usuari->dataNaixement,
+                'dataCreacio'      => $usuari->dataCreacio,
+                'localitzacio'     => $usuari->localitzacio->id,
+            ]);
+
+            // Afegim als logs que hem fet els canvis
+            $descripcio = "Ha afegit l'usuari: " . $usuari->nom . " " . $usuari->cognoms;
+            $dataActualitzacio = date('Y-m-d H:i:s');
  
-             DB::insert('INSERT INTO log_admin(idAdmin, descripcio, data) VALUES(?, ?, ?)',
-                [Auth::user()->id, $descripcio, $dataActualitzacio]); 
+            DB::table('log_admin')->insert([
+                'id'         => Auth::user()->id,
+                'descripcio' => $descripcio,
+                'data'       => $dataActualitzacio,
+            ]);
         }
 
         /**
@@ -158,31 +195,60 @@
         public static function updateUsuari(Request $request){
             // Validació de les dades
             request()->validate([
-                'nom' => 'required',
-                'cognoms' => 'required',
-                'nif' => 'required | unique:usuari,nif,' . $request->id,
-                'dataNaixement' => 'required',
-                'email' => 'required | email | unique:usuari,email,' . $request->id,
-                'targetaSanitaria' =>'required | unique:usuari,targetaSanitaria,' . $request->id,
-                'telefon' => 'required',
+                'nom'              => 'required',
+                'cognoms'          => 'required',
+                'nif'              => 'required | unique:usuari,nif,' . $request->id,
+                'dataNaixement'    => 'required',
+                'email'            => 'required | email | unique:usuari,email,' . $request->id,
+                'targetaSanitaria' => 'required | unique:usuari,targetaSanitaria,' . $request->id,
+                'telefon'          => 'required',
+                'adreca'           => 'required',
+                'poblacio'         => 'required',
+                'codiPostal'       => 'required',
+                'provincia'        => 'required',
             ]);
+
+            // Creem la localització
+            $localitzacio = new Localitzacio([$request]);
+            $localitzacio->setId($request->idLocalitzacio);
+
+            // Actualitzem la localització
+            DB::table('localitzacio')
+                ->where('id', $localitzacio->id)
+                ->update([
+                    'adreca'     => $localitzacio->adreca,
+                    'poblacio'   => $localitzacio->poblacio,
+                    'codiPostal' => $localitzacio->codiPostal,
+                    'provincia'  => $localitzacio->provincia,
+                ]);
 
             // Creem l'objecte de l'usuari
             $usuari = new Usuari([$request]);
 
-            // Fem l'actualització del usuari
-            DB::update('UPDATE usuari 
-                SET nif = ?, nom = ?, cognoms = ?,
-                email = ?, targetaSanitaria = ?, telefon = ?, dataNaixement = ?, rol = ?
-                WHERE id = ?', 
-                [$usuari->nif, $usuari->nom, $usuari->cognoms, $usuari->email, $usuari->targetaSanitaria, $usuari->telefon, $usuari->dataNaixement, $usuari->rol, $usuari->id]);
+            // Actualitzem l'usuari
+            DB::table('usuari')
+                ->where('id', $usuari->id)
+                ->update([    
+                    'nom'              => $usuari->nom,
+                    'cognoms'          => $usuari->cognoms,
+                    'nif'              => $usuari->nif,
+                    'targetaSanitaria' => $usuari->targetaSanitaria,
+                    'email'            => $usuari->email,
+                    'telefon'          => $usuari->telefon,
+                    'telefon2'         => $usuari->telefon2,
+                    'dataNaixement'    => $usuari->dataNaixement,
+                    'rol'              => $usuari->rol,
+                ]);
 
             // Afegim als logs que hem fet els canvis
             $descripcio = "Ha cambiat les dades de " . $usuari->nom . " " . $usuari->cognoms;
             $dataActualitzacio = date('Y-m-d H:i:s');
 
-            DB::insert('INSERT INTO log_admin(idAdmin, descripcio, data) VALUES(?, ?, ?)',
-                                        [Auth::user()->id, $descripcio, $dataActualitzacio]);
+            DB::table('log_admin')->insert([
+                'idAdmin'    => Auth::user()->id,
+                'descripcio' => $descripcio,
+                'data'       => $dataActualitzacio,
+            ]);
 
             // Redireccionem a la taula d'usuaris
             return redirect("usuaris.gestioUsuaris");

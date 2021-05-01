@@ -58,10 +58,15 @@ class LoginController extends Controller
             
         $res = AuthDAO::login($request);
 
-        //Si el resultat de la búsqueda retorna res -> redirigeix de nou al login
+        // Si el resultat de la búsqueda retorna res -> redirigeix de nou al login
         if (!empty($res)) {
-            //En cas contrari, crea un objecte Usuari...
+            // En cas contrari, crea un objecte Localitzacio...
+            $localitzacio = AuthDAO::getLocalitzacio($res[0]->id);
+
+            // I després d'usuari
             $usuari = new Usuari($res);
+            $usuari->setLocalitzacio($localitzacio);
+
             //...y es logeja amb aquest objecte
             Auth::login($usuari);
 
