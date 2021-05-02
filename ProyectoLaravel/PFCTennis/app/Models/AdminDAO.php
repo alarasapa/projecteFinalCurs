@@ -254,6 +254,9 @@
             return redirect("usuaris.gestioUsuaris");
         }
 
+        /**
+         * Funció per a actualitzar la vista
+         */
         public static function updateVista(Request $request){
             // Validem les dades
             $request->validate([

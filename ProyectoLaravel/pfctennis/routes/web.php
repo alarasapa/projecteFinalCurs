@@ -12,9 +12,9 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/index', [HomeController::class, 'index'])->name('index');
 
 Route::get('/soci', [HomeController::class, 'soci'])->name('soci');
-Route::get('/reservar', [HomeController::class, 'reservar'])->name('reservar');
-Route::get('/escola', [HomeController::class, 'escola'])->name('escola');
-Route::get('/casal', [HomeController::class, 'casal'])->name('casal');
+Route::get('/activitats/reservar', [HomeController::class, 'reservar'])->name('activitats.reservar');
+Route::get('/activitats/escola', [HomeController::class, 'escola'])->name('activitats.escola');
+Route::get('/activitats/casal', [HomeController::class, 'casal'])->name('activitats.casal');
 Route::get('/contacte', [HomeController::class, 'contacte'])->name('contacte');
 
 // RUTAS (AUTH) REDIRECCIONAMIENTO

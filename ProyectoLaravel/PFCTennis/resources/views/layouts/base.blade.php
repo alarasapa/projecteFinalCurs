@@ -15,24 +15,26 @@
 
 <body>
     <nav class="navbar sticky-top navbar-expand-lg navbar-dark justify-content-center">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        
+        <button class="navbar-toggler ml-auto float-xs-right" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
+        
 
         <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
             <ul class="navbar-nav nav-fill w-100">    
                 <li class="nav-item {{ Request::is('/') || Request::is('index') ? 'active' : '' }}">
                     <a href="{{ route('index') }}" class="nav-link">Inici</a>
                 </li>
-                <li class="nav-item dropdown-hover">
+                <li class="nav-item dropdown-hover {{ rutaActual('activitats/*') }}">
                     <a class="nav-link dropdown-toggle" href="#" id="activitatsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Activitats
                     </a>
                     <div class="dropdown-menu dropdown-hover-menu" aria-labelledby="activitatsDropdown">
                         <!-- <nav id="navbarActivitats" class="sb-sidenav-menu-nested nav"> -->
-                            <a href="{{ route('reservar') }}" class="dropdown-item">Reservar</a>
-                            <a href="{{ route('escola') }}" class="dropdown-item">Escola</a>
-                            <a href="{{ route('casal') }}" class="dropdown-item">Casal</a>
+                            <a href="{{ route('activitats.reservar') }}" class="dropdown-item">Reservar</a>
+                            <a href="{{ route('activitats.escola') }}" class="dropdown-item">Escola</a>
+                            <a href="{{ route('activitats.casal') }}" class="dropdown-item">Casal</a>
                         <!-- </nav> -->
                     </div>     
                 </li>

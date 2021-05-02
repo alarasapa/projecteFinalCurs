@@ -41,7 +41,7 @@
 
         <h1 style="color: white;">DASHBOARD DE L'USUARI: {{ Auth::user()->nom }}</h1>
 
-        <ul class="navbar-nav justify-content-end ml-auto ml-md-0">
+        <ul class="navbar-nav ml-auto float-md-right">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i> {{ Auth::user()->nom }}</a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
