@@ -11,9 +11,14 @@
         /**
          * @var DateTime
          */
-        private $dataInscripcio;
+        public $dataInscripcio;
 
-        public function __constructor(){}
+        public $tipusSoci;
+
+        public function __constructor($args = []){
+            $this->setDataInscripcio($args[0]->dataInscripcio);
+            $this->setTipusSoci($args[0]->tipusSoci);
+        }
 
         //AQUÍ IRÁN OTRAS FUNCIONES, SI HACEN FALTA CLARO
 
@@ -21,8 +26,17 @@
          * GETTER Y SETTERS *
          ********************/
         
+        public function getTipusSoci(){
+            return $this->tipusSoci;
+        }
+
         public function getDataInscripcio(){
             return $this->dataInscripcio;
+        }
+
+        public function setTipusSoci($tipusSoci){
+            $this->tipusSoci = $tipusSoci;
+            return $this;
         }
 
         public function setDataInscripcio($dataInscripcio){

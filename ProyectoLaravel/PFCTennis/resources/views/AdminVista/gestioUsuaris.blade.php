@@ -40,15 +40,12 @@
                             @endif
 
                         <td>{{ $usuari->dataCreacio }}</td>
-                        <!-- TODO PONER PÁGINAS ESTÁTICAS PARA PRESENTARLO -->
                         <td>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <a href="{{ route('usuaris.formulariUsuari', ['accio' => 'editarUsuari', 'id' => $usuari->id]) }}">
                                         <button><i class="fas fa-edit"></i></button>
                                     </a>
-                                </div>
-                                <div class="col-md-6">
                                     <form id="eliminar-{{ $usuari->id }}" action="{{ route('eliminarUsuari', ['id' => $usuari->id]) }}" method="POST">
                                         @csrf
                                         <button type="submit" href="{{ route('eliminarUsuari', ['id' => $usuari->id]) }}" onclick="return confirm('Estàs segur que vols eliminar aquest usuari?')"><i class="far fa-trash-alt"></i></button>

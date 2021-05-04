@@ -7,6 +7,7 @@
     use App\Models\Usuari;
     use App\Models\ObjecteVista;
     use App\Models\Log;
+    use App\Models\TipusSoci;
 
     class HomeDAO {
 
@@ -51,5 +52,18 @@
 
             // Creem l'objecte i el retornem
             return new ObjecteVista($res);
+        }
+
+        public static function getTipusSoci(){
+            $objectes = [];
+
+            $res = DB::table('tipussoci')->get();
+
+            foreach ($res as $tipus){
+                $inst = new TipusSoci($tipus);
+                $objectes[] = $inst;
+            }
+
+            return $objectes;
         }
     }

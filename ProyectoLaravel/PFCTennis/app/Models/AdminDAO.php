@@ -329,7 +329,6 @@
             }
         }
 
-
         public static function switchVista($tipo){
             switch ($tipo) {
                 case "slider":

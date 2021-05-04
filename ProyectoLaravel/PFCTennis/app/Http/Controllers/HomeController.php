@@ -41,7 +41,10 @@ class HomeController extends Controller
     
     public function soci()
     {
-        return view('ClientVista.soci');
+        $tipusSocis = [];
+        $tipusSocis = HomeDAO::getTipusSoci();
+
+        return view('ClientVista.soci', compact('tipusSocis'));
     }
 
     public function reservar()

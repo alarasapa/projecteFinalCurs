@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ url('css/ClientEstils/base.css') }}" >
     <link rel="stylesheet" href="{{ url('css/ClientEstils/soci.css') }}">
 @push('scripts')
+    <script src="{{ asset('js/ClientJS/soci.js') }}"></script>
     <script src="https://kit.fontawesome.com/037c3bf4d0.js" crossorigin="anonymous"></script>   
 @endpush
 
@@ -18,97 +19,47 @@
 <div class="container">
     <div class="card">
         <div class="row">
+            @foreach($tipusSocis as $tipus)
             <div class="col-md-3">
                 <div class="mypricing_content clearfix">
                     <div class="mypricing_head_price clearfix">
                         <div class="mypricing_head_content clearfix">
                             <div class="head_bg"></div>
-                            <div class="head"> <span>Familiar</span> </div>
+                            <div class="head"> <span>{{ $tipus->nom }}</span> </div>
                         </div>
-                        <div class="mypricing_price_tag clearfix"> <span class="price"><span class="currency">65</span><span class="sign">€</span><span class="cent"></span> <span class="month">/mes</span> </span> </div>
+                        <div class="mypricing_price_tag clearfix"> <span class="price"><span class="currency">{{ $tipus->preu }}</span><span class="sign">€</span><span class="cent"></span> <span class="month">/mes</span> </span> </div>
                     </div>
                     <div class="mypricing_feature_list">
                         <ul>
-                            <li><span>Piscina</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Gimnàs</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Partits</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Tennis</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Pàdel</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Per a la familia</span></li>
+                            <li><span>{{ $tipus->descripcio }}</span></li>
                         </ul>
                     </div>
-                    <div class="mypricing_price_btn clearfix"> <a class="" href="#">Apuntar-se</a> </div>
+                    <div class="mypricing_price_btn clearfix"><a type="button" href="#"  data-toggle="modal" data-target="#modal-{{ $tipus->id }}">Apuntar-se</a> </div>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="mypricing_content clearfix">
-                    <div class="mypricing_head_price clearfix">
-                        <div class="mypricing_head_content clearfix">
-                            <div class="head_bg"></div>
-                            <div class="head"> <span>Individual (Full)</span> </div>
-                        </div>
-                        <div class="mypricing_price_tag clearfix"> <span class="price"><span class="currency">45</span><span class="sign">€</span><span class="cent"></span> <span class="month">/mes</span> </span> </div>
+            <div class="modal fade" id="modal-{{ $tipus->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Apuntar-se a la tarifa {{ $tipus->nom }} </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="mypricing_feature_list">
-                        <ul>
-                            <li><span>Piscina</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Gimnàs</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Partits</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Tennis</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Pàdel</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Pots jugar tennis i pàdel</span></li>
-                        </ul>
+                    <div class="modal-body">
+                        Realitza el pagament de <strong>{{ $tipus->preu }}€</strong> al numero de Bizum següent: XXX-XXX-XXX
+                        Una vegada fet, dona-li al botó d'enviar petició per a que sigui
+                        confirmat per un dels nostres administradors.
                     </div>
-                    <div class="mypricing_price_btn clearfix"> <a class="" href="#">Apuntar-se</a> </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
+                        <button type="button" style="color: white;" class="btn bg-danger" onclick="enviarPeticio( '{{ $tipus->id }}', '{{ Auth::user()->id }}')">Enviar petició</button>
+                    </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-md-3">
-                <div class="mypricing_content clearfix">
-                    <div class="mypricing_head_price clearfix">
-                        <div class="mypricing_head_content clearfix">
-                            <div class="head_bg"></div>
-                            <div class="head"> <span>Individual (Parcial)</span> </div>
-                        </div>
-                        <div class="mypricing_price_tag clearfix"> <span class="price"><span class="currency">35</span><span class="sign">€</span><span class="cent"></span> <span class="month">/mes</span> </span> </div>
-                    </div>
-                    <div class="mypricing_feature_list">
-                        <ul>
-                            <li><span>Piscina</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Gimnàs</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Partits</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Tennis</span> <i class="fa fa-check" aria-hidden="true"></i> o <i class="fa fa-times" aria-hidden="true"></i></li>
-                            <li><span>Pàdel</span> <i class="fa fa-check" aria-hidden="true"></i> o <i class="fa fa-times" aria-hidden="true"></i></li>
-                            <li><span>Escollir Tennis o Pàdel</span></li>
-                        </ul>
-                    </div>
-                    <div class="mypricing_price_btn clearfix"> <a class="" href="#">Apuntar-se</a> </div>
-                </div>
-            </div>
-            
-            <div class="col-md-3">
-                <div class="mypricing_content clearfix">
-                    <div class="mypricing_head_price clearfix">
-                        <div class="mypricing_head_content clearfix">
-                            <div class="head_bg"></div>
-                            <div class="head"> <span>Infantil</span> </div>
-                        </div>
-                        <div class="mypricing_price_tag clearfix"> <span class="price"><span class="currency">35</span><span class="sign">€</span><span class="cent"></span> <span class="month">/mes</span> </span> </div>
-                    </div>
-                    <div class="mypricing_feature_list">
-                        <ul>
-                            <li><span>Piscina</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Gimnàs</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Partits</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Tennis</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Pàdel</span> <i class="fa fa-check" aria-hidden="true"></i></li>
-                            <li><span>Fins a 16 anys</span></li>
-                        </ul>
-                    </div>
-                    <div class="mypricing_price_btn clearfix"> <a class="" href="#">Apuntar-se</a> </div>
-                </div>          
-            </div>
+            @endforeach
         </div>
     </div>
 </div>

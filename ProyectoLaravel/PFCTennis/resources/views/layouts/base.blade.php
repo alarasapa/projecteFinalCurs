@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>@yield('titol')</title> 
+    
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- En el stack se añadirá de forma dinámica el archivo CSS de la página correspondiente -->
     @stack('css')
@@ -20,7 +22,6 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         
-
         <div class="collapse navbar-collapse justify-content-center" id="collapsibleNavbar">
             <ul class="navbar-nav nav-fill w-100">    
                 <li class="nav-item {{ Request::is('/') || Request::is('index') ? 'active' : '' }}">

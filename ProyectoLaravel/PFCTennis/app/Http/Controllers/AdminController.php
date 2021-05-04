@@ -217,4 +217,9 @@
             return view('AdminVista.gestioVista', ['tipus' => 'cartes', 'llista' => $cartes]);
         }
 
+
+        public function enviarPeticio(Request $request){
+            //TODO -> ENVIAR PETICIÓN PARA SER SOCIO A LOS ADMINISTRADORES
+            echo "adsadas";
+        }
     }
