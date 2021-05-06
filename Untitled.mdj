@@ -188,13 +188,30 @@
 											"height": 13,
 											"text": "+calendario",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF5OFyt8gdusC0=",
+											"_parent": {
+												"$ref": "AAAAAAF5LBtgoVEQsVY="
+											},
+											"model": {
+												"$ref": "AAAAAAF5OFytsgdrfuE="
+											},
+											"font": "Arial;13;0",
+											"left": 61,
+											"top": 154,
+											"width": 191,
+											"height": 13,
+											"text": "+diario",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 56,
 									"top": 89,
 									"width": 201,
-									"height": 68
+									"height": 83
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -207,7 +224,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 56,
-									"top": 157,
+									"top": 172,
 									"width": 201,
 									"height": 10
 								},
@@ -4209,7 +4226,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LBtgn1EIi9w="
 							},
-							"name": "Descripcion"
+							"name": "Descripcion",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4217,7 +4235,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LBtgn1EIi9w="
 							},
-							"name": "Titulo"
+							"name": "Titulo",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4225,7 +4244,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LBtgn1EIi9w="
 							},
-							"name": "imagen"
+							"name": "imagen",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4233,7 +4253,16 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LBtgn1EIi9w="
 							},
-							"name": "calendario"
+							"name": "calendario",
+							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF5OFytsgdrfuE=",
+							"_parent": {
+								"$ref": "AAAAAAF5LBtgn1EIi9w="
+							},
+							"name": "diario"
 						}
 					]
 				},
@@ -4281,7 +4310,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LB0tR1Fjd9w="
 							},
-							"name": "actividad_id"
+							"name": "actividad_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4289,7 +4319,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LB0tR1Fjd9w="
 							},
-							"name": "horario_actividad_id"
+							"name": "horario_actividad_id",
+							"type": ""
 						}
 					]
 				},
@@ -4337,7 +4368,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LB4XN1H26oA="
 							},
-							"name": "fecha_inicio"
+							"name": "fecha_inicio",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4345,7 +4377,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LB4XN1H26oA="
 							},
-							"name": "fecha_final"
+							"name": "fecha_final",
+							"type": ""
 						}
 					]
 				},
@@ -4363,7 +4396,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LCCzRlNxHok="
 							},
-							"name": "horario_actividad_id"
+							"name": "horario_actividad_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4371,7 +4405,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LCCzRlNxHok="
 							},
-							"name": "dia"
+							"name": "dia",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4379,7 +4414,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LCCzRlNxHok="
 							},
-							"name": "hora_inicio"
+							"name": "hora_inicio",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4387,7 +4423,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LCCzRlNxHok="
 							},
-							"name": "hora_final"
+							"name": "hora_final",
+							"type": ""
 						}
 					]
 				},
@@ -4405,7 +4442,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LCi/B2qkLBM="
 							},
-							"name": "actividad_id"
+							"name": "actividad_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4413,7 +4451,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LCi/B2qkLBM="
 							},
-							"name": "cliente_id"
+							"name": "cliente_id",
+							"type": ""
 						}
 					]
 				},
@@ -4461,7 +4500,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LDtZUXaCw1Q="
 							},
-							"name": "titulo"
+							"name": "titulo",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4469,7 +4509,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LDtZUXaCw1Q="
 							},
-							"name": "descripcion"
+							"name": "descripcion",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4477,7 +4518,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LDtZUXaCw1Q="
 							},
-							"name": "imagen"
+							"name": "imagen",
+							"type": ""
 						}
 					]
 				},
@@ -4524,7 +4566,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LDwSaHjFyTU="
 							},
-							"name": "colegio_id"
+							"name": "colegio_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4532,7 +4575,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LDwSaHjFyTU="
 							},
-							"name": "titulo"
+							"name": "titulo",
+							"type": ""
 						}
 					]
 				},
@@ -4579,7 +4623,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LDzOlXui40c="
 							},
-							"name": "fomrulario_id"
+							"name": "fomrulario_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4587,7 +4632,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LDzOlXui40c="
 							},
-							"name": "titulo"
+							"name": "titulo",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4595,7 +4641,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LDzOlXui40c="
 							},
-							"name": "descripcion"
+							"name": "descripcion",
+							"type": ""
 						}
 					]
 				},
@@ -4622,7 +4669,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LD1ad3+Bpk4="
 							},
-							"name": "opcion_id"
+							"name": "opcion_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4630,7 +4678,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LD1ad3+Bpk4="
 							},
-							"name": "titulo"
+							"name": "titulo",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4638,7 +4687,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LD1ad3+Bpk4="
 							},
-							"name": "tipo_respuesta"
+							"name": "tipo_respuesta",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4646,7 +4696,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LD1ad3+Bpk4="
 							},
-							"name": "socio"
+							"name": "socio",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4654,7 +4705,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LD1ad3+Bpk4="
 							},
-							"name": "no_socio"
+							"name": "no_socio",
+							"type": ""
 						}
 					]
 				},
@@ -4672,7 +4724,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LEDh54+etA0="
 							},
-							"name": "colegio_id"
+							"name": "colegio_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4680,7 +4733,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LEDh54+etA0="
 							},
-							"name": "cliente_id"
+							"name": "cliente_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4688,7 +4742,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LEDh54+etA0="
 							},
-							"name": "pagado"
+							"name": "pagado",
+							"type": ""
 						}
 					]
 				},
@@ -4706,7 +4761,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LEJOLJRty9o="
 							},
-							"name": "colegio_id"
+							"name": "colegio_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4714,7 +4770,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LEJOLJRty9o="
 							},
-							"name": "respuesta_opcion_id"
+							"name": "respuesta_opcion_id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -4722,7 +4779,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF5LEJOLJRty9o="
 							},
-							"name": "cliente_id"
+							"name": "cliente_id",
+							"type": ""
 						}
 					]
 				}

@@ -46,7 +46,7 @@
     @foreach ($cartes as $carta)
         <div class="col-md-6">
             <div class="card">
-                <img width="50%" src="imatges/cartes/{{ $carta->imatge }}">
+                <img src="imatges/cartes/{{ $carta->imatge }}" style="height: 150px; object-fit:cover">
                 <div class="card-body">
                 <!-- <div class="row">
                     <div class="col-md-6"> -->

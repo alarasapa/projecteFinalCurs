@@ -9,6 +9,7 @@
     use App\Models\Log;
     use App\Models\ObjecteVista;
     use App\Models\Localitzacio;
+    use App\Models\Activitat;
     
     class AdminController extends Controller {
 
@@ -43,6 +44,16 @@
 
             // Retornem a la vista amb l'array d'usuaris com a paràmetre
             return view('AdminVista.gestioUsuaris', compact('usuaris'));
+        }
+
+        public function gestioExtres(){
+            // Agafem els usuaris 
+            $extres = AdminDAO::getExtres();
+
+            $extres = paginate($extres);
+
+            // Retornem a la vista amb l'array d'usuaris com a paràmetre
+            return view('AdminVista.gestioExtres', compact('extres'));
         }
 
         /**
@@ -90,6 +101,19 @@
                     return view('AdminVista.formVista', ['accio' => 'editarVista', 'tipus' => $tipus, 'vista' => $objecte]);
             }
 
+        }
+
+        public function formulariActivitat($accio, $id = null){
+            switch ($accio){
+                case 'novaActivitat':
+                    $extres = AdminDAO::getExtres();
+
+                    return view('AdminVista.formActivitat', ['accio' => 'novaActivitat', 'activitat' => new Activitat(), 'extres' => $extres]);
+                    break;
+
+                case'editarActivitat':
+                    break;
+            }
         }
 
         /**

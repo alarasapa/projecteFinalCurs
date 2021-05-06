@@ -9,6 +9,7 @@
     use App\Models\ObjecteVista;
     use App\Models\Log;
     use App\Models\Localitzacio;
+    use App\Models\Extra;
 
     class AdminDAO {
 
@@ -327,6 +328,25 @@
                 case "cartes":
                     return HomeDAO::getObjecteVista('cartes_inici_vista', $id);
             }
+        }
+
+        public static function getExtres(){
+            $extres = [];
+
+            // Agafem tots els extres i els ordenem pel nom 
+            $res = DB::table('extres')
+                        ->orderByDesc('nom')
+                        ->get();
+    
+            // Iterem el resultat obtingut de la BBDD
+            foreach ($res as $extra){
+                //Creem un objecte Extra
+                $obj = new Extra(array($extra));
+                // I el guardem en la array
+                $extres[] = $obj;
+            }
+
+            return $extres;
         }
 
         public static function switchVista($tipo){

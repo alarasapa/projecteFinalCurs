@@ -61,6 +61,13 @@ Route::middleware('verified')->group(function(){
     Route::post('/dashboard/gestio/usuaris/registrarse', [AdminController::class, 'registrar'])->name('registrarAdmin');
     Route::post('/dashboard/gestio/usuaris/actualizar', [AdminController::class, 'actualizar'])->name('actualitzarUsuari');
     Route::post('/dashboard/gestio/usuaris/eliminarUsuari/{id}', [AdminController::class, 'eliminar'])->name('eliminarUsuari');
+
+    // RUTES ACTIVITATS
+    Route::get('/dashboard/gestio/activitats/formulari/{accio}/{id?}', [AdminController::class, 'formulariActivitat'])->name('activitats.formulari');
+    
+    // RUTES EXTRES
+    Route::get('/dashboard/gestio/activitats/extres', [AdminController::class, 'gestioExtres'])->name('activitats.extres');
+    
 });
 
 Auth::routes(['verify' => true]);
