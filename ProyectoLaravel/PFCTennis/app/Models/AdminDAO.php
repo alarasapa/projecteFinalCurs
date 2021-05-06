@@ -330,25 +330,6 @@
             }
         }
 
-        public static function getExtres(){
-            $extres = [];
-
-            // Agafem tots els extres i els ordenem pel nom 
-            $res = DB::table('extres')
-                        ->orderByDesc('nom')
-                        ->get();
-    
-            // Iterem el resultat obtingut de la BBDD
-            foreach ($res as $extra){
-                //Creem un objecte Extra
-                $obj = new Extra(array($extra));
-                // I el guardem en la array
-                $extres[] = $obj;
-            }
-
-            return $extres;
-        }
-
         public static function switchVista($tipo){
             switch ($tipo) {
                 case "slider":

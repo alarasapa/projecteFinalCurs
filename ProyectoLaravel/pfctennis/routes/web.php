@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ActivitatsController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ConfiguracioController;
@@ -61,13 +62,17 @@ Route::middleware('verified')->group(function(){
     Route::post('/dashboard/gestio/usuaris/registrarse', [AdminController::class, 'registrar'])->name('registrarAdmin');
     Route::post('/dashboard/gestio/usuaris/actualizar', [AdminController::class, 'actualizar'])->name('actualitzarUsuari');
     Route::post('/dashboard/gestio/usuaris/eliminarUsuari/{id}', [AdminController::class, 'eliminar'])->name('eliminarUsuari');
-
+    
     // RUTES ACTIVITATS
-    Route::get('/dashboard/gestio/activitats/formulari/{accio}/{id?}', [AdminController::class, 'formulariActivitat'])->name('activitats.formulari');
+    Route::get('/dashboard/gestio/activitats/formulari/{accio}/{id?}', [ActivitatsController::class, 'formulariActivitat'])->name('activitats.formulari');
     
     // RUTES EXTRES
-    Route::get('/dashboard/gestio/activitats/extres', [AdminController::class, 'gestioExtres'])->name('activitats.extres');
+    Route::get('/dashboard/gestio/activitats/extres', [ActivitatsController::class, 'gestioExtres'])->name('activitats.extres');
+    Route::get('/dashboard/gestio/activitats/extres/{accio}/{id?}', [ActivitatsController::class, 'formulariExtra'])->name('activitats.extres.formulari');
     
+    Route::post('/dashboard/gestio/activitats/extres/afegir', [ActivitatsController::class, 'insertarExtra'])->name('activitats.extres.afegir');
+    Route::post('/dashboard/gestio/activitats/extres/modificar', [ActivitatsController::class, 'updateExtra'])->name('activitats.extres.modificar');
+    Route::post('/dashboard/gestio/activitats/extres/eliminar/{id}', [ActivitatsController::class, 'eliminarExtra'])->name('activitats.extres.eliminar');
 });
 
 Auth::routes(['verify' => true]);
