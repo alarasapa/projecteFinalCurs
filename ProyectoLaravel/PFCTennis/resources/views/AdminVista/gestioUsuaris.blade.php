@@ -10,8 +10,14 @@
 <div class="container">
     <div class="table-responsive">
         <h2 style="font-family: 'Nunito', sans-serif;">Llistat d'usuaris</h2>
-        
-        <a type="button" href="{{ route('usuaris.formulariUsuari', ['accio' => 'nouUsuari']) }}">CREAR USUARI</a>
+        <div class="d-flex">
+            <select id="filtreUsuari">
+                <option value="usuari">Usuari</option>
+                <option value="soci">Soci</option>
+                <option value="administrador">Administrador</option>
+            </select>
+            <a class="btn btn-danger" type="button" href="{{ route('usuaris.formulariUsuari', ['accio' => 'nouUsuari']) }}">CREAR USUARI</a>
+        </div>
         <table style="text-align: center;" class="table-sm table-bordered table-dark">
             <thead>
                 <tr>
@@ -60,5 +66,26 @@
         {{ $usuaris->links('pagination::bootstrap-4') }}
     </div>
 </div>
+
+<script>
+    // $("#filtreUsuari").on("change", function(){
+    //     let filtre = $("#filtreUsuari").val();
+        
+    //     if (filtre == 'soci'){
+    //         <?php // $usuaris->filter(function($usuari){
+    //             return $usuari->rol == 'soci';
+    //         }); ?>
+    //     }
+        // $.ajax({
+        //     type: 'GET',
+        //     url: "{{ route('usuaris.gestioUsuaris.filtre') }}",
+        //     data: JSON.stringify({ tipus: 'usuari', valor: $("#filtreUsuari").val() }),
+        //     dataType: 'JSON',
+        //     success: function(res){
+        //         console.log(res);
+        //     }
+        // });
+    });
+</script>
 
 @endsection

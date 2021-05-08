@@ -7,15 +7,18 @@
 
         public $activitatId;
 
-        public $horariActivitatId;
+        /**
+         * @var Array[Date]
+         */
+        public $dataActivitatId;
 
         public function setActivitatId($activitatId){
             $this->activitatId = $activitatId;
             return $this;
         }
 
-        public function setHorariActivitatId($horariActivitatId){
-            $this->$horariActivitatId = $horariActivitatId;
+        public function setDataActivitatId($dataActivitatId){
+            $this->$dataActivitatId = $dataActivitatId;
             return $this;
         }
     }

@@ -108,8 +108,10 @@
                         </a>
                         <div class="collapse" id="collapseActivitats">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="{{ route('activitats.formulari', ['accio' => 'novaActivitat']) }}">Crear Activitat</a>
-                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="{{ route('activitats.extres') }}">Gestionar Extres</a>
+                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="{{ route('activitats.activitats') }}">Activitats</a>
+                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="{{ route('activitats.extres') }}">Extres</a>
+                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="#">Opcions General</a>
+                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="#">Opcions Extres</a>
                             </nav>
                         </div>
                     </div>
@@ -118,7 +120,10 @@
         </div>
         <div id="layoutSidenav_content">
             <main>
-                @include('layouts.session-status')
+                <div class="session-status">
+                    @include('layouts.session-status')
+                </div>
+                
                 @yield('content') @section('content')
             </main>
         </div>

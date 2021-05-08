@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ActivitatsController;
+use App\Http\Controllers\ActivitatController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ConfiguracioController;
@@ -64,15 +64,20 @@ Route::middleware('verified')->group(function(){
     Route::post('/dashboard/gestio/usuaris/eliminarUsuari/{id}', [AdminController::class, 'eliminar'])->name('eliminarUsuari');
     
     // RUTES ACTIVITATS
-    Route::get('/dashboard/gestio/activitats/formulari/{accio}/{id?}', [ActivitatsController::class, 'formulariActivitat'])->name('activitats.formulari');
+    Route::get('/dashboard/gestio/activitats/', [ActivitatController::class, 'gestioActivitats'])->name('activitats.activitats');
+    Route::get('/dashboard/gestio/activitats/formulari/{accio}/{id?}', [ActivitatController::class, 'formulariActivitat'])->name('activitats.activitat.formulari');
+    
+    Route::post('/dashboard/gestio/activitats/afegir', [ActivitatController::class, 'insertarActivitat'])->name('activitats.activitat.afegir');
+    Route::post('/dashboard/gestio/activitats/modificar', [ActivitatController::class, 'updateActivitat'])->name('activitats.activitat.modificar');
+    Route::post('/dashboard/gestio/activitats/eliminar/{id}', [ActivitatController::class, 'eliminarActivitat'])->name('activitats.activitat.eliminar');
     
     // RUTES EXTRES
-    Route::get('/dashboard/gestio/activitats/extres', [ActivitatsController::class, 'gestioExtres'])->name('activitats.extres');
-    Route::get('/dashboard/gestio/activitats/extres/{accio}/{id?}', [ActivitatsController::class, 'formulariExtra'])->name('activitats.extres.formulari');
+    Route::get('/dashboard/gestio/activitats/extres', [ActivitatController::class, 'gestioExtres'])->name('activitats.extres');
+    Route::get('/dashboard/gestio/activitats/extres/{accio}/{id?}', [ActivitatController::class, 'formulariExtra'])->name('activitats.extres.formulari');
     
-    Route::post('/dashboard/gestio/activitats/extres/afegir', [ActivitatsController::class, 'insertarExtra'])->name('activitats.extres.afegir');
-    Route::post('/dashboard/gestio/activitats/extres/modificar', [ActivitatsController::class, 'updateExtra'])->name('activitats.extres.modificar');
-    Route::post('/dashboard/gestio/activitats/extres/eliminar/{id}', [ActivitatsController::class, 'eliminarExtra'])->name('activitats.extres.eliminar');
+    Route::post('/dashboard/gestio/activitats/extres/afegir', [ActivitatController::class, 'insertarExtra'])->name('activitats.extres.afegir');
+    Route::post('/dashboard/gestio/activitats/extres/modificar', [ActivitatController::class, 'updateExtra'])->name('activitats.extres.modificar');
+    Route::post('/dashboard/gestio/activitats/extres/eliminar/{id}', [ActivitatController::class, 'eliminarExtra'])->name('activitats.extres.eliminar');
 });
 
 Auth::routes(['verify' => true]);

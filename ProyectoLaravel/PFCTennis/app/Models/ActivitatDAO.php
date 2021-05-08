@@ -7,11 +7,96 @@
     use App\Providers\RouteServiceProvider;
     use App\Models\Usuari;
     use App\Models\Log;
+    use App\Models\Activitat;
     use App\Models\Extra;
     use App\Models\Localitzacio;
 
     class ActivitatDAO {
         
+        public static function getActivitats(){
+            $activitats = [];
+
+            // Agafem totes les activitats 
+            $res = DB::table('activitat')
+                        ->get();
+    
+            // Iterem el resultat obtingut de la BBDD
+            foreach ($res as $activitat){
+                //Creem un objecte Extra
+                $obj = new Activitat(array($activitat));
+                // I el guardem en la array
+                $activitats[] = $obj;
+            }
+
+            return $activitats;
+        
+        
+        }
+        
+        public static function getActivitat($id){
+            $res = DB::table('activitat')->where('id', $id)->get();
+
+            return new Activitat($res);
+        }
+
+        public static function insertarActivitat(Request $request){
+            request()->validate([
+                'titol'      => 'required',
+                'descripcio' => 'required',
+                // 'dataInici'  => 'required',
+                // 'dataFi'     => 'required',
+                // 'horaInici'  => 'required',
+                // 'horaFi'     => 'required',
+            ]);
+            
+            // foreach ($request->dataInici as $horari){
+            //     //objeto hora actividad
+            //     DB::table('hora_activitat')->insert([
+            //         'horaInici'
+            //     ]);
+    
+                //objeto data actividad
+                // data -> set Hora
+
+            // }
+            
+            //objeto calendario
+            // calendario ->set Data
+
+            $activitat = new Activitat([$request]); 
+            DB::table('activitat')->insert([
+                'titol'      => $activitat->titol,
+                'descripcio' => $activitat->descripcio,
+                'formulari'  => $activitat->formulari,
+            ]);
+            // actividad -> set Calendario
+
+        }
+
+        public static function updateActivitat(Request $request){
+            request()->validate([
+                'titol'      => 'required',
+                'descripcio' => 'required',
+                // 'dataInici'  => 'required',
+                // 'dataFi'     => 'required',
+                // 'horaInici'  => 'required',
+                // 'horaFi'     => 'required',
+            ]);
+
+            $activitat = new Activitat([$request]); 
+            DB::table('activitat')
+                ->where('id', $activitat->id)
+                ->update([
+                'titol'      => $activitat->titol,
+                'descripcio' => $activitat->descripcio,
+                'formulari'  => $activitat->formulari,
+            ]);
+        }
+
+        public static function eliminarActivitat($id){
+            DB::table('activitat')->delete($id);
+        }
+
         /**
          * Funció per extreure tots els extres de la BBDD 
          */

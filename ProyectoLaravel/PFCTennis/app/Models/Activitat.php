@@ -68,7 +68,11 @@
         }
 
         public function setFormulari($formulari){
-            $this->formulari = $formulari;
+            if ($formulari == null)
+                $this->formulari = 0;
+            else 
+                $this->formulari = 1;
+
             return $this;
         }        
 
