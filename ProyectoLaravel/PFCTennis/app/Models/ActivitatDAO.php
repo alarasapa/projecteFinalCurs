@@ -13,6 +13,10 @@
 
     class ActivitatDAO {
         
+         /*********************
+         * GESTIO ACTIVITATS *
+         *********************/
+
         public static function getActivitats(){
             $activitats = [];
 
@@ -97,6 +101,10 @@
             DB::table('activitat')->delete($id);
         }
 
+        /*****************
+         * GESTIO EXTRES *
+         *****************/
+
         /**
          * Funció per extreure tots els extres de la BBDD 
          */
@@ -161,5 +169,27 @@
 
         public static function eliminarExtra($id){
             DB::table('extres')->delete($id);
+        }
+
+        /***********************
+         * GESTIO GRUP OPCIONS *
+         ***********************/
+
+        public static function insertarGrupOpcions(Request $request, $tipus, $taulaActivitats){
+            if ($tipus == 'general'){
+                request()->validate([
+                    'titol'        => 'required',
+                    'descripcio'   => 'required',
+                    'tipusOpcions' => 'required',
+                ]);
+
+            } else if ($tipus == 'extra'){
+                request()->validate([
+                    'titol'        => 'required',
+                    'descripcio'   => 'required',
+                ]);
+            }
+            
+            // DB::table($taula)->insert([]);
         }
     }

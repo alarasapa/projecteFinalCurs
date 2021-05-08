@@ -78,7 +78,6 @@
     //     }
         // $.ajax({
         //     type: 'GET',
-        //     url: "{{ route('usuaris.gestioUsuaris.filtre') }}",
         //     data: JSON.stringify({ tipus: 'usuari', valor: $("#filtreUsuari").val() }),
         //     dataType: 'JSON',
         //     success: function(res){
