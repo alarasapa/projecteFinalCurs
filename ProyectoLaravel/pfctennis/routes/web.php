@@ -79,10 +79,15 @@ Route::middleware('verified')->group(function(){
     Route::post('/dashboard/gestio/activitats/extres/modificar', [ActivitatController::class, 'updateExtra'])->name('activitats.extres.modificar');
     Route::post('/dashboard/gestio/activitats/extres/eliminar/{id}', [ActivitatController::class, 'eliminarExtra'])->name('activitats.extres.eliminar');
     
+    // RUTES GRUPS OPCIONS
     Route::get('/dashboard/gestio/activitats/grup/{tipus}', [ActivitatController::class, 'gestioGrupOpcions'])->name('activitats.grupopcions');
     Route::get('/dashboard/gestio/activitats/grup/{tipus}/formulari/{accio}/{id?}', [ActivitatController::class, 'formulariGrupOpcio'])->name('activitats.grupopcions.formulari');
-
+    
     Route::post('/dashboard/gestio/activitats/grup/{tipus}/afegir', [ActivitatController::class, 'insertarGrupOpcions'])->name('activitats.grupopcions.afegir');
+    Route::post('/dashboard/gestio/activitats/grup/{tipus}/modificar', [ActivitatController::class, 'updateGrupOpcions'])->name('activitats.grupopcions.modificar');
+    Route::post('/dashboard/gestio/activitats/grup/{tipus}/eliminar/{id}', [ActivitatController::class, 'eliminarGrupOpcions'])->name('activitats.grupopcions.eliminar');
+
+    // RUTES OPCIONS
 });
 
 Auth::routes(['verify' => true]);

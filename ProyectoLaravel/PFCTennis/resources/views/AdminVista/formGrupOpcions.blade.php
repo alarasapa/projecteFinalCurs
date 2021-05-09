@@ -14,12 +14,12 @@
         <div class="col-md-8 py-4 px-4 shadow-lg mt-3">
 
         @if ($accio == 'nouGrupOpcio')
-            <h1 class="display-4">Crear Grup opcions {{ $tipus }}</h1><hr><br>
+            <h1 class="display-4">Crear Grup opcions</h1><hr><br>
             <form id="formRegistrar" method="POST" action="{{ route('activitats.grupopcions.afegir', ['tipus' => $tipus]) }}" onsubmit="return comprovarFormulariGeneral()">
 
-        @elseif ($accio == 'editarGrup')
-            <h1>Editar Grup opcions general: {{ $grup->nom }}</h1><hr><br>
-            <form id="formActualitzar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()">
+        @elseif ($accio == 'editarGrupOpcio')
+            <h1 class="display-4">Editar Grup opcions: <strong>{{ $grup->nom }}</strong></h1><hr><br>
+            <form id="formActualitzar" method="POST" action="{{ route('activitats.grupopcions.modificar', ['tipus' => $tipus]) }}" onsubmit="return comprovarFormulariGeneral()">
                 <input id="id" name="id" type="hidden" value="{{ $grup->id }}">
         @endif
 
@@ -34,7 +34,11 @@
                             <select name="activitatOpcio" class="selectpicker" data-live-search="true">
                                 @foreach ($activitats as $act)
                                     @if ($act->formulari)
+                                        @if ($accio == 'editarGrupOpcio')
+                                        <option value="{{ $act->id }}" data-tokens="{{ $act->titol }}" {{ ($grup->activitat->id == $act->id) ? 'selected' : '' }}>{{ $act->titol }}</option>
+                                        @else
                                         <option value="{{ $act->id }}" data-tokens="{{ $act->titol }}">{{ $act->titol }}</option>
+                                        @endif
                                     @endif
                                 @endforeach
                             </select>
@@ -71,14 +75,15 @@
                 </div>
 
                 <div class="row mt-3 mb-3">
+                    @if ($tipus == 'general')
                     <div class="col-md-6 offset-md-1 mt-4">
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                            <label class="btn btn-secondary active">
-                                <input type="radio" value="simple" name="tipus" autocomplete="off" {{ ($grup->tipus == 'simple') ? 'checked' : '' }} required> Opcions Simples
+                            <label class="btn btn-secondary {{ $grup->tipus == 'simple' ? 'active' : '' }}">
+                                <input type="radio" value="simple" name="tipus" {{ $grup->tipus == 'simple' ? 'checked' : '' }} required> Opcions Simples
                             </label>
 
-                            <label class="btn btn-secondary">
-                                <input type="radio" value="complex" name="tipus" autocomplete="off" {{ ($grup->tipus == 'complex') ? 'checked' : '' }} required> Opcions Complexes
+                            <label class="btn btn-secondary {{ $grup->tipus == 'complex' ? 'active' : '' }}">
+                                <input type="radio" value="complex" name="tipus" {{ $grup->tipus == 'complex' ? 'checked' : '' }} required> Opcions Complexes
                             </label>
 
                             @error('tipusOpcio')
@@ -88,10 +93,11 @@
                             @enderror
                         </div>
                     </div>
-
+                    @endif
+                    
                     <div class="col-md-4 mt-4">
                         <div class="custom-control custom-switch py-2">
-                            <input type="checkbox" name="sociOnly" class="custom-control-input" id="switchFormulari" {{ ($grup->sociOnly) ? 'checked' : '' }}>
+                            <input type="checkbox" name="sociOnly" class="custom-control-input" id="switchFormulari" {{ ($grup->sociOnly) ? '' : 'checked' }}>
                             <label class="custom-control-label" for="switchFormulari">Només per socis</label>
                         </div>
                     </div>

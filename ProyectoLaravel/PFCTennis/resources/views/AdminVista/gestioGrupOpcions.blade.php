@@ -37,11 +37,15 @@
                             <td>{{ $grup->tipus }} </td>
                         @endif
                         <td>
-                            <a href="#">
+                            @if ($tipus == 'generals')
+                            <a href="{{ route('activitats.grupopcions.formulari', ['tipus' => 'general', 'accio' => 'editarGrupOpcio', 'id' => $grup->id]) }}">
+                            @else
+                            <a href="{{ route('activitats.grupopcions.formulari', ['tipus' => 'extra', 'accio' => 'editarGrupOpcio', 'id' => $grup->id]) }}">
+                            @endif
                                 <button><i class="fas fa-edit"></i></button>
                             </a>
                             
-                            <form id="eliminar-{{ $grup->id }}" action="#" method="POST">
+                            <form id="eliminar-{{ $grup->id }}" action="{{ route('activitats.grupopcions.eliminar', ['tipus' => $tipus, 'id' => $grup->id]) }}" method="POST">
                                 @csrf
                                 <button type="submit" href="#" onclick="return confirm('Estàs segur que vols eliminar aquest extra?')"><i class="far fa-trash-alt"></i></button>
                             </form>

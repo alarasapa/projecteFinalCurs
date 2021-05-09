@@ -19,8 +19,6 @@
          *********************/
 
         public static function getActivitats(){
-            $activitats = [];
-
             // Agafem totes les activitats 
             $res = DB::table('activitat')
                         ->get();
@@ -110,8 +108,6 @@
          * Funció per extreure tots els extres de la BBDD 
          */
         public static function getExtres(){
-            $extres = [];
-
             // Agafem tots els extres i els ordenem pel nom 
             $res = DB::table('extres')
                         ->orderByDesc('nom')
@@ -176,9 +172,12 @@
          * GESTIO GRUP OPCIONS *
          ***********************/
 
+        /**
+         * Funció per a agafar tots els grups d'opcions
+         * 
+         * @param string $tipus Tipus de grup d'opcions
+         */
         public static function getGrupOpcions($tipus){
-            $grupOpcions = [];
-
             // Agafem tots els grups d'opcions i els ordenem pel nom 
             $res = DB::table('opcions_' . $tipus)
                         ->orderByDesc('nom')
@@ -209,8 +208,44 @@
             return $grupOpcions;
         } 
 
-        public static function insertarGrupOpcions(Request $request, $tipus, $taulaActivitats){
+        /**
+         * Funció per a agafar un grup d'opcions específics
+         * 
+         * @param string $tipus Tipus de grup d'opcions
+         * @param integer $id Identificador del grup d'opcions
+         * 
+         * @returns {GrupOpcio} Grup d'opcions específic 
+         */
+        public static function getGrupOpcio($tipus, $id){
+            $res = DB::table('opcions_' . $tipus)
+                        ->where('id', $id)
+                        ->get();
             
+            if ($tipus == 'extres') $res[0]->tipus = null;
+            
+            $grupOpcio = new GrupOpcio($res);
+            
+            // Agafem la activitat on es troba aquest grup d'opcions
+            $activitat = DB::table('opcions_' . $tipus . '_activitats') 
+            ->join('activitat', 'activitat.id', '=', 'opcions_' . $tipus . '_activitats.idActivitat')
+            ->where('idGrupOpcio', $grupOpcio->id)
+            ->get();
+
+            // Creem l'objecte de la activitat i la afegim al grup d'opcions...
+            $activitat = new Activitat($activitat);
+            $grupOpcio->setActivitat($activitat);
+
+            return $grupOpcio;
+        }
+
+        /**
+         * Funció per a insertar un grup d'opcions
+         * 
+         * @param Request $request El request del formulari
+         * @param string $tipus Tipus de grup d'opcions
+         * @param string $taulaActivitats Nom de la taula a la que es refereix
+         */
+        public static function insertarGrupOpcions(Request $request, $tipus, $taulaActivitats){
             // Creem l'objecte de grup opció
             $grupOpcio = new GrupOpcio([$request]);
 
@@ -251,5 +286,69 @@
                 'idActivitat'  => $grupOpcio->activitat->id,
                 'idGrupOpcio'  => $idGrupOpcio,
             ]);
+        }
+
+        /**
+         * Funció per a actualitzar un grup d'opcions
+         * 
+         * @param Request $request El request del formulari
+         * @param string $tipus Tipus de grup d'opcions
+         */
+        public static function updateGrupOpcions(Request $request, $tipus){
+            // Creem l'objecte de grup opció
+            $grupOpcio = new GrupOpcio([$request]);
+
+            // Creem l'objecte de l'activitat i l'afegim al grup opció
+            $activitat = ActivitatDAO::getActivitat($request->activitatOpcio);
+            $grupOpcio->setActivitat($activitat);
+            
+            // Depenent del tipus de grup es farán unes validacions o unes altres
+            // I s'inserirà en unes taules o unes altres
+            if ($tipus == 'generals'){
+                request()->validate([
+                    'nom'        => 'required',
+                    'descripcio'   => 'required',
+                    'tipus' => 'required',
+                ]);
+                
+                DB::table('opcions_generals')
+                    ->where('id', $grupOpcio->id)        
+                    ->update([
+                        'nom'        => $grupOpcio->nom,
+                        'descripcio' => $grupOpcio->descripcio,
+                        'tipus'      => $grupOpcio->tipus,
+                        'sociOnly'   => $grupOpcio->sociOnly,
+                    ]);
+            } 
+            else if ($tipus == 'extres'){
+                request()->validate([
+                    'nom'        => 'required',
+                    'descripcio'   => 'required',
+                ]);
+
+                DB::table('opcions_extres')
+                    ->where('id', $grupOpcio->id)
+                    ->update([
+                        'nom'        => $grupOpcio->nom,
+                        'descripcio' => $grupOpcio->descripcio,
+                        'sociOnly'   => $grupOpcio->sociOnly,
+                    ]);
+            }
+            
+            DB::table('opcions_' . $tipus . '_activitats')
+                ->where('idGrupOpcio', $grupOpcio->id)
+                ->update([
+                'idActivitat'  => $grupOpcio->activitat->id,
+            ]);
+        }
+
+        /**
+         * Funció per eliminar un grup d'opcions
+         * 
+         * @param string $tipus Tipus de grup d'opcions
+         * @param integer $id Identificador del grup d'opcions
+         */
+        public static function eliminarGrupOpcions($tipus, $id){
+            DB::table('opcions_' . $tipus)->delete($id);
         }
     }

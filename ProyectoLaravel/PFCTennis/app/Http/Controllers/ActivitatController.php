@@ -112,7 +112,8 @@
 
             return redirect()->route('activitats.extres')->with('status', 'S\'ha eliminat l\'extra amb èxit!');    
         }
-    
+        
+        //TODO falta controlar que las actividades, extras... cuando se de el caso que no hay en la bbdd
         /***********************
          * GESTIO GRUP OPCIONS *
          ***********************/
@@ -125,17 +126,20 @@
             return view('AdminVista.gestioGrupOpcions', ['grupOpcions' => $grupOpcions, 'tipus' => $tipus]);
         } 
 
-        //TODO falta controlar que las actividades, extras... cuando se de el caso que no hay en la bbdd
         public function formulariGrupOpcio($tipus, $accio, $id = null){
             $activitats = ActivitatDAO::getActivitats();
             
             switch ($accio){
                 case 'nouGrupOpcio':
-
                     return view('AdminVista.formGrupOpcions', ['tipus' => $tipus, 'accio' => $accio, 'grup' => new GrupOpcio(), 'activitats' => $activitats]);
                 
                 case 'editarGrupOpcio':
-                    break;
+                    if ($tipus == 'extra') $plural = 'extres';
+                    else if ($tipus == 'general') $plural = 'generals';
+                    
+                    $grup = ActivitatDAO::getGrupOpcio($plural, $id);
+                    
+                    return view('AdminVista.formGrupOpcions', ['tipus' => $tipus, 'accio' => $accio, 'grup' => $grup, 'activitats' => $activitats]);
             }
         }
     
@@ -155,12 +159,24 @@
 
             ActivitatDAO::insertarGrupOpcions($request, $tipus, $taulaActivitats);
 
-            return redirect()->route('activitats.grupopcions', ['tipus' => $plural] )->with('status', 'S\'ha afegit el grup d\'activitats amb èxit!');
+            return redirect()->route('activitats.grupopcions', ['tipus' => $plural] )->with('status', 'S\'ha afegit el grup d\'opcions amb èxit!');
         }
     
+        public function updateGrupOpcions(Request $request, $tipus){
+            if ($tipus == 'extra') $plural = 'extres';
+            else if ($tipus == 'general') $plural = 'generals';
+
+            ActivitatDAO::updateGrupOpcions($request, $plural);
+
+            return redirect()->route('activitats.grupopcions', ['tipus' => $plural] )->with('status', 'S\'ha actualitzat el grup d\'opcions amb èxit!');
+        }
     
-    
-    
+        public function eliminarGrupOpcions($tipus, $id){
+
+            ActivitatDAO::eliminarGrupOpcions($tipus, $id);
+
+            return redirect()->route('activitats.grupopcions', ['tipus' => $tipus] )->with('status', 'S\'ha eliminat el grup d\'opcions amb èxit!');
+        }
     
     
     }
