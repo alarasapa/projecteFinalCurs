@@ -86,8 +86,8 @@
                         </a>
                         <div class="collapse" id="collapseUsuarios">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link {{ rutaActual('dashboard/gestio/usuaris') }}" href="{{ route('usuaris.gestioUsuaris') }}">Gestió General</a>
-                                <a class="nav-link {{ rutaActual('dashboard/gestio/usuaris/nouUsuari')}}" href="{{ route('usuaris.formulariUsuari', ['accio' => 'nouUsuari']) }}">Crear Usuari</a>
+                                <a class="nav-link" href="{{ route('usuaris.gestioUsuaris') }}">Gestió General</a>
+                                <a class="nav-link" href="{{ route('usuaris.formulariUsuari', ['accio' => 'nouUsuari']) }}">Crear Usuari</a>
                                 <!-- <a class="nav-link" href="#">Light Sidenav</a> -->
                             </nav>
                         </div>
@@ -104,8 +104,8 @@
                                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                                 </a>
                                 <div class="collapse" id="paginesInici" data-parent="#sidenavAccordionPages">
-                                    <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/vista/slider') }}" href="{{ route('slider') }}">Slider</a>
-                                    <a class="nav-link collapsed {{ rutaActual('dashboard/gestio/vista/carta') }}" href="{{ route('cartes') }}">Cartes</a>
+                                    <a class="nav-link collapsed" href="{{ route('slider') }}">Slider</a>
+                                    <a class="nav-link collapsed" href="{{ route('cartes') }}">Cartes</a>
                                 </div>
                                 
                             </nav>
@@ -118,10 +118,11 @@
                         </a>
                         <div class="collapse" id="collapseActivitats">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="{{ route('activitats.activitats') }}">Activitats</a>
-                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="{{ route('activitats.extres') }}">Extres</a>
-                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="{{ route('activitats.grupopcions.formulari', ['tipus' => 'general', 'accio' => 'nouGrupOpcio']) }}">Opcions General</a>
-                                <a class="nav-link {{ rutaActual('dashboard.activitat') }}" href="{{ route('activitats.grupopcions.formulari', ['tipus' => 'extra', 'accio' => 'nouGrupOpcio']) }}">Opcions Extres</a>
+                                <a class="nav-link" href="{{ route('activitats.activitats') }}">Activitats</a>
+                                <a class="nav-link" href="{{ route('activitats.extres') }}">Extres</a>
+                                <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'generals']) }}">Opcions General</a>
+                                <!-- <a class="nav-link" href="{{ route('activitats.grupopcions.formulari', ['tipus' => 'general', 'accio' => 'nouGrupOpcio']) }}">Opcions General</a> -->
+                                <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'extres']) }}">Opcions Extres</a>
                             </nav>
                         </div>
                     </div>

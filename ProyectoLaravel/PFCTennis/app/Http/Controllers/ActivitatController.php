@@ -116,6 +116,15 @@
         /***********************
          * GESTIO GRUP OPCIONS *
          ***********************/
+
+        public function gestioGrupOpcions($tipus){
+            $grupOpcions = ActivitatDAO::getGrupOpcions($tipus);
+
+            $grupOpcions = paginate($grupOpcions);
+
+            return view('AdminVista.gestioGrupOpcions', ['grupOpcions' => $grupOpcions, 'tipus' => $tipus]);
+        } 
+
         //TODO falta controlar que las actividades, extras... cuando se de el caso que no hay en la bbdd
         public function formulariGrupOpcio($tipus, $accio, $id = null){
             $activitats = ActivitatDAO::getActivitats();
@@ -135,16 +144,18 @@
             switch ($tipus){
                 case 'general':
                     $taulaActivitats = 'opcions_generals_activitats';
+                    $plural = 'generals';
                     break;
-
+                    
                 case 'extra':
                     $taulaActivitats = 'opcions_extres_activitats';
+                    $plural = 'extres';
                     break;
             }
-            
-            ActivitatDAO::insertarGrupOpcions($request, $tipus, $taula, $taulaActivitats);
 
-            // return redirect()->route()->with('status', 'S\'ha afegit el grup d\'activitats amb èxit!');
+            ActivitatDAO::insertarGrupOpcions($request, $tipus, $taulaActivitats);
+
+            return redirect()->route('activitats.grupopcions', ['tipus' => $plural] )->with('status', 'S\'ha afegit el grup d\'activitats amb èxit!');
         }
     
     

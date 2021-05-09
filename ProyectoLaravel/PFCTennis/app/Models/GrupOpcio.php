@@ -8,6 +8,11 @@ use App\Models\Activitat;
 class GrupOpcio {
 
     /**
+     * @var integer
+     */
+    public $id;
+
+    /**
      * @var Activitat
      */
     public $activitat;
@@ -15,7 +20,7 @@ class GrupOpcio {
     /**
      * @var string
      */
-    public $titol;
+    public $nom;
 
     /**
      * @var string
@@ -35,10 +40,16 @@ class GrupOpcio {
     public function __construct($args = []){
         if (empty($args)) return $this;
 
-        $this->setTitol($args[0]->titol);
+        $this->setId($args[0]->id);
+        $this->setNom($args[0]->nom);
         $this->setDescripcio($args[0]->descripcio);
         $this->setTipus($args[0]->tipus);
         $this->setSociOnly($args[0]->sociOnly);
+    }
+
+    public function setId($id){
+        $this->id = $id;
+        return $this;
     }
 
     public function setActivitat(Activitat $activitat){
@@ -46,8 +57,8 @@ class GrupOpcio {
         return $this;
     }
     
-    public function setTitol($titol){
-        $this->titol = $titol;
+    public function setNom($nom){
+        $this->nom = $nom;
         return $this;
     }
 
@@ -62,7 +73,9 @@ class GrupOpcio {
     }
 
     public function setSociOnly($sociOnly){
-        $this->sociOnly = $sociOnly;
+        if ($sociOnly == 'on') $this->sociOnly = true;
+        else $this->sociOnly = false;
+        
         return $this;
     }
 

@@ -19,7 +19,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 py-4 px-4 shadow">        
+        <div class="col-md-8 py-4 px-4 shadow-lg">        
             @if ($accio == 'novaActivitat')
                 <h1 class="display-4">Nova activitat</h1><hr><br>
                 <form id="formRegistrar" method="POST" action="{{ route('activitats.activitat.afegir') }}" onsubmit="return comprovarFormulariGeneral()">

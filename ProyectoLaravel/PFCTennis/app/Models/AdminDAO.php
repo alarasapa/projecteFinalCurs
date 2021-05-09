@@ -301,8 +301,6 @@
 
             DB::insert('INSERT INTO log_admin(idAdmin, descripcio, data) VALUES(?, ?, ?)',
                                         [Auth::user()->id, $descripcio, $dataActualitzacio]);
-
-
         }
 
         /**

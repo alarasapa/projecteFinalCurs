@@ -11,7 +11,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 py-4 px-4 shadow">
+        <div class="col-md-8 py-4 px-4 shadow-lg">
 
         @if ($accio == 'nouExtra')
             <h1 class="display-4">Crear extra</h1><hr><br>
@@ -69,7 +69,7 @@
 
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <button id="submit" type="submit" class="btn btn-danger">
+                    <button id="submit" type="submit" class="btn btn-danger btn-lg btn-block">
                         @if ($accio == 'editarExtra')
                             {{ __('Actualitzar') }}
                         @elseif ($accio == 'nouExtra')

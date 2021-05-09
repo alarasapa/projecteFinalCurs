@@ -9,6 +9,7 @@
     use App\Models\Log;
     use App\Models\Activitat;
     use App\Models\Extra;
+    use App\Models\GrupOpcio;
     use App\Models\Localitzacio;
 
     class ActivitatDAO {
@@ -175,21 +176,80 @@
          * GESTIO GRUP OPCIONS *
          ***********************/
 
+        public static function getGrupOpcions($tipus){
+            $grupOpcions = [];
+
+            // Agafem tots els grups d'opcions i els ordenem pel nom 
+            $res = DB::table('opcions_' . $tipus)
+                        ->orderByDesc('nom')
+                        ->get();
+            
+                        
+            // Iterem el resultat obtingut de la BBDD
+            foreach ($res as $grup){
+                if ($tipus == 'extres') $grup->tipus = null;
+
+                // Creem un objecte GrupOpcio
+                $obj = new GrupOpcio(array($grup));
+
+                // Agafem la activitat on es troba aquest grup d'opcions
+                $activitat = DB::table('opcions_' . $tipus . '_activitats') 
+                            ->join('activitat', 'activitat.id', '=', 'opcions_' . $tipus . '_activitats.idActivitat')
+                            ->where('idGrupOpcio', $obj->id)
+                            ->get();
+
+                // Creem l'objecte de la activitat i la afegim al grup d'opcions...
+                $activitat = new Activitat($activitat);
+                $obj->setActivitat($activitat);
+
+                // ..i el guardem en la array
+                $grupOpcions[] = $obj;
+            }
+
+            return $grupOpcions;
+        } 
+
         public static function insertarGrupOpcions(Request $request, $tipus, $taulaActivitats){
+            
+            // Creem l'objecte de grup opció
+            $grupOpcio = new GrupOpcio([$request]);
+
+            // Creem l'objecte de l'activitat i l'afegim al grup opció
+            $activitat = ActivitatDAO::getActivitat($request->activitatOpcio);
+            $grupOpcio->setActivitat($activitat);
+
+            // Depenent del tipus de grup es farán unes validacions o unes altres
+            // I s'inserirà en unes taules o unes altres
             if ($tipus == 'general'){
                 request()->validate([
-                    'titol'        => 'required',
+                    'nom'        => 'required',
                     'descripcio'   => 'required',
-                    'tipusOpcions' => 'required',
+                    'tipus' => 'required',
+                ]);
+                
+                $idGrupOpcio = DB::table('opcions_generals')->insertGetId([
+                    'nom'        => $grupOpcio->nom,
+                    'descripcio' => $grupOpcio->descripcio,
+                    'tipus'      => $grupOpcio->tipus,
+                    'sociOnly'   => $grupOpcio->sociOnly,
+                ]);
+            } 
+            else if ($tipus == 'extra'){
+                request()->validate([
+                    'nom'        => 'required',
+                    'descripcio'   => 'required',
                 ]);
 
-            } else if ($tipus == 'extra'){
-                request()->validate([
-                    'titol'        => 'required',
-                    'descripcio'   => 'required',
+                $idGrupOpcio = DB::table('opcions_extres')->insertGetId([
+                    'nom'        => $grupOpcio->nom,
+                    'descripcio' => $grupOpcio->descripcio,
+                    'sociOnly'   => $grupOpcio->sociOnly,
                 ]);
             }
             
-            // DB::table($taula)->insert([]);
+            DB::table($taulaActivitats)->insert([
+                'idActivitat'  => $grupOpcio->activitat->id,
+                'idGrupOpcio'  => $idGrupOpcio,
+            ]);
         }
     }

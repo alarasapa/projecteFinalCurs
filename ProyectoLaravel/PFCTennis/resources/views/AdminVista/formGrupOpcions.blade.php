@@ -31,10 +31,10 @@
                     </div>
                     <div class="col-md-10 offset-md-4">
                         <div class="form-group">
-                            <select class="selectpicker" data-live-search="true">
+                            <select name="activitatOpcio" class="selectpicker" data-live-search="true">
                                 @foreach ($activitats as $act)
                                     @if ($act->formulari)
-                                        <option name="activitatOpcio" value="{{ $act->id }}" data-tokens="{{ $act->titol }}">{{ $act->titol }}</option>
+                                        <option value="{{ $act->id }}" data-tokens="{{ $act->titol }}">{{ $act->titol }}</option>
                                     @endif
                                 @endforeach
                             </select>
@@ -43,12 +43,12 @@
                 </div>
 
                 <div class="form-group row">
-                    <label for="titol" class="col-md-3 col-form-label text-md-right">{{ __('Títol del grup') }}</label>
+                    <label for="nom" class="col-md-3 col-form-label text-md-right">{{ __('Títol del grup') }}</label>
 
                     <div class="col-md-6">
-                        <input id="titol" type="text" class="form-control @error('titol') is-invalid @enderror" name="titol" value="{{ old('titol', $grup->titol) }}" pattern="[a-zA-Z\s\.]+" required autocomplete="titol" autofocus>
+                        <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom', $grup->nom) }}" pattern="[a-zA-Z\s\.]+" required autocomplete="nom" autofocus>
 
-                        @error('titol')
+                        @error('nom')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -74,11 +74,11 @@
                     <div class="col-md-6 offset-md-1 mt-4">
                         <div class="btn-group btn-group-toggle" data-toggle="buttons">
                             <label class="btn btn-secondary active">
-                                <input type="radio" value="simple" name="tipusOpcions" autocomplete="off" {{ ($grup->tipus == 'simple') ? 'checked' : '' }} required> Opcions Simples
+                                <input type="radio" value="simple" name="tipus" autocomplete="off" {{ ($grup->tipus == 'simple') ? 'checked' : '' }} required> Opcions Simples
                             </label>
 
                             <label class="btn btn-secondary">
-                                <input type="radio" value="complex" name="tipusOpcions" autocomplete="off" {{ ($grup->tipus == 'complex') ? 'checked' : '' }} required> Opcions Complexes
+                                <input type="radio" value="complex" name="tipus" autocomplete="off" {{ ($grup->tipus == 'complex') ? 'checked' : '' }} required> Opcions Complexes
                             </label>
 
                             @error('tipusOpcio')
