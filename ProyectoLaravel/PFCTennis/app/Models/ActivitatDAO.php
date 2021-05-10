@@ -6,11 +6,12 @@
     use Illuminate\Support\Facades\DB;
     use App\Providers\RouteServiceProvider;
     use App\Models\Usuari;
+    use App\Models\Localitzacio;
     use App\Models\Log;
     use App\Models\Activitat;
     use App\Models\Extra;
     use App\Models\GrupOpcio;
-    use App\Models\Localitzacio;
+    use App\Models\Opcio;
 
     class ActivitatDAO {
         
@@ -206,7 +207,7 @@
 
             return $grupOpcions;
         } 
-
+        
         public static function getGrupOpcionsActivitat($idActicitat){
             $grupOpcions = [];
 
@@ -262,9 +263,9 @@
             
             // Agafem la activitat on es troba aquest grup d'opcions
             $activitat = DB::table('opcions_' . $tipus . '_activitats') 
-            ->join('activitat', 'activitat.id', '=', 'opcions_' . $tipus . '_activitats.idActivitat')
-            ->where('idGrupOpcio', $grupOpcio->id)
-            ->get();
+                    ->join('activitat', 'activitat.id', '=', 'opcions_' . $tipus . '_activitats.idActivitat')
+                    ->where('idGrupOpcio', $grupOpcio->id)
+                    ->get();
 
             // Creem l'objecte de la activitat i la afegim al grup d'opcions...
             $activitat = new Activitat($activitat);
@@ -385,5 +386,103 @@
          */
         public static function eliminarGrupOpcions($tipus, $id){
             DB::table('opcions_' . $tipus)->delete($id);
+        }
+
+        /******************
+         * GESTIO OPCIONS *
+         ******************/
+
+        public static function getOpcions($idGrupOpcio, $tipus){
+            $opcions = [];
+
+            $res = DB::table($tipus . '_valors')
+                        ->join('opcions_' . $tipus . '_valors', $tipus . '_valors.id', '=', 'opcions_' . $tipus . '_valors.id')
+                        ->where('idGrupOpcio', $idGrupOpcio)
+                        ->get();
+            
+            foreach ($res as $opcio){
+                if ($tipus == 'extres'){
+                    $obj = new Opcio();
+                    $obj->setNom($opcio->nom);
+
+                } else $obj = new Opcio(array($opcio));
+                
+                $opcions[] = $obj;
+            }
+
+            return $opcions;
+        }
+
+        /**
+         * Funció per insertar una opció general
+         * 
+         * @param Request $request Informació del formulari
+         */
+        public static function insertarOpcioGeneral(Request $request){
+            // Fem les validacions
+            request()->validate([
+                'nom'      => 'required',
+                'preu'     => 'required',
+                'preuSoci' => 'required',
+                'tipus'    => 'required',
+            ]);
+
+            // Creem una instància de la opció
+            $opcio = new Opcio([$request]);
+            
+            // Inserim l'opció a la BBDD i agafem l'identificador
+            $idOpcio = DB::table('opcions_generals_valors')->insertGetId([
+                        'nom'      => $opcio->nom,
+                        'preu'     => $opcio->preu,
+                        'preuSoci' => $opcio->preuSoci,
+                        'tipus'    => $opcio->tipus,
+                    ]);
+
+            // Agafem l'identificador del grup d'opcions al que perteneix
+            $idGrupOpcio = $request->idGrupOpcio;
+
+            // Afegim la relació entre l'opció i el grup d'opcions
+            ActivitatDAO::insertarRelacioOpcioGrupOpcio('generals', $idOpcio, $idGrupOpcio);
+        }
+
+        /**
+         * Funció per insertar una opció extra
+         * 
+         * @param Request $request Informació del formulari
+         */
+        public static function insertarOpcioExtra(Request $request){
+            // Fem les validacions
+            request()->validate([
+                'nom' => 'required',
+            ]);
+
+            // Creem una instància de la opció
+            $opcio = new Opcio([$request]);
+
+            // Inserim l'opció a la BBDD i agafem l'identificador
+            $idOpcio = DB::table('opcions_extres_valors')->insertGetId([
+                'nom' => $opcio->nom,
+            ]);
+
+            // Agafem l'identificador del grup d'opcions al que perteneix
+            $idGrupOpcio = $request->idGrupOpcio;
+            
+            // Afegim la relació entre l'opció i el grup d'opcions
+            ActivitatDAO::insertarRelacioOpcioGrupOpcio('extres', $idOpcio, $idGrupOpcio);
+        }
+
+        /**
+         * Funció per inserir la relació entre l'opció i el grup d'opcions al que perteneix
+         * 
+         * @param string $tipus Tipus de opció
+         * @param integer $idOpcio Identificador de la opció
+         * @param integer $idGrupOpcio Identificador del grup d'opció
+         */
+        public static function insertarRelacioOpcioGrupOpcio($tipus, $idOpcio, $idGrupOpcio){
+            // Inserim a la taula depenent del tipus
+            DB::table($tipus . '_valors')->insert([
+                'idGrupOpcio'  => $idGrupOpcio,
+                'idOpcioValor' => $idOpcio,
+            ]);
         }
     }

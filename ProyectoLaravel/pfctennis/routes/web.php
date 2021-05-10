@@ -81,15 +81,18 @@ Route::middleware('verified')->group(function(){
     
     // RUTES GRUPS OPCIONS
     Route::get('/dashboard/gestio/activitats/grup/{tipus}', [ActivitatController::class, 'gestioGrupOpcions'])->name('activitats.grupopcions');
-    Route::get('/dasboard/gestio/activitats/grup-opcions/{idActivitat}', [ActivitatController::class, 'gestioGrupOpcionsActivitat'])->name('activitats.activitat.grupopcions');
+    Route::get('/dashboard/gestio/activitats/grup-opcions/{idActivitat}', [ActivitatController::class, 'gestioGrupOpcionsActivitat'])->name('activitats.activitats.grupopcions');
     Route::get('/dashboard/gestio/activitats/grup/{tipus}/formulari/{accio}/{id?}', [ActivitatController::class, 'formulariGrupOpcio'])->name('activitats.grupopcions.formulari');
     
     Route::post('/dashboard/gestio/activitats/grup/{tipus}/afegir', [ActivitatController::class, 'insertarGrupOpcions'])->name('activitats.grupopcions.afegir');
     Route::post('/dashboard/gestio/activitats/grup/{tipus}/modificar', [ActivitatController::class, 'updateGrupOpcions'])->name('activitats.grupopcions.modificar');
     Route::post('/dashboard/gestio/activitats/grup/{tipus}/eliminar/{id}', [ActivitatController::class, 'eliminarGrupOpcions'])->name('activitats.grupopcions.eliminar');
-
+    
     // RUTES OPCIONS
-    Route::get('/dashboard/gestio/activitats/opcio/{tipus}/formulari/{accio}/{id?}', [ActivitatController::class, 'formulariOpcio'])->name('activitats.opcions.formulari');
+    Route::get('/dashboard/gestio/activitats/opcio/{idGrupOpcio}/{tipus}', [ActivitatController::class, 'gestioOpcions'])->name('activitats.opcions');
+    Route::get('/dashboard/gestio/activitats/opcio/{idGrupOpcio}/{tipus}/formulari/{accio}/{id?}', [ActivitatController::class, 'formulariOpcio'])->name('activitats.opcions.formulari');
+    
+    Route::post('/dashboard/gestio/activitats/opcio/{tipus}/afegir', [ActivitatController::class, 'insertarOpcio'])->name('activitats.opcions.afegir');
 });
 
 Auth::routes(['verify' => true]);

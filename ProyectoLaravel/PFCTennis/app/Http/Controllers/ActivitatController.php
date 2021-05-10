@@ -190,7 +190,15 @@
          * GESTIO OPCIONS *
          ******************/
 
-        public function formulariOpcio($tipus, $accio, $idGrupOpcio, $id = null){
+        public function gestioOpcions($idGrupOpcio, $tipus){
+            $opcions = ActivitatDAO::getOpcions($idGrupOpcio, $tipus);
+            
+            $grup = ActivitatDAO::getGrupOpcio($tipus, $idGrupOpcio);
+            
+            return view('AdminVista.gestioOpcions', ['tipus' => $tipus, 'opcions' => $opcions, 'grup' => $grup]);
+        }
+
+        public function formulariOpcio($idGrupOpcio, $tipus, $accio, $id = null){
             switch ($accio) {
                 case 'novaOpcio':
                     
@@ -200,4 +208,23 @@
                     break;
             }
         }
+
+        public function insertarOpcio(Request $request, $tipus){
+            
+            switch ($tipus){
+                case 'generals':
+                case 'general':
+                    ActivitatDAO::insertarOpcioGeneral($request);
+                    
+                    return redirect()->route('activitats.grupopcions', ['tipus' => 'generals'] )->with('status', 'S\'ha afegit l\'opció amb èxit!');
+                    
+                case 'extres':
+                case 'extra':
+                    ActivitatDAO::insertarOpcioExtra($request);
+
+                    return redirect()->route('activitats.grupopcions', ['tipus' => 'extres'] )->with('status', 'S\'ha afegit l\'opció amb èxit!');
+            }
+        }
     }
+
+    //TODO PONER EXTRAS TANTO EN LA PROPIA ACTIVIDAD COMO EN EL GRUPO DE OPCIONES

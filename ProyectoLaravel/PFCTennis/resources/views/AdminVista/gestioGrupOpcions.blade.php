@@ -58,7 +58,7 @@
                             <td>{{ $grup->tipus }} </td>
                         @endif
                         <td>
-                            <a class="btn btn-danger btn-block" type="button" href="#">Gestionar opcions</button>
+                            <a class="btn btn-danger btn-block" type="button" href="{{ route('activitats.opcions', ['idGrupOpcio' => $grup->id, 'tipus' => $tipus]) }}">Gestionar opcions</button>
                         </td>
                         <td>
                             @if ($tipus == 'generals' || ($tipus == 'activitat' && $grup->tipus != null))

@@ -47,7 +47,7 @@ class Opcio {
     }
 
     public function setNom($nom){
-        $this->nom = $nom;
+        $this->nom = filter_var($nom, FILTER_SANITIZE_STRING);
         return $this;
     }
 
