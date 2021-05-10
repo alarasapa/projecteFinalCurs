@@ -13,7 +13,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8 py-4 px-4 shadow-lg">
 
-        @if ($accio == 'nouOpcio')
+        @if ($accio == 'novaOpcio')
             <h1 class="display-4">Crear opció</h1><hr><br>
             <form id="formRegistrar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()">
         
@@ -67,14 +67,39 @@
                 </div>
             </div>
 
-            
+            <div class="row px-2"> 
+                <div class="col-md-4">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipusFormulari" id="formulariSimple" value="old('tipusFormulari')">
+                        <label class="form-check-label" for="formulariSimple">
+                            Sense
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipusFormulari" id="formulariCompost" value="old('tipusFormulari')">
+                        <label class="form-check-label" for="formulariCompost">
+                            Mensual
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipusFormulari" id="senseFormulari" value="old('tipusFormulari')" checked>
+                        <label class="form-check-label" for="senseFormulari">
+                            Persona
+                        </label>
+                    </div>
+                </div>
+            </div>
 
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-4">
                     <button id="submit" type="submit" class="btn btn-danger btn-lg btn-block">
-                        @if ($accio == 'editarExtra')
+                        @if ($accio == 'editarOpcio')
                             {{ __('Actualitzar') }}
-                        @elseif ($accio == 'nouExtra')
+                        @elseif ($accio == 'novaOpcio')
                             {{ __('Afegir') }}
                         @endif
                     </button>

@@ -182,7 +182,6 @@
             $res = DB::table('opcions_' . $tipus)
                         ->orderByDesc('nom')
                         ->get();
-            
                         
             // Iterem el resultat obtingut de la BBDD
             foreach ($res as $grup){
@@ -207,6 +206,42 @@
 
             return $grupOpcions;
         } 
+
+        public static function getGrupOpcionsActivitat($idActicitat){
+            $grupOpcions = [];
+
+            $activitat = ActivitatDAO::getActivitat($idActicitat);
+
+            foreach (ActivitatDAO::getGrupOpcionsActivitatTipus('generals', $idActicitat) as $grup){
+                $grup->setActivitat($activitat);
+                $grupOpcions[] = $grup;
+            }
+
+            foreach (ActivitatDAO::getGrupOpcionsActivitatTipus('extres', $idActicitat) as $grup){
+                $grup->setActivitat($activitat);
+                $grupOpcions[] = $grup;
+            }
+
+            return $grupOpcions;
+        }
+
+        public static function getGrupOpcionsActivitatTipus($tipus, $idActicitat){
+            $res = [];
+
+            $grupOpcions = DB::table('opcions_'. $tipus . '_activitats')
+                            ->join('opcions_'. $tipus, 'opcions_'. $tipus .'.id', '=', 'opcions_'. $tipus .'_activitats.idGrupOpcio')
+                            ->where('idActivitat', $idActicitat)
+                            ->get();
+            
+            foreach ($grupOpcions as $grups) {
+                if ($tipus == 'extres') $grups->tipus = null;
+
+                $obj = new GrupOpcio(array($grups));
+                $res[] = $obj;
+            }
+
+            return $res;
+        }
 
         /**
          * Funció per a agafar un grup d'opcions específics

@@ -13,6 +13,7 @@
     use App\Models\Activitat;
     use App\Models\Extra;
     use App\Models\GrupOpcio;
+    use App\Models\Opcio;
     
     class ActivitatController extends Controller {
     
@@ -126,6 +127,13 @@
             return view('AdminVista.gestioGrupOpcions', ['grupOpcions' => $grupOpcions, 'tipus' => $tipus]);
         } 
 
+        public function gestioGrupOpcionsActivitat($idActivitat){
+            $grupOpcions = ActivitatDAO::getGrupOpcionsActivitat($idActivitat);
+            $activitat = ActivitatDAO::getActivitat($idActivitat);
+
+            return view('AdminVista.gestioGrupOpcions', ['grupOpcions' => $grupOpcions, 'tipus' => 'activitat', 'activitat' => $activitat]);
+        }
+
         public function formulariGrupOpcio($tipus, $accio, $id = null){
             $activitats = ActivitatDAO::getActivitats();
             
@@ -178,5 +186,18 @@
             return redirect()->route('activitats.grupopcions', ['tipus' => $tipus] )->with('status', 'S\'ha eliminat el grup d\'opcions amb èxit!');
         }
     
-    
+        /******************
+         * GESTIO OPCIONS *
+         ******************/
+
+        public function formulariOpcio($tipus, $accio, $idGrupOpcio, $id = null){
+            switch ($accio) {
+                case 'novaOpcio':
+                    
+                    return view('AdminVista.formOpcio', ['tipus' => $tipus, 'accio' => $accio, 'idGrupOpcio' => $idGrupOpcio, 'opcio' => new Opcio()]);
+
+                case 'editarOpcio':
+                    break;
+            }
+        }
     }

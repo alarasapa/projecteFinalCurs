@@ -28,7 +28,7 @@
                         <td>{{ $act->descripcio }}</td>
                         <td>
                             @if ($act->formulari)
-                                <button type="button">Gestionar formulari</button>
+                                <a class="btn btn-danger btn-block" type="button" href="{{ route('activitats.activitat.grupopcions', ['idActivitat' => $act->id]) }}">Gestionar formulari</button>
                             @else
                                No hi té formulari
                             @endif

@@ -120,9 +120,12 @@
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
                                 <a class="nav-link" href="{{ route('activitats.activitats') }}">Activitats</a>
                                 <a class="nav-link" href="{{ route('activitats.extres') }}">Extres</a>
-                                <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'generals']) }}">Opcions General</a>
-                                <!-- <a class="nav-link" href="{{ route('activitats.grupopcions.formulari', ['tipus' => 'general', 'accio' => 'nouGrupOpcio']) }}">Opcions General</a> -->
-                                <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'extres']) }}">Opcions Extres</a>
+
+                                <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'generals']) }}">Grup Opcions General</a>
+                                <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'extres']) }}">Grup Opcions Extres</a>
+
+                                <a class="nav-link" href="{{ route('activitats.opcions.formulari', ['tipus' => 'general', 'accio' => 'novaOpcio', 'idGrupOpcio' => 1]) }}">Formulari opcion general</a>
+                                <a class="nav-link" href="{{ route('activitats.opcions.formulari', ['tipus' => 'extra', 'accio' => 'novaOpcio', 'idGrupOpcio' => 1]) }}">Formulari opcion extra</a>
                             </nav>
                         </div>
                     </div>
