@@ -73,9 +73,12 @@ class GrupOpcio {
     }
 
     public function setSociOnly($sociOnly){
-        if ($sociOnly == 'on') $this->sociOnly = true;
-        else $this->sociOnly = false;
-        
+        if (is_string($sociOnly) || $sociOnly == 1) {
+            $this->sociOnly = true;
+        } else if ($sociOnly == 0 || $sociOnly == null){
+            $this->sociOnly = false;
+        }
+
         return $this;
     }
 

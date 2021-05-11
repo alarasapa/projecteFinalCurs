@@ -97,7 +97,7 @@
                     
                     <div class="col-md-4 mt-4">
                         <div class="custom-control custom-switch py-2">
-                            <input type="checkbox" name="sociOnly" class="custom-control-input" id="switchFormulari" {{ ($grup->sociOnly) ? '' : 'checked' }}>
+                            <input type="checkbox" name="sociOnly" class="custom-control-input" id="switchFormulari" {{ ($grup->sociOnly) ? 'checked' : '' }}>
                             <label class="custom-control-label" for="switchFormulari">Només per socis</label>
                         </div>
                     </div>

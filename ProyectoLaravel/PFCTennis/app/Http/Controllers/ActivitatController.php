@@ -165,25 +165,24 @@
                     break;
             }
 
-            ActivitatDAO::insertarGrupOpcions($request, $tipus, $taulaActivitats);
-
-            return redirect()->route('activitats.grupopcions', ['tipus' => $plural] )->with('status', 'S\'ha afegit el grup d\'opcions amb èxit!');
+            $idActivitat = ActivitatDAO::insertarGrupOpcions($request, $tipus, $taulaActivitats);
+            
+            return $this->gestioGrupOpcionsActivitat($idActivitat);
         }
     
         public function updateGrupOpcions(Request $request, $tipus){
             if ($tipus == 'extra') $plural = 'extres';
             else if ($tipus == 'general') $plural = 'generals';
 
-            ActivitatDAO::updateGrupOpcions($request, $plural);
+            $idActivitat = ActivitatDAO::updateGrupOpcions($request, $plural);
 
-            return redirect()->route('activitats.grupopcions', ['tipus' => $plural] )->with('status', 'S\'ha actualitzat el grup d\'opcions amb èxit!');
+            return $this->gestioGrupOpcionsActivitat($idActivitat);
         }
     
         public function eliminarGrupOpcions($tipus, $id){
+            $idActivitat = ActivitatDAO::eliminarGrupOpcions($tipus, $id);
 
-            ActivitatDAO::eliminarGrupOpcions($tipus, $id);
-
-            return redirect()->route('activitats.grupopcions', ['tipus' => $tipus] )->with('status', 'S\'ha eliminat el grup d\'opcions amb èxit!');
+            return $this->gestioGrupOpcionsActivitat($idActivitat);
         }
     
         /******************
@@ -199,31 +198,65 @@
         }
 
         public function formulariOpcio($idGrupOpcio, $tipus, $accio, $id = null){
+            $grupOpcio = ActivitatDAO::getGrupOpcio($tipus, $idGrupOpcio);
+            
             switch ($accio) {
                 case 'novaOpcio':
                     
-                    return view('AdminVista.formOpcio', ['tipus' => $tipus, 'accio' => $accio, 'idGrupOpcio' => $idGrupOpcio, 'opcio' => new Opcio()]);
+                    return view('AdminVista.formOpcio', ['tipus' => $tipus, 'accio' => $accio, 'grupOpcio' => $grupOpcio, 'opcio' => new Opcio()]);
 
                 case 'editarOpcio':
-                    break;
+                    $opcio = ActivitatDAO::getOpcio($tipus, $idGrupOpcio, $id);
+
+                    return view('AdminVista.formOpcio', ['tipus' => $tipus, 'accio' => $accio, 'grupOpcio' => $grupOpcio, 'opcio' => $opcio]);
             }
         }
 
         public function insertarOpcio(Request $request, $tipus){
-            
             switch ($tipus){
                 case 'generals':
                 case 'general':
                     ActivitatDAO::insertarOpcioGeneral($request);
                     
-                    return redirect()->route('activitats.grupopcions', ['tipus' => 'generals'] )->with('status', 'S\'ha afegit l\'opció amb èxit!');
+                    return redirect()->route('activitats.opcions', ['idGrupOpcio' => $request->idGrupOpcio, 'tipus' => 'generals'] )->with('status', 'S\'ha afegit l\'opció amb èxit!');
                     
                 case 'extres':
                 case 'extra':
                     ActivitatDAO::insertarOpcioExtra($request);
 
-                    return redirect()->route('activitats.grupopcions', ['tipus' => 'extres'] )->with('status', 'S\'ha afegit l\'opció amb èxit!');
+                    return redirect()->route('activitats.opcions', ['idGrupOpcio' => $request->idGrupOpcio, 'tipus' => 'extres'] )->with('status', 'S\'ha afegit l\'opció amb èxit!');
             }
+        }
+
+        public function updateOpcio(Request $request, $tipus){
+            switch ($tipus) {
+                case 'generals':
+                    request()->validate([
+                        'nom'      => 'required',
+                        'preuSoci' => 'required',
+                        'preu'     => 'required',
+                        'tipus'    => 'required',
+                    ]);
+
+                    ActivitatDAO::updateOpcioGeneral($request);
+                    break;
+                    
+                case 'extres':
+                    request()->validate([
+                        'nom' => 'required',
+                    ]);
+
+                    ActivitatDAO::updateOpcioExtra($request);
+                    break;
+            }
+
+            return redirect()->route('activitats.opcions', ['idGrupOpcio' => $request->idGrupOpcio, 'tipus' => $tipus] )->with('status', 'S\'ha modificat l\'opció amb èxit!');
+        }
+
+        public function eliminarOpcio($tipus, $id, $idGrupOpcio){
+            ActivitatDAO::eliminarOpcio($tipus, $id);
+
+            return redirect()->route('activitats.opcions', ['idGrupOpcio' => $idGrupOpcio, 'tipus' => $tipus] )->with('status', 'S\'ha eliminat l\'opció amb èxit!');
         }
     }
 

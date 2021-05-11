@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($opcions as $opcio)
+                @forelse ($opcions as $opcio)
                     <tr>
                         <td>{{ $opcio->nom }}</td>
                         @if ($tipus == 'generals')
@@ -36,25 +36,29 @@
                             @endif
                         </td>
                         <td>
-                            @if ($opcio->preu == 0)
+                            @if ($opcio->preu == null)
+                                X
+                            @elseif ($opcio->preu == 0)
                                 GRATIS
-                            @else
+                            @else 
                                {{ $opcio->preu }} €
                             @endif
                         </td>
                         @endif
                         <td>
-                            <a href="#">
+                        <a href="{{ route('activitats.opcions.formulari', ['idGrupOpcio' => $grup->id, 'tipus' => $tipus, 'accio' => 'editarOpcio', 'id' => $opcio->id]) }}">
                                 <button><i class="fas fa-edit"></i></button>
                             </a>
                             
-                            <form id="eliminar-{{ $opcio->id }}" action="#" method="POST">
+                            <form id="eliminar-{{ $opcio->id }}" action="{{ route('activitats.opcions.eliminar', ['tipus' => $tipus, 'id' => $opcio->id, 'idGrupOpcio' => $grup->id]) }}" method="POST">
                                 @csrf
-                                <button type="submit" href="#" onclick="return confirm('Estàs segur que vols eliminar aquesta opció?')"><i class="far fa-trash-alt"></i></button>
+                                <button type="submit" href="{{ route('activitats.opcions.eliminar', ['tipus' => $tipus, 'id' => $opcio->id, 'idGrupOpcio' => $grup->id]) }}" onclick="return confirm('Estàs segur que vols eliminar aquesta opció?')"><i class="far fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <h2 class="mt-4" style="font-weight: 800">No hi han opcions en aquest grup</h2>
+                @endforelse
             </tbody>
         </table>
     </div>

@@ -121,11 +121,8 @@
                                 <a class="nav-link" href="{{ route('activitats.activitats') }}">Activitats</a>
                                 <a class="nav-link" href="{{ route('activitats.extres') }}">Extres</a>
 
-                                <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'generals']) }}">Grup Opcions General</a>
-                                <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'extres']) }}">Grup Opcions Extres</a>
-
-                                <a class="nav-link" href="{{ route('activitats.opcions.formulari', ['idGrupOpcio' => '1', 'tipus' => 'general', 'accio' => 'novaOpcio']) }}">Formulari opcion general</a>
-                                <a class="nav-link" href="{{ route('activitats.opcions.formulari', ['idGrupOpcio' => '1', 'tipus' => 'extra', 'accio' => 'novaOpcio']) }}">Formulari opcion extra</a>
+                                <!-- <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'generals']) }}">Grup Opcions General</a> -->
+                                <!-- <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'extres']) }}">Grup Opcions Extres</a> -->
                             </nav>
                         </div>
                     </div>

@@ -208,17 +208,17 @@
             return $grupOpcions;
         } 
         
-        public static function getGrupOpcionsActivitat($idActicitat){
+        public static function getGrupOpcionsActivitat($idActivitat){
             $grupOpcions = [];
 
-            $activitat = ActivitatDAO::getActivitat($idActicitat);
+            $activitat = ActivitatDAO::getActivitat($idActivitat);
 
-            foreach (ActivitatDAO::getGrupOpcionsActivitatTipus('generals', $idActicitat) as $grup){
+            foreach (ActivitatDAO::getGrupOpcionsActivitatTipus('generals', $idActivitat) as $grup){
                 $grup->setActivitat($activitat);
                 $grupOpcions[] = $grup;
             }
 
-            foreach (ActivitatDAO::getGrupOpcionsActivitatTipus('extres', $idActicitat) as $grup){
+            foreach (ActivitatDAO::getGrupOpcionsActivitatTipus('extres', $idActivitat) as $grup){
                 $grup->setActivitat($activitat);
                 $grupOpcions[] = $grup;
             }
@@ -226,12 +226,12 @@
             return $grupOpcions;
         }
 
-        public static function getGrupOpcionsActivitatTipus($tipus, $idActicitat){
+        public static function getGrupOpcionsActivitatTipus($tipus, $idActivitat){
             $res = [];
 
             $grupOpcions = DB::table('opcions_'. $tipus . '_activitats')
                             ->join('opcions_'. $tipus, 'opcions_'. $tipus .'.id', '=', 'opcions_'. $tipus .'_activitats.idGrupOpcio')
-                            ->where('idActivitat', $idActicitat)
+                            ->where('idActivitat', $idActivitat)
                             ->get();
             
             foreach ($grupOpcions as $grups) {
@@ -322,6 +322,8 @@
                 'idActivitat'  => $grupOpcio->activitat->id,
                 'idGrupOpcio'  => $idGrupOpcio,
             ]);
+
+            return $activitat->id;
         }
 
         /**
@@ -333,7 +335,7 @@
         public static function updateGrupOpcions(Request $request, $tipus){
             // Creem l'objecte de grup opció
             $grupOpcio = new GrupOpcio([$request]);
-
+            
             // Creem l'objecte de l'activitat i l'afegim al grup opció
             $activitat = ActivitatDAO::getActivitat($request->activitatOpcio);
             $grupOpcio->setActivitat($activitat);
@@ -376,6 +378,8 @@
                 ->update([
                 'idActivitat'  => $grupOpcio->activitat->id,
             ]);
+
+            return $grupOpcio->activitat->id;
         }
 
         /**
@@ -385,7 +389,15 @@
          * @param integer $id Identificador del grup d'opcions
          */
         public static function eliminarGrupOpcions($tipus, $id){
+            $res = DB::table('opcions_' . $tipus . '_activitats')
+                    ->where('idGrupOpcio', $id)
+                    ->first();
+                    
+            $idActivitat = $res->idActivitat;
+
             DB::table('opcions_' . $tipus)->delete($id);
+
+            return $idActivitat;
         }
 
         /******************
@@ -403,6 +415,7 @@
             foreach ($res as $opcio){
                 if ($tipus == 'extres'){
                     $obj = new Opcio();
+                    $obj->setId($opcio->id);
                     $obj->setNom($opcio->nom);
 
                 } else $obj = new Opcio(array($opcio));
@@ -411,6 +424,23 @@
             }
 
             return $opcions;
+        }
+
+        public static function getOpcio($tipus, $idGrupOpcio, $id){
+            $res = DB::table($tipus . '_valors')
+                        ->join('opcions_' . $tipus . '_valors', $tipus . '_valors.idOpcioValor', '=', 'opcions_' . $tipus . '_valors.id')
+                        ->where($tipus .'_valors.idGrupOpcio', $idGrupOpcio)
+                        ->where($tipus .'_valors.idOpcioValor', $id)
+                        ->first();
+            
+            if ($tipus == 'extres') {
+                $opcio = new Opcio();
+                $opcio->setId($res->id);
+                $opcio->setNom($res->nom);
+            } 
+            else $opcio = new Opcio(array($res));
+
+            return $opcio;
         }
 
         /**
@@ -422,7 +452,6 @@
             // Fem les validacions
             request()->validate([
                 'nom'      => 'required',
-                'preu'     => 'required',
                 'preuSoci' => 'required',
                 'tipus'    => 'required',
             ]);
@@ -471,6 +500,31 @@
             ActivitatDAO::insertarRelacioOpcioGrupOpcio('extres', $idOpcio, $idGrupOpcio);
         }
 
+        public static function updateOpcioGeneral(Request $request){
+            $opcio = new Opcio([$request]);
+            
+            DB::table('opcions_generals_valors')
+                ->where('id', $opcio->id)
+                ->update([
+                    'nom'      => $opcio->nom,
+                    'preu'     => $opcio->preu,
+                    'preuSoci' => $opcio->preuSoci,
+                    'tipus'    => $opcio->tipus,
+                ]);
+        }
+
+        public static function updateOpcioExtra(Request $request){
+            $opcio = new Opcio();
+            $opcio->setId($request->id);
+            $opcio->setNom($request->nom);
+
+            DB::table('opcions_extres_valors')
+                ->where('id', $opcio->id)
+                ->update([
+                    'nom' => $opcio->nom,
+                ]);
+        }
+
         /**
          * Funció per inserir la relació entre l'opció i el grup d'opcions al que perteneix
          * 
@@ -484,5 +538,9 @@
                 'idGrupOpcio'  => $idGrupOpcio,
                 'idOpcioValor' => $idOpcio,
             ]);
+        }
+
+        public static function eliminarOpcio($tipus, $id){
+            DB::table('opcions_' . $tipus . '_valors')->delete($id);
         }
     }
