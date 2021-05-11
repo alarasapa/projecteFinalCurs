@@ -68,13 +68,14 @@
             // calendario ->set Data
 
             $activitat = new Activitat([$request]); 
-            DB::table('activitat')->insert([
+            $activitatId = DB::table('activitat')->insertGetId([
                 'titol'      => $activitat->titol,
                 'descripcio' => $activitat->descripcio,
                 'formulari'  => $activitat->formulari,
             ]);
             // actividad -> set Calendario
 
+            return $activitatId;
         }
 
         public static function updateActivitat(Request $request){
@@ -101,6 +102,23 @@
             DB::table('activitat')->delete($id);
         }
 
+        public static function insertarExtresActivitat(Request $request, $idActivitat){
+            $extres = $request->extraOpcions;
+            
+            foreach ($extres as $extra){
+                DB::table('extres_activitats')->insert([
+                    'idActivitat' => $idActivitat,
+                    'idExtra'     => $extra,
+                ]);
+            }
+        }
+
+        public static function updateExtresActivitat(Request $request){
+            DB::table('extres_activitats')->where('idActivitat', $request->id)->delete();
+            
+            ActivitatDAO::insertarExtresActivitat($request, $request->id);
+        }
+
         /*****************
          * GESTIO EXTRES *
          *****************/
@@ -124,7 +142,28 @@
 
             return $extres;
         }
-    
+
+        public static function getExtresActivitat($id){
+            $extres = ActivitatDAO::getExtres();
+
+            foreach ($extres as $extra) {
+                if (ActivitatDAO::isExtraActivitat($extra->id, $id))
+                    $extra->setIdActivitat($id);
+            }
+
+            return $extres;
+        }
+
+        public static function isExtraActivitat($idExtra, $idActivitat){
+            $res = DB::table('extres_activitats')
+                    ->where('idExtra', $idExtra)
+                    ->where('idActivitat', $idActivitat)
+                    ->first();
+
+            if ($res == null) return false;
+            else return true;
+        }
+
         public static function getExtra($id){
             $res = DB::table('extres')->where('id', $id)->get();
 

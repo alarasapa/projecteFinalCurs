@@ -5,3 +5,11 @@ table {
 th {
     color: white !important;
 }
+
+/* .btn .dropdown-toggle .bs-placeholder .btn-light {
+    height: 40pc;
+} */
+
+.btn.dropdown-toggle.bs-placeholder.btn-light, .btn.dropdown-toggle.btn-light{
+    height: 40px;
+}

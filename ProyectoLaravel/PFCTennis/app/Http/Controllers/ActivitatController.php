@@ -39,27 +39,33 @@
          * Funció per a mostrar el formulari de la activitat
          */
         public function formulariActivitat($accio, $id = null){
+            
             switch ($accio){
                 case 'novaActivitat':
-                    // $extres = ActivitatDAO::getExtres();
+                    $extres = ActivitatDAO::getExtres();
                     
-                    return view('AdminVista.formActivitat', ['accio' => 'novaActivitat', 'activitat' => new Activitat()]);
+                    return view('AdminVista.formActivitat', ['accio' => 'novaActivitat', 'activitat' => new Activitat(), 'extres' => $extres]);
                     
                 case'editarActivitat':
+                    $extres = ActivitatDAO::getExtresActivitat($id);
                     $activitat = ActivitatDAO::getActivitat($id);
 
-                    return view('AdminVista.formActivitat', ['accio' => 'editarActivitat', 'activitat' => $activitat]);
+                    return view('AdminVista.formActivitat', ['accio' => 'editarActivitat', 'activitat' => $activitat, 'extres' => $extres]);
             }
         }
 
         public function insertarActivitat(Request $request){
-            ActivitatDAO::insertarActivitat($request);
+            $idActivitat = ActivitatDAO::insertarActivitat($request);
+
+            ActivitatDAO::insertarExtresActivitat($request, $idActivitat);
 
             return redirect()->route('activitats.activitats')->with('status', 'S\'ha registrat l\'activitat amb èxit!');
         }
         
         public function updateActivitat(Request $request){
-            ActivitatDAO::updateActivitat($request);
+            // ActivitatDAO::updateActivitat($request);
+
+            ActivitatDAO::updateExtresActivitat($request);
 
             return redirect()->route('activitats.activitats')->with('status', 'S\'ha actualitzat l\'activitat amb èxit!');    
         } 

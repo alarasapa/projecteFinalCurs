@@ -7,6 +7,8 @@
 
         public $id;
 
+        public $idActivitat;
+
         public $nom;
 
         public $preuSoci;
@@ -23,6 +25,11 @@
 
         public function setId($id){
             $this->id = $id;
+            return $this;
+        }
+
+        public function setIdActivitat($idActivitat){
+            $this->idActivitat = $idActivitat;
             return $this;
         }
 

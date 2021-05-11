@@ -68,36 +68,33 @@
                     <input type="checkbox" name="formulari" value="old('formulari')" class="custom-control-input" id="switchFormulari" {{ ($activitat->formulari) ? 'checked' : '' }}>
                     <label class="custom-control-label" for="switchFormulari">Tindrà formulari?</label>
                 </div>
-                <!-- <div class="row px-2"> 
-                    <div class="col-md-4">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipusFormulari" id="formulariSimple" value="old('tipusFormulari')">
-                            <label class="form-check-label" for="formulariSimple">
-                                Simple
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipusFormulari" id="formulariCompost" value="old('tipusFormulari')">
-                            <label class="form-check-label" for="formulariCompost">
-                                Compost
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="tipusFormulari" id="senseFormulari" value="old('tipusFormulari')" checked>
-                            <label class="form-check-label" for="senseFormulari">
-                                Sense
-                            </label>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <hr>
 
-            <div id="formulariTaula" class="form-group mb-4 mt-4">
+            <div class="row mb-4 mt-4">
+                <div class="col-md-11 offset-md-3">
+                    <label>Selecciona els extres que tindrá l'activitat</label>
+                </div>
+                <div class="col-md-9 offset-md-4">
+                    <div class="form-outline">
+                        <select name="extraOpcions[]" class="selectpicker" data-live-search="true" multiple data-mdb-clear-button="true">
+                            @foreach ($extres as $extra)
+                                @if ($accio == 'editarActivitat')
+                                    <option value="{{ $extra->id }}" data-tokens="{{ $extra->nom }}" {{ ($extra->idActivitat == $activitat->id) ? 'selected' : '' }}>
+                                        {{ $extra->nom }}
+                                    </option>
+                                @else
+                                    <option value="{{ $extra->id }}" data-tokens="{{ $extra->nom }}">
+                                        {{ $extra->nom }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div id="formulariTaula" class="form-group mb-4 mt-4">
                 <div class="row">
                     <div class="col-6">
                         <h3 style="text-align:center;">Horaris de la activitat</h3>
@@ -126,7 +123,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
 
             <div class="form-group row mb-0">
                 <div class="col-md-6 offset-md-2">
@@ -143,30 +140,3 @@
     </div>
 </div>
 @endsection
-
-<!-- <div class="mb-4 mt-4">
-                <hr>
-                <h3 style="text-align: center;">Extres</h3>
-                foreach($extres as $extra)
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="extra- $extra->id ">
-                        <label class="custom-control-label" for="extra- $extra->id }}"><b> $extra->nom </b></label>
-                    </div>    
-
-                    <div class="form-group row">
-                        <label for="extraPreuSoci" class="col-md-3 col-form-label text-md-right">{{ __('Preu soci') }}</label>
-        
-                        <div class="col-md-8">
-                            <input id="extraPreuSoci- $extra->id }}" type="text" class="form-control" value=" $extra->preuSoci }}" readonly>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="extraNoPreuSoci" class="col-md-3 col-form-label text-md-right">{{ __('Preu NO soci') }}</label>
-        
-                        <div class="col-md-8">
-                            <input id="extraNoPreuSoci $extra->id }}" type="text" class="form-control" value=" $extra->preuNoSoci }}" readonly>
-                        </div>
-                    </div>
-                    
-                @ndforeach
-            </div> -->

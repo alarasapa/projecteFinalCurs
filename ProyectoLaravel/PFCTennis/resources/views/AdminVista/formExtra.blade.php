@@ -54,7 +54,7 @@
             </div>
 
             <div class="form-group row">
-                <label for="preuNoSoci" class="col-md-4 col-form-label text-md-right">{{ __('Preu per socis') }}</label>
+                <label for="preuNoSoci" class="col-md-4 col-form-label text-md-right">{{ __('Preu per NO socis') }}</label>
 
                 <div class="col-md-6">
                     <input id="preuNoSoci" type="number" step="0.01" class="form-control @error('preuNoSoci') is-invalid @enderror" name="preuNoSoci" value="{{ old('preuNoSoci', $extra->preuNoSoci) }}" required>
