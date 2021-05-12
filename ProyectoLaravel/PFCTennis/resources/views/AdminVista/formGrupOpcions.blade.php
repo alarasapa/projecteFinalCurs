@@ -50,7 +50,7 @@
                     <label for="nom" class="col-md-3 col-form-label text-md-right">{{ __('Títol del grup') }}</label>
 
                     <div class="col-md-6">
-                        <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom', $grup->nom) }}" pattern="[a-zA-Z\s\.]+" required autocomplete="nom" autofocus>
+                        <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom', $grup->nom) }}" required autocomplete="nom" autofocus>
 
                         @error('nom')
                             <span class="invalid-feedback" role="alert">

@@ -47,17 +47,6 @@
 
         }
 
-        public static function getTipusActivitat(){
-            $res = DB::table('tipus_activitat')->get();
-            
-            foreach ($res as $tipus){
-                $obj = new TipusActivitat(array($tipus));
-                $tipusActivitat[] = $obj;
-            }
-
-            return $tipusActivitat;
-        }
-
         public static function insertarActivitat(Request $request){
             request()->validate([
                 'titol'            => 'required',
@@ -124,6 +113,8 @@
         public static function insertarExtresActivitat(Request $request, $idActivitat){
             $extres = $request->extraOpcions;
             
+            if ($extres == null) return;
+            
             foreach ($extres as $extra){
                 DB::table('extres_activitats')->insert([
                     'idActivitat' => $idActivitat,
@@ -138,6 +129,21 @@
             ActivitatDAO::insertarExtresActivitat($request, $request->id);
         }
 
+        /**************************
+         * GESTIO TIPUS ACTIVITAT *
+         **************************/
+        
+        public static function getTipusActivitats(){
+            $res = DB::table('tipus_activitat')->get();
+            
+            foreach ($res as $tipus){
+                $obj = new TipusActivitat(array($tipus));
+                $tipusActivitat[] = $obj;
+            }
+
+            return $tipusActivitat;
+        }
+        
         /*****************
          * GESTIO EXTRES *
          *****************/

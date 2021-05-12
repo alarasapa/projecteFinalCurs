@@ -8,8 +8,13 @@
 <!-- Introducimos los CSS deseados -->
 @push('css')
     <link rel="stylesheet" href="{{ url('css/ClientEstils/base.css') }}" >
+    <link rel="stylesheet" href="{{ url('css/ClientEstils/escola.css') }}" >
 @endpush
 
-<h1>AAAAAAAAAAAAAAAAAAAAAAA</h1>
+<img src="../imatges/escola/escolaBanner.jpg" style="width: 100%; height: 300px; object-fit: cover;"><br><br>
+
+<div class="conainer">
+    @include('layouts.formActivitatInscripcio')
+</div>
 
 @endsection

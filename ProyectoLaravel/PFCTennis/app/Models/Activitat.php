@@ -3,6 +3,7 @@
     
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use App\Models\Calendari;
+    use App\Models\GrupOpcio;
 
     class Activitat {
 
@@ -23,6 +24,16 @@
          * @var Calendari 
          */
         public $calendari;
+
+        /**
+         * @var Array {GrupOpcio}
+         */
+        public $grupOpcio;
+
+        /**
+         * @var Array {Extra}
+         */
+        public $extres;
 
         public function __construct($args = []){
             if (empty($args)) return $this;
@@ -86,6 +97,16 @@
 
         public function setCalendari($calendari){
             $this->calendari = $calendari;
+            return $this;
+        }
+
+        public function setGrupOpcio($grupOpcio){
+            $this->grupOpcio = $grupOpcio;
+            return $this;
+        }
+
+        public function setExtres($extres){
+            $this->extres = $extres;
             return $this;
         }
     }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Activitat;
+use App\Models\Opcio;
 
 class GrupOpcio {
 
@@ -36,6 +37,11 @@ class GrupOpcio {
      * @var boolean
      */
     public $sociOnly;
+
+    /**
+     * @var Array {Opcio}
+     */
+    public $opcions;
 
     public function __construct($args = []){
         if (empty($args)) return $this;
@@ -82,4 +88,8 @@ class GrupOpcio {
         return $this;
     }
 
+    public function setOpcions($opcions){
+        $this->opcions = $opcions;
+        return $this;
+    }
 }

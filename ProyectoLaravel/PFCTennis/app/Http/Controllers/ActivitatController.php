@@ -40,7 +40,7 @@
          * Funció per a mostrar el formulari de la activitat
          */
         public function formulariActivitat($accio, $id = null){
-            $tipusActivitat = ActivitatDAO::getTipusActivitat();
+            $tipusActivitat = ActivitatDAO::getTipusActivitats();
             
             switch ($accio){
                 case 'novaActivitat':
@@ -65,7 +65,7 @@
         }
         
         public function updateActivitat(Request $request){
-            // ActivitatDAO::updateActivitat($request);
+            ActivitatDAO::updateActivitat($request);
 
             ActivitatDAO::updateExtresActivitat($request);
 
@@ -78,6 +78,28 @@
             return redirect()->route('activitats.activitats')->with('status', 'S\'ha eliminat l\'activitat amb èxit!');;
         }
         
+        /**************************
+         * GESTIO TIPUS ACTIVITAT *
+         **************************/
+        // TODO TERMINAR CON EL CRUD DE TIPO DE ACTIVIDAD: AÑADIR, EDITAR, ELIMINAR
+        public function gestioTipusActivitat(){
+            $tipusActivitats = ActivitatDAO::getTipusActivitats();
+            
+            return view('AdminVista.gestioTipusActivitat', compact('tipusActivitats'));
+        }
+
+        public function formulariTipusActivitat($accio, $id = null){
+            switch ($accio){
+                case 'nouTipusActivitat':
+                    return view('AdminVista.formTipusActivitat', ['tipusActivitat' => new TipusActivitat(), 'accio' => $accio]);
+                    
+                case 'editarTipusActivitat':
+                    // $tipusActivitat = ActivitatDAO::getTipusActivitat();
+
+                    return view('AdminVista.formTipusActivitat', ['tipusActivitat' => new TipusActivitat(), 'accio' => $accio]);
+            }
+        }
+
         /*****************
          * GESTIO EXTRES *
          *****************/

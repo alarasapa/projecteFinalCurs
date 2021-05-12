@@ -8,13 +8,15 @@
 <!-- Introducimos los CSS deseados -->
 @push('css')
     <link rel="stylesheet" href="{{ url('css/ClientEstils/base.css') }}" >
+    <link rel="stylesheet" href="{{ url('css/ClientEstils/escola.css') }}" >
 @endpush
 
-<img src="../imatges/escola/escolaBanner.jpg" style="width: 100%; height: 400px; object-fit: cover;"><br><br>
+<img src="../imatges/escola/escolaBanner.jpg" style="width: 100%; height: 300px; object-fit: cover;"><br><br>
+
+<!-- TODO barra busqueda de actividades -->
 
 <div class="conainer">
-    
+    @include('layouts.formActivitatInscripcio')
 </div>
-
 
 @endsection

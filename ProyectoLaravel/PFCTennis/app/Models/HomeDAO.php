@@ -9,18 +9,43 @@
     use App\Models\ObjecteVista;
     use App\Models\Log;
     use App\Models\Activitat;
+    use App\Models\ActivitatDAO;
 
     class HomeDAO {
 
+        /**
+         * Funció per agafar totes les activitats segons el tipus
+         * 
+         * @param string $tipus Tipus d'activitat que es vol agafar
+         * 
+         * @return Array{Activitat} d'objecte Activitat
+         */
         public static function getActivitats($tipus){
+            // Agafem activitats on el nom del tipus sigui el mateix al que li hem passat
             $res = DB::table('activitat')
                 ->join('tipus_activitat', 'tipus_activitat.id', '=', 'activitat.idTipusActivitat')
-                ->where('tipus_activitat.nom', $tipus)
+                ->where('tipus_activitat.nom', '=', $tipus)
+                ->select('activitat.*')
                 ->get();
 
             foreach ($res as $activitat){
-                $obj = new Activitat(array($activitat));
-                $activitats[] = $obj;
+                $act = new Activitat(array($activitat));
+
+                $extres = ActivitatDAO::getExtresActivitat($act->id);
+                $grupsOpcions = ActivitatDAO::getGrupOpcionsActivitat($act->id);
+
+                foreach ($grupsOpcions as $grup){
+                    if ($grup->tipus == null) $tipus = 'extres';
+                    else $tipus = 'generals';
+
+                    $opcions = ActivitatDAO::getOpcions($grup->id, $tipus);
+                    $grup->setOpcions($opcions);
+                }
+
+                $act->setExtres($extres);
+                $act->setGrupOpcio($grupsOpcions);
+
+                $activitats[] = $act;
             }
 
             return $activitats;
@@ -29,9 +54,9 @@
         /**
          * Funció per a agafar un llistat d'un tipus de taula
          * 
-         * @param String $taula Tipus d'objecte que es vol agafar
+         * @param string $taula Tipus d'objecte que es vol agafar
          * 
-         * @return Array $objectes Llistat d'objectes del tipus passat per paràmetre
+         * @return Array{ObjecteVista} $objectes Llistat d'objectes del tipus passat per paràmetre
          */
         public static function getLlistatObjecteVista($taula){
             // Inicialitzem l'array d'objectes
@@ -54,8 +79,8 @@
         /**
          * Funció per agafar un objecte específic d'una taula específica
          * 
-         * @param String $taula Taula que es vol consultar
-         * @param Integer $id Identificador del registre
+         * @param string $taula Taula que es vol consultar
+         * @param integer $id Identificador del registre
          * 
          * @return ObjecteVista Objecte retornat de la base de dades
          */

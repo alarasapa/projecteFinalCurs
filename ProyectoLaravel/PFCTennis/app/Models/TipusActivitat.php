@@ -11,6 +11,8 @@ class TipusActivitat {
     public $nom;
 
     public function __construct($args = []){
+        if (empty($args)) return $this;
+
         $this->setId($args[0]->id);
         $this->setNom($args[0]->nom);
     }

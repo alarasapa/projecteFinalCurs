@@ -31,7 +31,7 @@
                 <label for="nom" class="col-md-3 col-form-label text-md-right">{{ __('Nom de la opció') }}</label>
 
                 <div class="col-md-6">
-                    <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom', $opcio->nom) }}" pattern="[a-zA-Z\s\.\/0-9]+" required autocomplete="nom" autofocus>
+                    <input id="nom" type="text" class="form-control @error('nom') is-invalid @enderror" name="nom" value="{{ old('nom', $opcio->nom) }}" required autocomplete="nom" autofocus>
 
                     @error('nom')
                         <span class="invalid-feedback" role="alert">

@@ -19,7 +19,7 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8 py-4 px-4 shadow-lg">        
+        <div class="col-md-8 py-4 px-4 shadow-lg mt-4">        
             @if ($accio == 'novaActivitat')
                 <h1 class="display-4">Nova activitat</h1><hr><br>
                 <form id="formRegistrar" method="POST" action="{{ route('activitats.activitat.afegir') }}" onsubmit="return comprovarFormulariGeneral()">
@@ -53,7 +53,7 @@
                 <label for="titol" class="col-md-2 col-form-label text-md-right">{{ __('Titol') }}</label>
 
                 <div class="col-md-8">
-                    <input id="titol" type="text" class="form-control @error('titol') is-invalid @enderror" name="titol" value="{{ old('titol', $activitat->titol) }}" pattern="[a-zA-Z\s\.]+" required autocomplete="titol" autofocus>
+                    <input id="titol" type="text" class="form-control @error('titol') is-invalid @enderror" name="titol" value="{{ old('titol', $activitat->titol) }}" required autocomplete="titol" autofocus>
 
                     @error('titol')
                         <span class="invalid-feedback" role="alert">
@@ -67,7 +67,7 @@
                 <label for="descripcio" class="col-md-2 col-form-label text-md-right">{{ __('Descripció') }}</label>
 
                 <div class="col-md-8">
-                    <textarea id="descripcio" rows="5" style="width: 450px;" class="form-control @error('descripcio') is-invalid @enderror" name="descripcio" pattern="[a-zA-Z\s]+"  required>{{ old('descripcio', $activitat->descripcio) }}</textarea>
+                    <textarea id="descripcio" rows="10" style="width: 450px;" class="form-control @error('descripcio') is-invalid @enderror" name="descripcio" required>{{ old('descripcio', $activitat->descripcio) }}</textarea>
 
                     @error('descripcio')
                         <span class="invalid-feedback" role="alert">

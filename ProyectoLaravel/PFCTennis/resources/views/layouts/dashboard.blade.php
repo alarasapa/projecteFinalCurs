@@ -118,10 +118,9 @@
                         </a>
                         <div class="collapse" id="collapseActivitats">
                             <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link" href="{{ route('activitats.tipusActivitats') }}">Categories</a>
                                 <a class="nav-link" href="{{ route('activitats.activitats') }}">Activitats</a>
                                 <a class="nav-link" href="{{ route('activitats.extres') }}">Extres</a>
-
-                                <!-- <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'generals']) }}">Grup Opcions General</a> -->
                                 <!-- <a class="nav-link" href="{{ route('activitats.grupopcions', ['tipus' => 'extres']) }}">Grup Opcions Extres</a> -->
                             </nav>
                         </div>
