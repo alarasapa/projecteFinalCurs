@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ url('css/index.css') }}" >
 @endpush
 
-    <div id="carouselIndicador" class="carousel slide" data-interval="5000" data-ride="carousel">
+    <div id="carouselIndicador" class="carousel slide d-none d-sm-block" data-interval="5000" data-ride="carousel">
         <ol class="carousel-indicators">
         @foreach ($sliders as $obj)
             <li data-target="#carouselIndicador" data-slide-to="{{ $loop->index }}" class="{{ $loop->index == 0  ? 'active' : '' }}"></li>

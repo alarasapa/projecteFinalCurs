@@ -8,6 +8,8 @@
 
         public $id;
 
+        public $idTipusActivitat;
+
         public $titol;
 
         public $descripcio;
@@ -29,6 +31,7 @@
             $this->setTitol($args[0]->titol);
             $this->setDescripcio($args[0]->descripcio);
             $this->setFormulari($args[0]->formulari);
+            $this->setIdTipusActivitat($args[0]->idTipusActivitat);
             // $this->setCalendari($args[0]->calendari);
         }
 
@@ -54,6 +57,11 @@
 
         public function setId($id){
             $this->id = $id;
+            return $this;
+        }
+
+        public function setIdTipusActivitat($idTipusActivitat){
+            $this->idTipusActivitat = $idTipusActivitat;
             return $this;
         }
 

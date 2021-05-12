@@ -12,6 +12,7 @@
     use App\Models\Localitzacio;
     use App\Models\Activitat;
     use App\Models\Extra;
+    use App\Models\TipusActivitat;
     use App\Models\GrupOpcio;
     use App\Models\Opcio;
     
@@ -39,18 +40,19 @@
          * Funció per a mostrar el formulari de la activitat
          */
         public function formulariActivitat($accio, $id = null){
+            $tipusActivitat = ActivitatDAO::getTipusActivitat();
             
             switch ($accio){
                 case 'novaActivitat':
                     $extres = ActivitatDAO::getExtres();
                     
-                    return view('AdminVista.formActivitat', ['accio' => 'novaActivitat', 'activitat' => new Activitat(), 'extres' => $extres]);
+                    return view('AdminVista.formActivitat', ['accio' => 'novaActivitat', 'activitat' => new Activitat(), 'extres' => $extres, 'tipusActivitats' => $tipusActivitat]);
                     
                 case'editarActivitat':
                     $extres = ActivitatDAO::getExtresActivitat($id);
                     $activitat = ActivitatDAO::getActivitat($id);
 
-                    return view('AdminVista.formActivitat', ['accio' => 'editarActivitat', 'activitat' => $activitat, 'extres' => $extres]);
+                    return view('AdminVista.formActivitat', ['accio' => 'editarActivitat', 'activitat' => $activitat, 'extres' => $extres, 'tipusActivitats' => $tipusActivitat]);
             }
         }
 
@@ -120,7 +122,6 @@
             return redirect()->route('activitats.extres')->with('status', 'S\'ha eliminat l\'extra amb èxit!');    
         }
         
-        //TODO falta controlar que las actividades, extras... cuando se de el caso que no hay en la bbdd
         /***********************
          * GESTIO GRUP OPCIONS *
          ***********************/
@@ -265,5 +266,3 @@
             return redirect()->route('activitats.opcions', ['idGrupOpcio' => $idGrupOpcio, 'tipus' => $tipus] )->with('status', 'S\'ha eliminat l\'opció amb èxit!');
         }
     }
-
-    //TODO PONER EXTRAS TANTO EN LA PROPIA ACTIVIDAD COMO EN EL GRUPO DE OPCIONES

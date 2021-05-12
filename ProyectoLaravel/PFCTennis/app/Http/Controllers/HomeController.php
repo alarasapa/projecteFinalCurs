@@ -54,7 +54,9 @@ class HomeController extends Controller
 
     public function escola()
     {
-        return view('ClientVista.escola');
+        $escoles = HomeDAO::getActivitats('escola');
+
+        return view('ClientVista.escola', ['activitats' => $escoles]);
     }
 
     public function casal()

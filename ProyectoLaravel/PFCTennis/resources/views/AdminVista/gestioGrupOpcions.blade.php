@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($grupOpcions as $grup)
+                @forelse ($grupOpcions as $grup)
                     <tr>
                         <td>{{ $grup->activitat->titol }}</td>
                         @if ($tipus == 'activitat')
@@ -81,7 +81,9 @@
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <h2 class="mt-4" style="font-weight: 800">No hi han grups d'opcions en aquesta activitat</h2>
+                @endforelse
             </tbody>
         </table>
     </div>

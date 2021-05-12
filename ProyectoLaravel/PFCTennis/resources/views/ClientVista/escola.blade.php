@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="{{ url('css/ClientEstils/base.css') }}" >
 @endpush
 
-<h1>AAAAAAAAAAAAAAAAAAAAAAA</h1>
+<img src="../imatges/escola/escolaBanner.jpg" style="width: 100%; height: 400px; object-fit: cover;"><br><br>
+
+<div class="conainer">
+    
+</div>
+
 
 @endsection

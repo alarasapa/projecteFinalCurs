@@ -147,7 +147,6 @@
             return redirect()->route('usuaris.gestioUsuaris')->with('status', 'S\'ha actualitzat amb èxit!');
         }
 
-        //TODO ARREGLAR LOS ESTILOS DE LAS ACCIONES DE LA TABLA  
         public function actualizarVista(Request $request){
             // Actualitzem la vista
             AdminDAO::updateVista($request);

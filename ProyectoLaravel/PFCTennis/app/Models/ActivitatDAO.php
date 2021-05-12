@@ -9,6 +9,7 @@
     use App\Models\Localitzacio;
     use App\Models\Log;
     use App\Models\Activitat;
+    use App\Models\TipusActivitat;
     use App\Models\Extra;
     use App\Models\GrupOpcio;
     use App\Models\Opcio;
@@ -38,15 +39,30 @@
         }
         
         public static function getActivitat($id){
-            $res = DB::table('activitat')->where('id', $id)->get();
-
+            $res = DB::table('activitat')
+                ->where('activitat.id', $id)
+                ->get();
+            
             return new Activitat($res);
+
+        }
+
+        public static function getTipusActivitat(){
+            $res = DB::table('tipus_activitat')->get();
+            
+            foreach ($res as $tipus){
+                $obj = new TipusActivitat(array($tipus));
+                $tipusActivitat[] = $obj;
+            }
+
+            return $tipusActivitat;
         }
 
         public static function insertarActivitat(Request $request){
             request()->validate([
-                'titol'      => 'required',
-                'descripcio' => 'required',
+                'titol'            => 'required',
+                'descripcio'       => 'required',
+                'idTipusActivitat' => 'required',
                 // 'dataInici'  => 'required',
                 // 'dataFi'     => 'required',
                 // 'horaInici'  => 'required',
@@ -69,9 +85,10 @@
 
             $activitat = new Activitat([$request]); 
             $activitatId = DB::table('activitat')->insertGetId([
-                'titol'      => $activitat->titol,
-                'descripcio' => $activitat->descripcio,
-                'formulari'  => $activitat->formulari,
+                'titol'            => $activitat->titol,
+                'descripcio'       => $activitat->descripcio,
+                'formulari'        => $activitat->formulari,
+                'idTipusActivitat' => $activitat->idTipusActivitat,
             ]);
             // actividad -> set Calendario
 
@@ -80,8 +97,9 @@
 
         public static function updateActivitat(Request $request){
             request()->validate([
-                'titol'      => 'required',
-                'descripcio' => 'required',
+                'titol'            => 'required',
+                'descripcio'       => 'required',
+                'idTipusActivitat' => 'required',
                 // 'dataInici'  => 'required',
                 // 'dataFi'     => 'required',
                 // 'horaInici'  => 'required',
@@ -92,9 +110,10 @@
             DB::table('activitat')
                 ->where('id', $activitat->id)
                 ->update([
-                'titol'      => $activitat->titol,
-                'descripcio' => $activitat->descripcio,
-                'formulari'  => $activitat->formulari,
+                'titol'            => $activitat->titol,
+                'descripcio'       => $activitat->descripcio,
+                'formulari'        => $activitat->formulari,
+                'idTipusActivitat' => $activitat->idTipusActivitat,
             ]);
         }
 

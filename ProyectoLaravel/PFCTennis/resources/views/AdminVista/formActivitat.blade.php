@@ -32,6 +32,23 @@
             
             @csrf
 
+            <div class="row offset-md-1 mb-4">
+                    <div class="d-flex col-md-9 justify-content-between">
+                        <label>Selecciona un tipus d'activitat</label>
+                        <div class="form-group">
+                            <select name="idTipusActivitat" class="selectpicker" data-live-search="true">
+                                @foreach ($tipusActivitats as $tipusAct)
+                                    @if ($accio == 'editarActivitat')
+                                        <option value="{{ $tipusAct->id }}" data-tokens="{{ $tipusAct->nom }}" {{ ($tipusAct->id == $activitat->idTipusActivitat) ? 'selected' : '' }}>{{ $tipusAct->nom }}</option>
+                                    @else
+                                        <option value="{{ $tipusAct->id }}" data-tokens="{{ $tipusAct->nom }}">{{ $tipusAct->nom }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
             <div class="form-group row">
                 <label for="titol" class="col-md-2 col-form-label text-md-right">{{ __('Titol') }}</label>
 

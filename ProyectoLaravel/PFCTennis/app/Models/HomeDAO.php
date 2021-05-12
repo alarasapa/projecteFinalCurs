@@ -5,11 +5,26 @@
     use Illuminate\Support\Facades\DB;
     use Illuminate\Support\Facades\Auth;
     use App\Models\Usuari;
+    use App\Models\TipusSoci;
     use App\Models\ObjecteVista;
     use App\Models\Log;
-    use App\Models\TipusSoci;
+    use App\Models\Activitat;
 
     class HomeDAO {
+
+        public static function getActivitats($tipus){
+            $res = DB::table('activitat')
+                ->join('tipus_activitat', 'tipus_activitat.id', '=', 'activitat.idTipusActivitat')
+                ->where('tipus_activitat.nom', $tipus)
+                ->get();
+
+            foreach ($res as $activitat){
+                $obj = new Activitat(array($activitat));
+                $activitats[] = $obj;
+            }
+
+            return $activitats;
+        }
 
         /**
          * Funció per a agafar un llistat d'un tipus de taula
