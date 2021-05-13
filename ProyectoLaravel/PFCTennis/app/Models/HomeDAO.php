@@ -10,6 +10,7 @@
     use App\Models\Log;
     use App\Models\Activitat;
     use App\Models\ActivitatDAO;
+    use App\Models\AdminDAO;
 
     class HomeDAO {
 
@@ -105,5 +106,19 @@
             }
 
             return $objectes;
+        }
+
+        public static function enviarPeticio(Request $request){
+            $dadesPeticio = json_encode($request->except(['idUsuari', 'idActivitat', 'nomActivitat']));
+
+            $idUsuari = $request->idUsuari;
+            $idActivitat = $request->idActivitat; 
+
+            DB::table('usuari_activitat')->insert([
+                'idUsuari'     => $idUsuari,
+                'idActivitat'  => $idActivitat,
+                'dadesPeticio' => $dadesPeticio,
+                'pagat'        => 0,
+            ]);
         }
     }

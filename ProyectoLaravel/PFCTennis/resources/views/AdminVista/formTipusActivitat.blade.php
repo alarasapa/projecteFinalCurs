@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('titol', 'Formulari tipus activitat')
+@section('titol', 'Formulari categories')
 
 @push('css')
     <link rel="stylesheet" href="{{ asset('css/AdminEstils/activitatForm.css') }}">
@@ -14,11 +14,11 @@
         <div class="col-md-8 py-4 px-4 mt-4 shadow-lg">
 
         @if ($accio == 'nouTipusActivitat')
-            <h1 class="display-4">Crear tipus activitat</h1><hr><br>
+            <h1 class="display-4">Crear categoria</h1><hr><br>
             <form id="formRegistrar" method="POST" action="{{ route('activitats.tipusActivitats.afegir') }}" onsubmit="return comprovarFormulariGeneral()">
 
         @elseif ($accio == 'editarTipusActivitat')
-            <h1>Editar tipus: {{ $tipusActivitat->nom }}</h1><hr><br>
+            <h1>Editar categoria: {{ $tipusActivitat->nom }}</h1><hr><br>
             <form id="formActualitzar" method="POST" action="{{ route('activitats.tipusActivitats.modificar') }}" onsubmit="return comprovarFormulariGeneral()">
                 <input id="id" name="id" type="hidden" value="{{ $tipusActivitat->id }}">
         @endif

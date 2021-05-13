@@ -1,0 +1,14 @@
+.card {
+    margin-top: 6pc;
+    background-color: #131418 !important;
+    color: white;
+}
+
+h4 {
+    color: rgb(158, 22, 22) !important;
+    font-weight: 700 !important;
+}
+
+.row.justify-contents-center.mt-3 {
+    height: 75vh;
+}

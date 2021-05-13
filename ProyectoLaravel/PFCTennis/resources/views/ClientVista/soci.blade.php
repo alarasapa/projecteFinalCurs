@@ -54,7 +54,11 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tancar</button>
-                        <button type="button" style="color: white;" class="btn bg-danger" onclick="enviarPeticio( '{{ $tipus->id }}', '{{ Auth::user()->id }}')">Enviar petició</button>
+                        @if (Auth::check())
+                            <button type="button" style="color: white;" class="btn bg-danger" onclick="enviarPeticio( '{{ $tipus->id }}', '{{ Auth::user()->id }}')">Enviar petició</button>
+                        @else
+                            <button type="button" style="color: white;" class="btn bg-danger" onclick="location.href='/login'">Enviar petició</button>
+                        @endif
                     </div>
                     </div>
                 </div>

@@ -24,7 +24,10 @@
 
         public function dashboard(){
             //TODO BUSCAR EL ERROR DEL PAGINATE BUSCAR FICHERO DE LOG
-            
+            //TODO BUSCA LAS PETICIONES
+
+            $peticions = AdminDAO::getPeticions();
+
             // $logsUsuaris = Log::paginate(5);
             $logsUsuaris = AdminDAO::getLogsAdmins();
     

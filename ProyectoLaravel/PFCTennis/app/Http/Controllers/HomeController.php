@@ -95,4 +95,17 @@ class HomeController extends Controller
     public function resetear(){
         return view('auth.passwords.reset');
     }
+
+    public function peticioEnviada(){
+        return view('ClientVista.peticioEnviada');
+    }
+
+    public function enviarPeticio(Request $request){
+        HomeDAO::enviarPeticio($request);
+        
+        $nomActivitat = $request->nomActivitat;
+        $dadesPeticio = json_encode($request->except(['idUsuari', 'idActivitat', 'nomActivitat']));
+
+        return view('ClientVista.peticioEnviada', ['activitat' => $nomActivitat]);
+    }
 }

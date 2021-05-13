@@ -1,0 +1,13 @@
+h1, h3 {
+    text-align: center;
+    color: rgb(158, 22, 22) !important;
+    font-weight: 700 !important;
+}
+
+a {
+    color: rgb(158, 22, 22) !important;
+}
+
+label {
+    color: white;
+}

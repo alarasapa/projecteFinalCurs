@@ -31,7 +31,10 @@ Route::post('/registrarse/comprovar', [RegisterController::class, 'comprovar'])-
 Route::post('/login', [LoginController::class], 'login')->name('login');
 
 Route::middleware('verified')->group(function(){
-    Route::post('/soci/apuntarse', [AdminController::class, 'enviarPeticio'])->name('apuntarseSoci');
+    Route::get('/peticio-enviada', [HomeController::class, 'peticioEnviada'])->name('peticioEnviada');
+
+    Route::post('/apuntarse', [HomeController::class, 'enviarPeticio'])->name('apuntarse');
+    // Route::post('/soci/apuntarse', [AdminController::class, 'enviarPeticio'])->name('apuntarseSoci');
     
     // RUTAS DE HOME "GET" \\
     Route::get('/home', [HomeController::class, 'home'])->name('home');

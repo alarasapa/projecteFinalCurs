@@ -10,8 +10,15 @@
     use App\Models\Log;
     use App\Models\Localitzacio;
     use App\Models\Extra;
+    use App\Models\Peticio;
 
     class AdminDAO {
+
+        public static function getPeticions(){
+            $res = DB::table('usuaris_activitats')->get();
+
+            //TODO USAR EL OBJETO PETICIO PARA DEVOLVERLOS 
+        }
 
         /**
          * Funció per agafar els registres dels administradors
