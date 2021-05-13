@@ -45,11 +45,11 @@
     </script>
 
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ route('index') }}">RAQUETA</a>
+        <a class="navbar-brand" href="{{ route('index') }}"><img src="{{ url('imatges/soci/logo.png') }}" width="60"></a>
         
         <button class="btn d-lg-none btn-link btn-sm order-1 order-lg-0" data-toggle="collapse" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>            
 
-        <h1 style="color: white;">DASHBOARD DE: {{ Auth::user()->nom }}</h1>
+        <!-- <h1 style="color: white;">DASHBOARD DE: {{ Auth::user()->nom }}</h1> -->
 
         <ul class="navbar-nav ml-auto float-md-right">
             <li class="nav-item dropdown">

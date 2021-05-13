@@ -15,12 +15,12 @@
 
         @if ($accio == 'nouTipusActivitat')
             <h1 class="display-4">Crear tipus activitat</h1><hr><br>
-            <form id="formRegistrar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()">
+            <form id="formRegistrar" method="POST" action="{{ route('activitats.tipusActivitats.afegir') }}" onsubmit="return comprovarFormulariGeneral()">
 
         @elseif ($accio == 'editarTipusActivitat')
             <h1>Editar tipus: {{ $tipusActivitat->nom }}</h1><hr><br>
-            <form id="formActualitzar" method="POST" action="#" onsubmit="return comprovarFormulariGeneral()">
-                <input id="id" name="id" type="hidden" value="{{ $tipusAct->id }}">
+            <form id="formActualitzar" method="POST" action="{{ route('activitats.tipusActivitats.modificar') }}" onsubmit="return comprovarFormulariGeneral()">
+                <input id="id" name="id" type="hidden" value="{{ $tipusActivitat->id }}">
         @endif
 
             @csrf

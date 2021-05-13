@@ -144,6 +144,42 @@
             return $tipusActivitat;
         }
         
+        public static function getTipusActivitat($id){
+            $res = DB::table('tipus_activitat')->where('id', $id)->get();
+            
+            return new TipusActivitat($res);    
+        }
+
+        public static function insertarTipusActivitat(Request $request){
+            request()->validate([
+                'nom' => 'required',
+            ]);
+
+            $tipusActivitat = new TipusActivitat([$request]); 
+
+            DB::table('tipus_activitat')->insert([
+                'nom' => $tipusActivitat->nom,
+            ]);
+        }
+
+        public static function updateTipusActivitat(Request $request){
+            request()->validate([
+                'nom' => 'required',
+            ]);
+
+            $tipusActivitat = new TipusActivitat([$request]);
+            
+            DB::table('tipus_activitat')
+                ->where('tipus_activitat.id', $tipusActivitat->id)
+                ->update([
+                    'nom' => $tipusActivitat->nom,
+                ]);
+        }
+
+        public static function eliminarTipusActivitat($id){
+            DB::table('tipus_activitat')->delete($id);
+        }
+
         /*****************
          * GESTIO EXTRES *
          *****************/

@@ -71,9 +71,13 @@ Route::middleware('verified')->group(function(){
     Route::post('/dashboard/gestio/activitats/modificar', [ActivitatController::class, 'updateActivitat'])->name('activitats.activitat.modificar');
     Route::post('/dashboard/gestio/activitats/eliminar/{id}', [ActivitatController::class, 'eliminarActivitat'])->name('activitats.activitat.eliminar');
     
-    // RUTESTIPUS ACTIVITATS
+    // RUTES TIPUS ACTIVITATS
     Route::get('/dashboard/gestio/activitats/categoria', [ActivitatController::class, 'gestioTipusActivitat'])->name('activitats.tipusActivitats');
     Route::get('/dashboard/gestio/activitats/categoria/formulari/{accio}/{id?}', [ActivitatController::class, 'formulariTipusActivitat'])->name('activitats.tipusActivitats.formulari');
+
+    Route::post('/dashboard/gestio/activitats/categoria/afegir', [ActivitatController::class, 'insertarTipusActivitat'])->name('activitats.tipusActivitats.afegir');
+    Route::post('/dashboard/gestio/activitats/categoria/modificar', [ActivitatController::class, 'updateTipusActivitat'])->name('activitats.tipusActivitats.modificar');
+    Route::post('/dashboard/gestio/activitats/categoria/eliminar/{id}', [ActivitatController::class, 'eliminarTipusActivitat'])->name('activitats.tipusActivitats.eliminar');
 
     // RUTES EXTRES
     Route::get('/dashboard/gestio/activitats/extres', [ActivitatController::class, 'gestioExtres'])->name('activitats.extres');

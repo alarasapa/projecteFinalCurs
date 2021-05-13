@@ -12,7 +12,7 @@
         <h2 style="font-family: 'Nunito', sans-serif;">Llistat de categories</h2>
         
         <a class="btn btn-lg btn-danger" type="button" href="{{ route('activitats.tipusActivitats.formulari', ['accio' => 'nouTipusActivitat']) }}">Afegir categoria</a>
-        <table style="text-align: center;" class="table table-md table-bordered table-dark">
+        <table style="text-align: center;" class="table table-md table-bordered table-dark mt-4">
             <thead>
                 <tr>
                     <th scope="col">Nom</th>
@@ -28,9 +28,9 @@
                                 <button><i class="fas fa-edit"></i></button>
                             </a>
                             
-                            <form id="eliminar-{{ $tipusAct->id }}" action="#" method="POST">
+                            <form id="eliminar-{{ $tipusAct->id }}" action="{{ route('activitats.tipusActivitats.eliminar', ['id' => $tipusAct->id]) }}" method="POST">
                                 @csrf
-                                <button type="submit" href="#" onclick="return confirm('Estàs segur que vols eliminar aquesta categoria?')"><i class="far fa-trash-alt"></i></button>
+                                <button type="submit" href="{{ route('activitats.tipusActivitats.eliminar', ['id' => $tipusAct->id]) }}" onclick="return confirm('Estàs segur que vols eliminar aquesta categoria?')"><i class="far fa-trash-alt"></i></button>
                             </form>
                         </td>
                     </tr>

@@ -81,8 +81,8 @@
         /**************************
          * GESTIO TIPUS ACTIVITAT *
          **************************/
-        // TODO TERMINAR CON EL CRUD DE TIPO DE ACTIVIDAD: AÑADIR, EDITAR, ELIMINAR
-        public function gestioTipusActivitat(){
+
+         public function gestioTipusActivitat(){
             $tipusActivitats = ActivitatDAO::getTipusActivitats();
             
             return view('AdminVista.gestioTipusActivitat', compact('tipusActivitats'));
@@ -94,10 +94,28 @@
                     return view('AdminVista.formTipusActivitat', ['tipusActivitat' => new TipusActivitat(), 'accio' => $accio]);
                     
                 case 'editarTipusActivitat':
-                    // $tipusActivitat = ActivitatDAO::getTipusActivitat();
+                    $tipusActivitat = ActivitatDAO::getTipusActivitat($id);
 
-                    return view('AdminVista.formTipusActivitat', ['tipusActivitat' => new TipusActivitat(), 'accio' => $accio]);
+                    return view('AdminVista.formTipusActivitat', ['tipusActivitat' => $tipusActivitat, 'accio' => $accio]);
             }
+        }
+
+        public function insertarTipusActivitat(Request $request){
+            ActivitatDAO::insertarTipusActivitat($request);
+
+            return redirect()->route('activitats.tipusActivitats')->with('status', 'S\'ha afegir la categoria amb èxit!');
+        }
+
+        public function updateTipusActivitat(Request $request){
+            ActivitatDAO::updateTipusActivitat($request);
+            
+            return redirect()->route('activitats.tipusActivitats')->with('status', 'S\'ha modificat la categoria amb èxit!');
+        }
+        
+        public function eliminarTipusActivitat($id){
+            ActivitatDAO::eliminarTipusActivitat($id);
+
+            return redirect()->route('activitats.tipusActivitats')->with('status', 'S\'ha eliminar la categoria amb èxit!');
         }
 
         /*****************
