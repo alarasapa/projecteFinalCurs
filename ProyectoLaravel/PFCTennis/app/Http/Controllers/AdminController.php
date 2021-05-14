@@ -21,19 +21,14 @@
          * Aquestes funcions redireccionen a pàgines 
          * relacionades amb l'administració de la pàgina web
          */
-
         public function dashboard(){
             //TODO BUSCAR EL ERROR DEL PAGINATE BUSCAR FICHERO DE LOG
-            //TODO BUSCA LAS PETICIONES
-
             $peticions = AdminDAO::getPeticions();
-
-            // $logsUsuaris = Log::paginate(5);
+            
             $logsUsuaris = AdminDAO::getLogsAdmins();
-    
             $logsUsuaris = paginate($logsUsuaris);
 
-            return view('AdminVista.dashboard', compact('logsUsuaris'));
+            return view('AdminVista.dashboard', ['logsUsuaris' => $logsUsuaris, 'peticions' => $peticions]);
         }
 
         /**

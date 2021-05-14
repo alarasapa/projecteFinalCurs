@@ -14,16 +14,34 @@
 
     class AdminDAO {
 
+        /**
+         * Funció per a agafar totes les peticions que
+         * han realitzat els usuaris
+         * 
+         * @return Array{Peticio}
+         */
         public static function getPeticions(){
-            $res = DB::table('usuaris_activitats')->get();
+            $res = DB::table('usuari_activitat')->get();
 
-            //TODO USAR EL OBJETO PETICIO PARA DEVOLVERLOS 
+            foreach ($res as $peticio) {
+                $obj = new Peticio($res);
+
+                $usuari = AdminDAO::getUsuari($peticio->idUsuari);
+                $activitat = ActivitatDAO::getActivitat($peticio->idActivitat);
+                
+                $obj->setUsuari($usuari);
+                $obj->setActivitat($activitat);
+            
+                $peticions[] = $obj;
+            }
+
+            return $peticions;
         }
 
         /**
          * Funció per agafar els registres dels administradors
          * 
-         * @return Array Llistat dels registres dels administradors
+         * @return Array{Log} Llistat dels registres dels administradors
          */
         public static function getLogsAdmins(){
             // Inicialitzem el llistat de registres
@@ -49,7 +67,7 @@
         /**
          * Funció per a agafar tots els usuaris de la base de dades
          * 
-         * @return Array Llistat d'objectes d'usuaris
+         * @return Array{Usuari} Llistat d'objectes d'usuaris
          */
         public static function getUsuaris(){
             $usuaris = [];

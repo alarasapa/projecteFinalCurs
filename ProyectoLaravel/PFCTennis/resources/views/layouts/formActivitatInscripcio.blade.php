@@ -54,9 +54,9 @@
                         @foreach ($grup->opcions as $opcio)
                             <div class="row">
                                 @if (Auth::check() && Auth::user()->rol == 'S')
-                                    <input class="offset-md-1" type="radio" id="opcio-{{ $opcio->id }}" name="{{ $grup->nom }}" value="{{ $opcio->nom }}: {{ $opcio->preuSoci }}">
+                                    <input class="offset-md-1" type="radio" id="opcio-{{ $opcio->id }}" name="{{ $grup->nom }}" value="{{ $opcio->nom }}: {{ $opcio->preuSoci }}€">
                                 @else
-                                    <input class="offset-md-1" type="radio" id="opcio-{{ $opcio->id }}" name="{{ $grup->nom }}" value="{{ $opcio->nom }}: {{ $opcio->preu }}">
+                                    <input class="offset-md-1" type="radio" id="opcio-{{ $opcio->id }}" name="{{ $grup->nom }}" value="{{ $opcio->nom }}: {{ $opcio->preu }}€">
                                 @endif
                                 <div class="col-md-4">
                                     <small>{{ $opcio->nom }}</small>
