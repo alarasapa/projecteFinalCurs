@@ -13,8 +13,6 @@
 
 <img src="../imatges/escola/escolaBanner.jpg" style="width: 100%; height: 300px; object-fit: cover;"><br><br>
 
-<!-- TODO barra busqueda de actividades -->
-
 <div class="conainer">
     @include('layouts.formActivitatInscripcio')
 </div>

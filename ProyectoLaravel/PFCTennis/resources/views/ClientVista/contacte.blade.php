@@ -9,7 +9,8 @@
 
 <h1 class="principalTitol">CONSULTA AMB NOSALTRES</h1>
 <div class="container">
-    <form class="formCentrat" id="contactenos">
+    <div id="missatge"></div>
+    <form class="formCentrat" id="contactans">
         @csrf
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -26,11 +27,10 @@
         </div>
         <input class="btn btn-dark btn-lg btn-block" type="submit" id="submit" name="submit" value="Enviar" onclick="enviar()">
     </form>
-    <!-- TODO FALTA ARREGLAR MAPS, SERA AMPLIO COMO EL SLIDER -->
     <iframe class="iframe" src="https://maps.google.com/?ll=23.135249,-82.359685&z=14&t=m&output=embed" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
 </div>
 <script>
-    $("#contactenos").on('submit', function(event){
+    $("#contactans").on('submit', function(event){
         event.preventDefault();
         
         $.ajax({
@@ -38,9 +38,11 @@
             method: "POST",
             data: $(this).serialize(),
             success:function(data){
-                alert("Formulario enviado")
+                $("#missatge").html("<div class=\"alert alert-success alert-dismissible fade show\">" + 
+                    "S\'ha enviat amb èxit!" + 
+                    "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">" +
+                    "<span aria-hidden=\"true\">&times</span></button></div>");
             }
-
         })
     })
 </script>

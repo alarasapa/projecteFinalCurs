@@ -22,7 +22,6 @@
          * relacionades amb l'administració de la pàgina web
          */
         public function dashboard(){
-            //TODO BUSCAR EL ERROR DEL PAGINATE BUSCAR FICHERO DE LOG
             $peticions = AdminDAO::getPeticions();
             
             $logsUsuaris = AdminDAO::getLogsAdmins();
@@ -232,7 +231,6 @@
 
 
         public function enviarPeticio(Request $request){
-            //TODO -> ENVIAR PETICIÓN PARA SER SOCIO A LOS ADMINISTRADORES
-            echo "adsadas";
+            
         }
     }

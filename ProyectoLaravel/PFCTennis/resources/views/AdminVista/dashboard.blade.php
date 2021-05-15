@@ -48,7 +48,7 @@
             <thead>
                 <tr>
                     <th scope="col">Data petició</th>
-                    <th scope="col">Títol activitat</th>
+                    <th scope="col">Tipus</th>
                     <th scope="col">Nom Complert</th>
                     <th scope="col">Dades Petició</th>
                     <th scope="col">Pagat</th>
