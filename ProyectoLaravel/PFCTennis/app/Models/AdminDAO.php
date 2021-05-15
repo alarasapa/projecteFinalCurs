@@ -39,6 +39,27 @@
         }
 
         /**
+         * Funció per a cambiar l'estat de pagat d'una petició
+         * 
+         * @param Request $request Informació del formulari
+         */
+        public static function cambiarPagat(Request $request){
+            // Agafem les dades
+            $idPeticio = $request->id;
+            $pagat = $request->pagat;
+            
+            if ($pagat) $pagat = 1;
+            else $pagat = 0;
+
+            // Actualitzem el registre
+            DB::table('usuari_activitat')
+                ->where('id', $idPeticio)
+                ->update([
+                    'pagat' => $pagat,
+                ]);
+        }
+
+        /**
          * Funció per agafar els registres dels administradors
          * 
          * @return Array{Log} Llistat dels registres dels administradors

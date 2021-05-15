@@ -32,6 +32,19 @@
         }
 
         /**
+         * Funció per a cambiar l'estat d'una petició
+         * 
+         * @param Request $request Informació 
+         * 
+         * @return boolean Retorna true si tot a anat amb èxit  
+         */
+        public function peticioEstat(Request $request){
+            AdminDAO::cambiarPagat($request);
+            
+            echo true;
+        }
+
+        /**
          * Funció per a obtenir usuaris i retornar-los a la vista
          * 
          * @return View Retornem una vista

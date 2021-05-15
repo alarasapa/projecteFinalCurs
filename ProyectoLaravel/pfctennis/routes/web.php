@@ -7,6 +7,7 @@ use App\Http\Controllers\ActivitatController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ConfiguracioController;
+use App\Http\Controllers\ContacteController;
 
 // RUTAS (GENERAL) REDIRECCIONAMIENTO 
 Route::get('/', [HomeController::class, 'index'])->name('index');
@@ -30,10 +31,14 @@ Route::post('/registrarse/comprovar', [RegisterController::class, 'comprovar'])-
 // RUTAS PARA LOGIN
 Route::post('/login', [LoginController::class], 'login')->name('login');
 
+Route::post('/contacte-email', [ContacteController::class, 'send'])->name('send.email');
+
 Route::middleware('verified')->group(function(){
+
     Route::get('/peticio-enviada', [HomeController::class, 'peticioEnviada'])->name('peticioEnviada');
 
     Route::post('/apuntarse', [HomeController::class, 'enviarPeticio'])->name('apuntarse');
+    Route::post('/peticio/pagat', [AdminController::class, 'peticioEstat'])->name('peticioEstat');
     // Route::post('/soci/apuntarse', [AdminController::class, 'enviarPeticio'])->name('apuntarseSoci');
     
     // RUTAS DE HOME "GET" \\

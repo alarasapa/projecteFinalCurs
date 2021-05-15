@@ -20,9 +20,9 @@
 <body onload="init()">
     
     @if (Auth::check())
-    <script>
-        location.href = '/home';
-    </script>
+        <script>
+            location.href = '/home';
+        </script>
     @endif
 
     <div class="container">
